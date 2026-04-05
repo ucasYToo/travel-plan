@@ -38,6 +38,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     color: '#8b5cf6',
     type: 'group',
     description: '年轻文化 · 夜生活 · 街头艺术',
+    address: '서울 마포구 홍익로',
     children: ['hair_salon']
   },
   yeouido: {
@@ -48,6 +49,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     color: '#ec4899',
     type: 'group',
     description: '高端购物 · 网红打卡 · Starfield图书馆',
+    address: '서울 영등포구 여의대로 108',
     children: []
   },
   hannam: {
@@ -58,6 +60,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     color: '#f59e0b',
     type: 'group',
     description: '小众设计师品牌 · 咖啡文化',
+    address: '서울 용산구 한남동',
     children: []
   },
   hangang_hannam: {
@@ -68,6 +71,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     color: '#10b981',
     type: 'group',
     description: '汉江边散步·骑行·野餐 · 距汉南洞约10分钟',
+    address: '서울 용산구 이촌동 302-17',
     children: []
   },
   seongsu: {
@@ -78,6 +82,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     color: '#10b981',
     type: 'group',
     description: '文创园区 · 时尚概念店',
+    address: '서울 성동구 성수동',
     children: ['gwonski', 'dukchim']
   },
   shilla: {
@@ -88,6 +93,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     color: '#f97316',
     type: 'group',
     description: '免税购物天堂 · 高端品牌云集',
+    address: '서울 중구 동호로 249',
     children: []
   },
   shinsegae: {
@@ -98,6 +104,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     color: '#14b8a6',
     type: 'group',
     description: '百年老店 · 奢华购物地标',
+    address: '서울 중구 소공로 63',
     children: []
   },
   myeongdong: {
@@ -108,6 +115,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     color: '#f59e0b',
     type: 'group',
     description: '购物天堂 · 美食聚集地',
+    address: '서울 중구 명동',
     children: []
   },
   narita_airport: {
@@ -118,6 +126,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     color: '#6b7280',
     type: 'group',
     description: '韩国主要国际机场',
+    address: '인천 중구 공항로 272',
     children: []
   },
 
