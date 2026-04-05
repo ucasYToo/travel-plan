@@ -280,6 +280,8 @@ export function MapView({ data, activeDay, resetView, onShowTransit }: MapViewPr
           if (!p2.point.label) return null
           const midLat = (p1.location.lat + p2.location.lat) / 2
           const midLng = (p1.location.lng + p2.location.lng) / 2
+          // Transit data is stored on the starting point (p1), not the ending point (p2)
+          const transitData = p1.point.transit
           return (
             <Marker
               key={`label-${i}`}
@@ -287,8 +289,8 @@ export function MapView({ data, activeDay, resetView, onShowTransit }: MapViewPr
               icon={createRouteLabelIcon(p2.point.label)}
               zIndexOffset={1000}
               eventHandlers={
-                onShowTransit && p2.point.transit
-                  ? { click: () => onShowTransit(p2.point.transit!) }
+                onShowTransit && transitData
+                  ? { click: () => onShowTransit(transitData) }
                   : undefined
               }
             />
