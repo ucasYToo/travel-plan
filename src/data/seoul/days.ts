@@ -331,18 +331,33 @@ export const seoulDays: DayPlan[] = [
         }
       },
       {
+        locationId: 'papier_prost',
+        label: '地铁3号线+步行 · 约25分钟',
+        transit: {
+          distance: '约3.8公里',
+          duration: '约25分钟',
+          startName: '明洞',
+          endName: '파피어프로스트',
+          steps: [
+            { mode: 'walk', from: '明洞主街', to: '乙支路3街站', duration: '约8分钟', distance: '约500米', instruction: '步行至乙支路3街站' },
+            { mode: 'subway', line: '首尔地铁3号线', from: '乙支路3街站', to: '景福宫站', duration: '约12分钟', distance: '约2.5公里', instruction: '乘坐3号线至景福宫站下车' },
+            { mode: 'walk', from: '景福宫站3号出口', to: '파피어프로스트', duration: '约5分钟', distance: '约300米', instruction: '3号出口出站后沿孝子路步行至西村，자하문로7길 68-4' }
+          ]
+        }
+      },
+      {
         locationId: 'aank_itaewon_group',
-        label: '地铁4→6号线 · 约20分钟',
+        label: '地铁3→6号线 · 约25分钟',
         isHotel: true,
         transit: {
-          distance: '约5.9公里',
-          duration: '约20分钟',
-          startName: '明洞',
+          distance: '约5.5公里',
+          duration: '约25分钟',
+          startName: '파피어프로스트',
           endName: 'Aank Hotel 梨泰院店',
           steps: [
-            { mode: 'walk', from: '明洞主街', to: '明洞站', duration: '约3分钟', distance: '约150米', instruction: '步行返回明洞站' },
-            { mode: 'subway', line: '首尔地铁4号线', from: '明洞站', to: '三角地站', duration: '约5分钟', distance: '约1.5公里', instruction: '乘坐4号线至三角地站' },
-            { mode: 'subway', line: '首尔地铁6号线', from: '三角地站', to: '梨泰院站', duration: '约7分钟', distance: '约4.4公里', instruction: '换乘6号线至梨泰院站' },
+            { mode: 'walk', from: '파피어프로스트', to: '景福宫站', duration: '约5分钟', distance: '约300米', instruction: '步行返回景福宫站' },
+            { mode: 'subway', line: '首尔地铁3号线', from: '景福宫站', to: '药水站', duration: '约8分钟', distance: '约2.5公里', instruction: '乘坐3号线至药水站下车' },
+            { mode: 'subway', line: '首尔地铁6号线', from: '药水站', to: '梨泰院站', duration: '约7分钟', distance: '约2.7公里', instruction: '换乘6号线至梨泰院站' },
             { mode: 'walk', from: '梨泰院站', to: 'Aank Hotel 梨泰院店', duration: '约5分钟', distance: '约300米', instruction: '从梨泰院站步行返回酒店' }
           ]
         }

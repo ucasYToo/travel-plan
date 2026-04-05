@@ -94,3 +94,39 @@ src/components/
 使用 `vite-plugin-singlefile` 生成独立 HTML 文件，所有资源内联：
 - 输出：`dist/index.html`
 - 可直接部署到任何静态托管服务
+
+## Command System
+
+项目级 Claude Command 和 Agent，位于 `.claude/` 目录。
+
+### Command: `/travel`
+
+文件：`.claude/commands/travel.md`
+
+用户入口，解析意图后调用 `travel-planner` Agent 执行具体规划。
+
+### Agent: `travel-planner`
+
+文件：`.claude/agents/travel-planner.md`
+
+完整 Agent 定义（Markdown + YAML frontmatter）：
+- **Tools**: Read, Write, Edit, WebSearch, WebFetch, Bash
+- **Ownership**: 拥有 `src/data/seoul/locations.ts` 和 `days.ts` 的修改权限
+- **Logic**: 核心算法（距离计算、日期评分、地铁 API 调用）内联在文档中
+
+#### Workflow
+1. Read 数据文件 → 了解现有行程
+2. WebSearch 搜索地点 → 获取名称/地址/坐标
+3. 计算距离 → 500米内分配到商圈
+4. 评分推荐日期 → 距离/商圈匹配/容量
+5. 规划交通 → <500m步行，>1.5km调用首尔地铁 API
+6. Present 方案 → 用户确认
+7. Write 数据文件 → 更新 locations.ts + days.ts
+8. Bash 测试 → `npm run test && npm run build`
+
+#### Seoul Metro API
+```
+https://vercel-proxy-henna-eight.vercel.app/api/seoul-metro?start={韩文起点}&end={韩文终点}
+
+常用站点：공덕(孔德), 홍대입구(弘大入口), 이태원(梨泰院), 여의도(汝矣岛), 성수(圣水)
+```

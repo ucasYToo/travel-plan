@@ -185,5 +185,15 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     description: '弘大理发店 · 양화로11길 14-10 1층 101호',
     address: '서울 마포구 양화로11길 14-10',
     parentId: 'hongdae'
+  },
+  papier_prost: {
+    id: 'papier_prost',
+    name: '파피어프로스트 (Papier Prost)',
+    type: 'spot',
+    lat: 37.5803,
+    lng: 126.9692,
+    color: '#3b82f6',
+    description: '西村文创文具店 · 手帐·贴纸·生活杂货',
+    address: '서울 종로구 자하문로7길 68-4 1층'
   }
 }
