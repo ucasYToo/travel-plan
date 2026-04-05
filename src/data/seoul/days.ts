@@ -5,10 +5,11 @@ import type { DayPlan } from '../../types'
  * 使用 LocationGroup ID 作为酒店引用
  */
 export const seoulDays: DayPlan[] = [
-  // Day 0: 抵达日
+  // Day 1: 抵达日 (2026-04-29)
   {
-    day: 0,
-    title: 'Day 0 · 抵达首尔',
+    day: 1,
+    date: '2026-04-29',
+    title: '抵达首尔',
     note: '大韩航空 KE108 杭州萧山→首尔仁川（约14:40出发/18:05到达 KST）。机场铁路直达孔德站，入住麻浦格莱德酒店。',
     baseHotelId: 'mapo_glad_group',
     path: [
@@ -35,10 +36,11 @@ export const seoulDays: DayPlan[] = [
     ]
   },
 
-  // Day 1: 西线双城记
+  // Day 2: 西线双城记 (2026-04-30)
   {
-    day: 1,
-    title: 'Day 1 · 西线双城记',
+    day: 2,
+    date: '2026-04-30',
+    title: '西线双城记',
     note: '早餐后先去酒店隔壁的Fritz Coffee买一杯咖啡+可颂，上午弘大潮流游+理发店(양화로11길 14-10)，傍晚汝矣岛日落+灯光秀+Starfield图书馆，晚上回酒店附近吃金熟成烤肉',
     baseHotelId: 'mapo_glad_group',
     path: [
@@ -132,10 +134,11 @@ export const seoulDays: DayPlan[] = [
     ]
   },
 
-  // Day 2: 汉南洞+汉江公园·搬家日
+  // Day 3: 汉南洞+汉江公园·搬家日 (2026-05-01)
   {
-    day: 2,
-    title: 'Day 2 · 搬家日·汉南洞+汉江公园',
+    day: 3,
+    date: '2026-05-01',
+    title: '搬家日·汉南洞+汉江公园',
     note: '早上从麻浦格莱德退房，携带行李前往梨泰院Aank酒店办理入住放行李，上午汉南洞设计师品牌、咖啡漫游，傍晚汉江公园散步吹风。',
     baseHotelId: 'aank_itaewon_group',
     path: [
@@ -202,10 +205,11 @@ export const seoulDays: DayPlan[] = [
     ]
   },
 
-  // Day 3: 圣水洞文创+美食日
+  // Day 4: 圣水洞文创+美食日 (2026-05-02)
   {
-    day: 3,
-    title: 'Day 3 · 圣水洞文创+美食日',
+    day: 4,
+    date: '2026-05-02',
+    title: '圣水洞文创+美食日',
     note: '东线。梨泰院乘6号线转2号线到圣水约30分钟。白天逛文创园区+咖啡，晚上在圣水洞吃Gwonski猪蹄或두찜辣炖鸡（两家步行2分钟）',
     baseHotelId: 'aank_itaewon_group',
     path: [
@@ -272,10 +276,11 @@ export const seoulDays: DayPlan[] = [
     ]
   },
 
-  // Day 4: 东北线免税收官
+  // Day 5: 东北线免税收官 (2026-05-03)
   {
-    day: 4,
-    title: 'Day 4 · 东北线免税收官',
+    day: 5,
+    date: '2026-05-03',
+    title: '东北线免税收官',
     note: '上午新罗免税店大牌采购，中午新世界百货地下美食街，傍晚明洞晚餐+最后补货',
     baseHotelId: 'aank_itaewon_group',
     path: [
@@ -345,10 +350,11 @@ export const seoulDays: DayPlan[] = [
     ]
   },
 
-  // Day 5: 返航日
+  // Day 6: 返航日 (2026-05-04)
   {
-    day: 5,
-    title: 'Day 5 · 返航杭州',
+    day: 6,
+    date: '2026-05-04',
+    title: '返航杭州',
     note: '大韩航空 KE107 首尔仁川→杭州萧山（约12:15起飞/13:20到达 CST）。建议提前3小时从酒店出发。',
     baseHotelId: 'aank_itaewon_group',
     path: [

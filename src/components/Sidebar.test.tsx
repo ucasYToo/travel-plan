@@ -31,8 +31,9 @@ const mockData: ItineraryData = {
   },
   days: [
     {
-      day: 0,
-      title: 'Day 0 · 抵达',
+      day: 1,
+      date: '2026-04-29',
+      title: '抵达',
       note: '抵达目的地',
       baseHotelId: 'hotel1',
       path: [
@@ -41,8 +42,9 @@ const mockData: ItineraryData = {
       ]
     },
     {
-      day: 1,
-      title: 'Day 1 · 游玩',
+      day: 2,
+      date: '2026-04-30',
+      title: '游玩',
       note: '市区游览',
       baseHotelId: 'hotel1',
       path: [
@@ -52,8 +54,9 @@ const mockData: ItineraryData = {
       ]
     },
     {
-      day: 2,
-      title: 'Day 2 · 返程',
+      day: 3,
+      date: '2026-05-01',
+      title: '返程',
       note: '返回家中',
       baseHotelId: 'hotel1',
       path: [
@@ -103,9 +106,9 @@ describe('Sidebar', () => {
         isOpen={true}
       />
     )
-    expect(screen.getByText('Day 0 · 抵达')).toBeInTheDocument()
-    expect(screen.getByText('Day 1 · 游玩')).toBeInTheDocument()
-    expect(screen.getByText('Day 2 · 返程')).toBeInTheDocument()
+    expect(screen.getByText('4月29日 抵达')).toBeInTheDocument()
+    expect(screen.getByText('4月30日 游玩')).toBeInTheDocument()
+    expect(screen.getByText('5月1日 返程')).toBeInTheDocument()
   })
 
   it('calls onSelectDay with the correct index when a card is clicked', () => {

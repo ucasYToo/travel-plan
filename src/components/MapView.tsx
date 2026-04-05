@@ -214,14 +214,33 @@ export function MapView({ data, activeDay, resetView, onShowTransit }: MapViewPr
             zIndexOffset={location.type === 'hotel_group' ? 500 : 0}
           >
             <Popup>
-              <div className="p-4">
-                <div className="flex items-center gap-2 mb-1">
+              <div className="p-4 min-w-[200px]">
+                <div className="flex items-center gap-2 mb-2">
                   <span
                     className="w-2 h-2 rounded-full"
                     style={{ backgroundColor: location.color }}
                   />
                   <h3 className="font-bold text-gray-900">{location.name}</h3>
                 </div>
+                {'address' in location && location.address && (
+                  <div className="mb-2 p-2 bg-gray-50 rounded">
+                    <p className="text-xs text-gray-500 mb-1">地址</p>
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm text-gray-700 font-mono">{location.address}</p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigator.clipboard.writeText(location.address!)
+                            .then(() => alert('地址已复制！'))
+                            .catch(() => alert('复制失败，请手动复制'))
+                        }}
+                        className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                      >
+                        复制
+                      </button>
+                    </div>
+                  </div>
+                )}
                 <p className="text-sm text-gray-600">{location.description}</p>
               </div>
             </Popup>

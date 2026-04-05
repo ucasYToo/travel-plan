@@ -1,5 +1,19 @@
 import type { ItineraryData, TransitDetail, DayPlan, LocationOrGroup } from '../types'
 
+// 格式化日期显示 (2026-04-29 -> 4月29日)
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr)
+  return `${date.getMonth() + 1}月${date.getDate()}日`
+}
+
+// 格式化日期标题
+function formatDayTitle(day: DayPlan): string {
+  if (day.date) {
+    return `${formatDate(day.date)} ${day.title}`
+  }
+  return `day ${day.day} ${day.title}`
+}
+
 export interface SidebarProps {
   data: ItineraryData
   activeDay: number | null
@@ -82,8 +96,8 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit }:
               const pathWithLocations = getPathLocations(day, data.locations)
 
               // Group consecutive points by location type for display
-              // Day 0 starts from airport (first point has transit), Day 1+ skip start hotel
-              const startIndex = day.day === 0 ? 0 : 1
+              // Day 1 (arrival) starts from airport (first point has transit), Day 2+ skip start hotel
+              const startIndex = day.day === 1 ? 0 : 1
 
               // Track order for groups (ABC) and spots (123)
               let groupIdx = 0
@@ -152,7 +166,7 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit }:
                   ].join(' ')}
                 >
                   <div className="flex items-center justify-between mb-1.5">
-                    <h3 className="font-bold text-gray-900 text-sm">{day.title}</h3>
+                    <h3 className="font-bold text-gray-900 text-sm">{formatDayTitle(day)}</h3>
                     {baseHotel && (
                       <span
                         className="text-[10px] px-2 py-0.5 rounded-full text-white font-medium whitespace-nowrap shrink-0 ml-2"

@@ -14,6 +14,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     color: '#3b82f6',
     type: 'hotel_group',
     description: '孔德站8号出口 · 机场铁路直达 · 住2晚',
+    address: '서울 마포구 도화동 155-2',
     children: ['fritz', 'jinsook']
   },
   aank_itaewon_group: {
@@ -24,6 +25,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     color: '#8b5cf6',
     type: 'hotel_group',
     description: '梨泰院商圈步行范围 · 国际化街区 · 住3晚',
+    address: '서울 용산구 이태원로 179',
     children: []
   },
 
@@ -128,6 +130,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     lng: 126.9493,
     color: '#78350f',
     description: '孔德店 · 复古韩屋风格 · 小海豹烘焙',
+    address: '서울 마포구 새창로2길 17',
     parentId: 'mapo_glad_group'
   },
   jinsook: {
@@ -138,6 +141,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     lng: 126.9457,
     color: '#ef4444',
     description: '麻浦区本地人气烤肉店 · 桃花街14-1',
+    address: '서울 마포구 도화동 37-1',
     parentId: 'mapo_glad_group'
   },
   gwonski: {
@@ -148,6 +152,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     lng: 127.0550,
     color: '#ef4444',
     description: '圣水洞人气猪蹄店 · 峨嵋山路7街4号',
+    address: '서울 성동구 아차산로7길 4',
     parentId: 'seongsu'
   },
   dukchim: {
@@ -158,6 +163,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     lng: 127.0553,
     color: '#ef4444',
     description: '圣水洞辣炖鸡/炖鸡专门店 · 圣水一路8街5号1楼',
+    address: '서울 성동구 성수이로8길 5',
     parentId: 'seongsu'
   },
   hair_salon: {
@@ -168,6 +174,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     lng: 126.9235,
     color: '#f97316',
     description: '弘大理发店 · 양화로11길 14-10 1층 101호',
+    address: '서울 마포구 양화로11길 14-10',
     parentId: 'hongdae'
   }
 }

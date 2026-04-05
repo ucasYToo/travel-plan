@@ -14,6 +14,7 @@ export interface Location {
   type: 'hotel' | 'district' | 'spot'
   description?: string
   parentId?: string  // 所属商圈/组ID（可选）
+  address?: string   // 具体地址，可复制到地图/打车软件
 }
 
 /**
@@ -28,6 +29,7 @@ export interface LocationGroup {
   color: string
   type: 'group' | 'hotel_group'
   description?: string
+  address?: string   // 具体地址（酒店组使用）
   children: string[]  // 子地点ID列表
 }
 
@@ -79,8 +81,9 @@ export interface PathPoint {
  * 包含完整路径，起点和终点都在 path 数组中
  */
 export interface DayPlan {
-  day: number            // 第几天 (0=抵达日, 1-N=游玩日)
-  title: string          // 标题 (如 "Day 1 · 西线双城记")
+  day: number            // 第几天 (1-based: 1=第一天, 2=第二天...)
+  date?: string          // 具体日期 (ISO格式: "2026-04-29")，用于显示
+  title: string          // 标题 (如 "西线双城记"，不含日期前缀)
   note: string           // 备注说明
   baseHotelId: string    // 当日住宿酒店ID
   path: PathPoint[]      // 完整路径点数组 [起点, ..., 终点]
