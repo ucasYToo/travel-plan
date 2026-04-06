@@ -4,6 +4,7 @@ import { Sidebar } from './components/Sidebar'
 import { MapControls } from './components/MapControls'
 import { TransportModal } from './components/TransportModal'
 import { LocationDetailModal } from './components/LocationDetailModal'
+import { LocationDetailPanel } from './components/LocationDetailPanel'
 import { getCityData, DEFAULT_CITY } from './data'
 import type { TransitDetail, NoteItem, LocationOrGroup } from './types'
 
@@ -37,6 +38,7 @@ function App() {
   const [transitDetail, setTransitDetail] = useState<TransitDetail | null>(null)
   const [detailModalOpen, setDetailModalOpen] = useState(false)
   const [detailData, setDetailData] = useState<{ location: LocationOrGroup; notes?: NoteItem[]; dayIndex?: number } | null>(null)
+  const [selectedLocation, setSelectedLocation] = useState<{ location: LocationOrGroup; notes?: NoteItem[]; dayIndex?: number } | null>(null)
   const [settings, setSettings] = useState(getInitialSettings)
 
   useEffect(() => {
@@ -44,6 +46,29 @@ function App() {
   }, [settings])
 
   const cityData = getCityData(currentCity)
+
+  // Auto-select first non-hotel location when active day changes
+  useEffect(() => {
+    if (activeDay !== null && cityData) {
+      const day = cityData.days[activeDay]
+      if (day) {
+        const firstNonHotel = day.path.find((p) => {
+          const loc = cityData.locations[p.locationId]
+          return loc && loc.type !== 'hotel_group'
+        })
+        const targetPoint = firstNonHotel || day.path[0]
+        if (targetPoint) {
+          const loc = cityData.locations[targetPoint.locationId]
+          if (loc) {
+            setSelectedLocation({ location: loc, notes: targetPoint.notes, dayIndex: activeDay })
+          }
+        }
+      }
+    } else {
+      setSelectedLocation(null)
+    }
+  }, [activeDay, cityData])
+
   if (!cityData) {
     return <div className="p-8 text-center">城市数据加载失败</div>
   }
@@ -54,6 +79,7 @@ function App() {
   }
 
   const showLocationDetail = (location: LocationOrGroup, notes?: NoteItem[], dayIndex?: number) => {
+    setSelectedLocation({ location, notes, dayIndex })
     setDetailData({ location, notes, dayIndex })
     setDetailModalOpen(true)
   }
@@ -74,16 +100,7 @@ function App() {
   }
 
   return (
-    <div className="relative h-full w-full">
-      <MapView
-        data={cityData}
-        activeDay={activeDay}
-        resetView={resetView}
-        onShowTransit={showTransit}
-        onShowLocationDetail={showLocationDetail}
-        showLocationNames={settings.showLocationNames}
-        showTransitLabels={settings.showTransit}
-      />
+    <div className="relative h-full w-full sm:grid sm:grid-rows-1 sm:grid-cols-[280px_1fr_360px]">
       <Sidebar
         data={cityData}
         activeDay={activeDay}
@@ -96,11 +113,42 @@ function App() {
         onShowLocationDetail={showLocationDetail}
       />
 
+      {/* Center: Map + Controls */}
+      <div className="relative h-full sm:col-start-2">
+        <MapView
+          data={cityData}
+          activeDay={activeDay}
+          resetView={resetView}
+          onShowTransit={showTransit}
+          onShowLocationDetail={showLocationDetail}
+          showLocationNames={settings.showLocationNames}
+          showTransitLabels={settings.showTransit}
+        />
+        <MapControls
+          currentCity={currentCity}
+          settings={settings}
+          onCityChange={handleCityChange}
+          onClearRoute={handleClearRoute}
+          onResetView={handleResetView}
+          onSettingsChange={setSettings}
+        />
+      </div>
+
+      {/* Right: Detail panel (desktop only) */}
+      <div className="hidden sm:flex sm:col-start-3 sm:h-full bg-[#F5F7FA] overflow-y-auto p-4">
+        <LocationDetailPanel
+          location={selectedLocation?.location ?? null}
+          notes={selectedLocation?.notes}
+          data={cityData}
+          dayIndex={selectedLocation?.dayIndex}
+        />
+      </div>
+
       {/* Mobile Toggle Button */}
       <button
         type="button"
         onClick={() => setSidebarOpen((v) => !v)}
-        className="absolute top-4 left-4 z-20 sm:hidden w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-700 hover:bg-gray-50 transition"
+        className="absolute top-4 left-4 z-50 sm:hidden w-10 h-10 bg-white/80 backdrop-blur-md rounded-full shadow-soft flex items-center justify-center text-[#2D3436] hover:bg-white transition border border-white/50"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -123,20 +171,11 @@ function App() {
       {sidebarOpen && (
         <div
           data-testid="sidebar-overlay"
-          className="fixed inset-0 bg-black/30 z-[5] sm:hidden"
+          className="fixed inset-0 bg-black/30 z-[40] sm:hidden"
           onClick={() => setSidebarOpen(false)}
           aria-hidden="true"
         />
       )}
-
-      <MapControls
-        currentCity={currentCity}
-        settings={settings}
-        onCityChange={handleCityChange}
-        onClearRoute={handleClearRoute}
-        onResetView={handleResetView}
-        onSettingsChange={setSettings}
-      />
 
       <TransportModal
         open={modalOpen}

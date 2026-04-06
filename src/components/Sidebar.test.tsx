@@ -147,8 +147,8 @@ describe('Sidebar', () => {
       />
     )
     const buttons = screen.getAllByRole('button')
-    expect(buttons[1].className).toContain('border-blue-400')
-    expect(buttons[1].className).toContain('bg-blue-50/80')
+    expect(buttons[1].className).toContain('border-[#A8E6CF]')
+    expect(buttons[1].className).toContain('bg-[#DCFAED]')
   })
 
   it('renders route segments for each day', () => {

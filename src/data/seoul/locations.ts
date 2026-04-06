@@ -15,7 +15,7 @@ export const seoulHotels: Record<string, LocationGroup> = {
     color: '#3b82f6',
     type: 'hotel_group',
     description: '孔德站8号出口 · 机场铁路直达 · 住2晚',
-    address: '서울 마포구 도화동 155-2',
+    address: '서울 마포구 마포대로 92',
     children: ['fritz', 'jinsook']
   },
   aank_itaewon_group: {
@@ -26,7 +26,7 @@ export const seoulHotels: Record<string, LocationGroup> = {
     color: '#8b5cf6',
     type: 'hotel_group',
     description: '梨泰院商圈步行范围 · 国际化街区 · 住3晚',
-    address: '서울 용산구 이태원로 179',
+    address: '서울 용산구 우사단로14길 11',
     children: []
   }
 }
@@ -135,8 +135,8 @@ export const seoulDistricts: Record<string, LocationGroup> = {
   narita_airport: {
     id: 'narita_airport',
     name: '仁川国际机场',
-    lat: 37.4602,
-    lng: 126.4407,
+    lat: 37.458764,
+    lng: 126.441961,
     color: '#6b7280',
     type: 'group',
     description: '韩国主要国际机场',
@@ -167,7 +167,7 @@ export const seoulSpots: Record<string, Location> = {
     lng: 126.9457,
     color: '#ef4444',
     description: '麻浦区本地人气烤肉店 · 桃花街14-1',
-    address: '서울 마포구 도화동 37-1',
+    address: '서울 마포구 도화길 14-1',
     parentId: 'mapo_glad_group'
   },
 
@@ -348,8 +348,8 @@ export const seoulSpots: Record<string, Location> = {
     id: 'incheon_airport_t1',
     name: '仁川国际机场T1航站楼',
     type: 'spot',
-    lat: 37.4602,
-    lng: 126.4407,
+    lat: 37.458764,
+    lng: 126.441961,
     color: '#6b7280',
     description: '韩国主要国际机场 · T1航站楼',
     address: '인천 중구 공항로 272',

@@ -54,18 +54,18 @@ function createCustomMarker(location: LocationOrGroup, badge?: string, showName 
   const svgColor = location.color
 
   const orderBadge = badge
-    ? `<div style="position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;background:#111827;color:#fff;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.3);z-index:10">${badge}</div>`
+    ? `<div style="position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;background:#2D3436;color:#fff;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);z-index:10">${badge}</div>`
     : ''
 
-  // Hotel group uses "住" badge, regular group uses location pin, spot uses smaller pin
+  // Spring-themed markers: hotel = house, group = flower/leaf, spot = dot with badge
   const svg = isHotelGroup
-    ? `<div style="width:40px;height:40px;background:${svgColor};border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:13px">住</div>`
+    ? `<div style="width:40px;height:40px;background:${svgColor};border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;font-size:18px">🏠</div><div style="position:absolute;top:-4px;right:-4px;width:14px;height:14px;background:#FFB7B2;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;border:1px solid #fff;box-shadow:0 1px 2px rgba(0,0,0,0.15)">❤️</div>`
     : isGroup
-      ? `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="${svgColor}" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`
-      : `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="${svgColor}" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`
+      ? `<div style="width:40px;height:40px;background:${svgColor};border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;font-size:18px">🌸</div>`
+      : `<div style="width:24px;height:24px;background:${svgColor};border-radius:50%;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:bold;">${badge || '•'}</div>`
 
   const nameLabel = showName
-    ? `<div style="margin-top:2px;padding:1px 6px;background:rgba(255,255,255,0.95);border:1px solid rgba(0,0,0,0.08);border-radius:9999px;font-size:10px;font-weight:600;color:#1f2937;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,0.1)">${location.name}</div>`
+    ? `<div style="margin-top:4px;padding:2px 8px;background:rgba(255,255,255,0.9);border:1px solid #A8E6CF;border-radius:9999px;font-size:10px;font-weight:600;color:#2D3436;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.06)">${location.name}</div>`
     : ''
 
   const iconHtml = `
@@ -77,8 +77,8 @@ function createCustomMarker(location: LocationOrGroup, badge?: string, showName 
 
   // Spots get a slight offset to avoid fully overlapping their parent group
   const anchorShift = !isGroup && badge ? 8 : 0
-  // When showing name, anchor needs to account for label height (~18px)
-  const labelHeight = showName ? 18 : 0
+  // When showing name, anchor needs to account for label height (~20px)
+  const labelHeight = showName ? 20 : 0
 
   return L.divIcon({
     html: iconHtml,
@@ -91,7 +91,7 @@ function createCustomMarker(location: LocationOrGroup, badge?: string, showName 
 
 function createRouteLabelIcon(text: string): L.DivIcon {
   return L.divIcon({
-    html: `<div style="max-width:180px;padding:4px 10px;background:#fff;border:1px solid #d1d5db;border-radius:9999px;font-size:11px;font-weight:600;color:#1f2937;box-shadow:0 1px 4px rgba(0,0,0,0.12);white-space:normal;word-break:break-word;text-align:center;line-height:1.3">${text}</div>`,
+    html: `<div style="max-width:180px;padding:4px 10px;background:rgba(255,255,255,0.95);border:1px solid #A8E6CF;border-radius:9999px;font-size:11px;font-weight:600;color:#2D3436;box-shadow:0 1px 4px rgba(0,0,0,0.06);white-space:normal;word-break:break-word;text-align:center;line-height:1.3">${text}</div>`,
     className: 'route-label',
     iconSize: [180, 40],
     iconAnchor: [90, 20]
@@ -162,7 +162,7 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
 
   return (
     <MapContainer
-      className="absolute inset-0 z-0"
+      className="absolute inset-0 z-0 sm:static sm:w-full sm:h-full"
       style={{ height: '100%', width: '100%' }}
       center={[37.545, 126.96]}
       zoom={12}
@@ -313,7 +313,7 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
                 color,
                 weight: 3,
                 opacity: 0.7,
-                dashArray: '6, 6',
+                dashArray: '8, 8',
                 lineCap: 'round'
               }}
             />
