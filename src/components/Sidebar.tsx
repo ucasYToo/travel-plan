@@ -1,4 +1,4 @@
-import type { ItineraryData, TransitDetail, DayPlan, LocationOrGroup } from '../types'
+import type { ItineraryData, TransitDetail, DayPlan, LocationOrGroup, NoteItem } from '../types'
 
 // 格式化日期显示 (2026-04-29 -> 4月29日)
 function formatDate(dateStr: string): string {
@@ -20,6 +20,7 @@ export interface SidebarProps {
   onSelectDay: (index: number) => void
   isOpen: boolean
   onShowTransit?: (detail: TransitDetail) => void
+  onShowNotes?: (locationName: string, notes: NoteItem[]) => void
 }
 
 // 获取路径中的地点信息
@@ -38,12 +39,7 @@ function getHotels(locations: Record<string, LocationOrGroup>) {
   return Object.values(locations).filter(loc => loc.type === 'hotel_group')
 }
 
-// Type guard to check if location is a group
-function isLocationGroup(loc: LocationOrGroup): loc is LocationOrGroup & { type: 'group' | 'hotel_group' } {
-  return loc.type === 'group' || loc.type === 'hotel_group'
-}
-
-export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit }: SidebarProps): JSX.Element {
+export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, onShowNotes }: SidebarProps): JSX.Element {
   const hotels = getHotels(data.locations)
 
   return (
@@ -99,60 +95,120 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit }:
               // Day 1 (arrival) starts from airport (first point has transit), Day 2+ skip start hotel
               const startIndex = day.day === 1 ? 0 : 1
 
-              // Track order for groups (ABC) and spots (123)
-              let groupIdx = 0
+              // Assign badges: groups (ABC) for districts, numbers (123) for spots
+              let districtIdx = 0
               let spotIdx = 1
-              const groupBadges: Record<string, string> = {}
+              const districtBadges: Record<string, string> = {}
               const spotBadges: Record<string, string> = {}
 
-              // First pass: assign badges
               pathWithLocations.slice(startIndex).forEach(({ location }) => {
-                if (isLocationGroup(location)) {
-                  if (!groupBadges[location.id]) {
-                    groupBadges[location.id] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[groupIdx++] || ''
-                  }
-                } else {
+                if (location.type === 'spot') {
                   if (!spotBadges[location.id]) {
                     spotBadges[location.id] = String(spotIdx++)
+                  }
+                  // Assign district badge for group-type parents
+                  if (location.parentId) {
+                    const parent = data.locations[location.parentId]
+                    if (parent && parent.type === 'group' && !districtBadges[parent.id]) {
+                      districtBadges[parent.id] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[districtIdx++] || ''
+                    }
                   }
                 }
               })
 
-              const routeSegments = pathWithLocations
-                .slice(startIndex)
-                .map(({ point, location }, idx) => {
-                  const clickable = !!point.transit
-                  const isGroup = isLocationGroup(location)
-                  const badge = isGroup ? groupBadges[location.id] : spotBadges[location.id]
+              // Build route items: group spots by their district parent
+              const routeItems: JSX.Element[] = []
+              const pathSlice = pathWithLocations.slice(startIndex)
+              let currentDistrictId: string | null = null
 
-                  return (
+              pathSlice.forEach(({ point, location }, idx) => {
+                const hasNotes = point.notes && point.notes.length > 0
+                const hasTransit = !!point.transit
+
+                if (location.type === 'spot') {
+                  const parent = location.parentId ? data.locations[location.parentId] : null
+                  const parentIsDistrict = parent && parent.type === 'group'
+
+                  if (parentIsDistrict && parent.id !== currentDistrictId) {
+                    currentDistrictId = parent.id
+                    routeItems.push(
+                      <div
+                        key={`district-${idx}`}
+                        className="flex items-center gap-2 rounded px-1.5 py-1 -mx-1 text-xs text-gray-900 font-medium bg-white border border-gray-200"
+                      >
+                        <span
+                          className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center text-white text-[10px]"
+                          style={{ background: parent.color }}
+                        >
+                          {districtBadges[parent.id] || '●'}
+                        </span>
+                        <span className="flex-1 min-w-0">{parent.name}</span>
+                      </div>
+                    )
+                  }
+
+                  if (!parentIsDistrict) {
+                    currentDistrictId = null
+                  }
+
+                  const badge = spotBadges[location.id] || ''
+                  routeItems.push(
                     <div
-                      key={idx}
+                      key={`loc-${idx}`}
                       className={[
-                        'flex items-center gap-2 rounded px-1.5 py-1 -mx-1 transition',
-                        isGroup ? 'text-xs text-gray-900 font-medium bg-white border border-gray-200' : 'text-[10px] text-gray-600 ml-4',
-                        clickable ? 'cursor-pointer hover:bg-gray-100' : ''
+                        'flex items-center gap-2 rounded px-1.5 py-1 -mx-1 transition text-[10px] text-gray-600 ml-4',
+                        hasNotes ? 'cursor-pointer hover:bg-gray-100' : ''
                       ].join(' ')}
-                      onClick={clickable && onShowTransit ? () => onShowTransit(point.transit!) : undefined}
+                      onClick={hasNotes && onShowNotes ? () => onShowNotes(location.name, point.notes!) : undefined}
                     >
                       <span
-                        className={`rounded-full shrink-0 flex items-center justify-center text-white ${isGroup ? 'w-5 h-5 text-[10px]' : 'w-4 h-4 text-[8px]'}`}
+                        className="w-4 h-4 rounded-full shrink-0 flex items-center justify-center text-white text-[8px]"
                         style={{ background: location.color }}
                       >
-                        {badge || (isGroup ? '●' : '•')}
+                        {badge || '•'}
                       </span>
-                      <span className="flex-1 min-w-0">
-                        <span>{location.name}</span>
-                        {point.label && point.label !== '起点' && point.label !== '起点（搬家日）' && (
-                          <span className="text-gray-400"> · {point.label}</span>
-                        )}
-                      </span>
-                      {clickable ? (
-                        <span className="ml-auto text-[10px] text-blue-500 shrink-0">查看详情</span>
+                      <span className="flex-1 min-w-0">{location.name}</span>
+                      {hasNotes ? (
+                        <span className="ml-auto text-[10px] text-green-600 shrink-0">查看备注</span>
                       ) : null}
                     </div>
                   )
-                })
+                } else if (location.type === 'hotel_group') {
+                  currentDistrictId = null
+                  routeItems.push(
+                    <div
+                      key={`loc-${idx}`}
+                      className="flex items-center gap-2 rounded px-1.5 py-1 -mx-1 text-xs text-gray-900 font-medium bg-white border border-gray-200"
+                    >
+                      <span
+                        className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center text-white text-[10px]"
+                        style={{ background: location.color }}
+                      >
+                        住
+                      </span>
+                      <span className="flex-1 min-w-0">{location.name}</span>
+                    </div>
+                  )
+                }
+
+                // Transit line
+                if (idx < pathSlice.length - 1 && hasTransit) {
+                  const nextPoint = pathSlice[idx + 1]?.point
+                  if (nextPoint?.transit) {
+                    routeItems.push(
+                      <div
+                        key={`transit-${idx}`}
+                        className="flex items-center gap-2 py-0.5 ml-6 cursor-pointer hover:bg-gray-100 rounded px-1.5 -mx-1 transition"
+                        onClick={onShowTransit ? () => onShowTransit(nextPoint.transit!) : undefined}
+                      >
+                        <span className="text-gray-300 text-xs">└─</span>
+                        <span className="text-[10px] text-blue-500">{nextPoint.label}</span>
+                        <span className="text-[10px] text-blue-400 ml-auto">交通详情</span>
+                      </div>
+                    )
+                  }
+                }
+              })
 
               return (
                 <button
@@ -177,9 +233,9 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit }:
                     )}
                   </div>
                   <p className="text-xs text-gray-500 mb-3 leading-relaxed">{day.note}</p>
-                  {routeSegments.length > 0 && (
+                  {routeItems.length > 0 && (
                     <div className="rounded-lg border border-gray-100 bg-gray-50/60 p-2.5 space-y-1">
-                      {routeSegments}
+                      {routeItems}
                     </div>
                   )}
                 </button>
@@ -191,8 +247,8 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit }:
 
       {/* Legend */}
       <div className="px-4 py-3 border-t border-gray-100 bg-gray-50/80 text-xs shrink-0">
-        <p className="text-gray-500">点击上方行程卡片，查看当日路线与交通时间</p>
-        <p className="text-gray-400 text-[10px] mt-1">点击"查看详情"可展开完整换乘方案</p>
+        <p className="text-gray-500">点击地点查看备注，点击交通详情查看换乘方案</p>
+        <p className="text-gray-400 text-[10px] mt-1">有备注的地点显示"查看备注"，有交通的段落显示"交通详情"</p>
       </div>
 
       {/* Footer */}

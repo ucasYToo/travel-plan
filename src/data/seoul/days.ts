@@ -14,7 +14,7 @@ export const seoulDays: DayPlan[] = [
     baseHotelId: 'mapo_glad_group',
     path: [
       {
-        locationId: 'narita_airport',
+        locationId: 'incheon_airport_t1',
         label: '仁川国际机场',
         transit: {
           distance: '约45公里',
@@ -26,7 +26,10 @@ export const seoulDays: DayPlan[] = [
             { mode: 'train', line: '机场铁路 (AREX) 直达列车', from: '仁川国际机场', to: '孔德站', duration: '约50分钟', distance: '约45公里', instruction: '乘坐机场铁路直达列车，无需换乘，孔德站下车' },
             { mode: 'walk', from: '孔德站8号出口', to: '麻浦格莱德酒店', duration: '约5分钟', distance: '约150米', instruction: '8号出口出站后步行约1分钟即达酒店正门' }
           ]
-        }
+        },
+        notes: [
+          { category: 'tips', content: '抵达后先更换手机卡，机场有SK/KT/LG运营商柜台，推荐提前淘宝购买流量卡' }
+        ]
       },
       {
         locationId: 'mapo_glad_group',
@@ -59,19 +62,25 @@ export const seoulDays: DayPlan[] = [
         }
       },
       {
-        locationId: 'hongdae',
+        locationId: 'hongdae_main',
         label: '机场铁路/京义线 · 约8分钟',
         transit: {
           distance: '约2.5公里',
           duration: '约8分钟',
           startName: 'Fritz Coffee Company/孔德站',
-          endName: '弘大商圈',
+          endName: '弘大主街',
           steps: [
             { mode: 'walk', from: 'Fritz Coffee Company', to: '孔德站', duration: '约3分钟', distance: '约150米', instruction: '返回孔德站' },
             { mode: 'subway', line: '机场铁路/京义线', from: '孔德站', to: '弘益大学站', duration: '约3分钟', distance: '约2.3公里', instruction: '乘坐机场铁路或京义线至弘益大学站下车' },
             { mode: 'walk', from: '弘益大学站9号出口', to: '弘大主街', duration: '约2分钟', distance: '约100米', instruction: '9号出口出站即进入弘大商圈主街' }
           ]
-        }
+        },
+        notes: [
+          { category: 'food', content: '在延南洞吃朝鲜火炉烤肉（돈주는남자），招牌是厚切五花肉' },
+          { category: 'shopping', content: 'thisisneverthat 韩国潮牌，价格亲民设计好，弘大店常有折扣' },
+          { category: 'shopping', content: 'LMC (Lifework) 街头风格，T恤和卫衣很受欢迎' },
+          { category: 'tips', content: '弘大主街人很多，建议往延南洞小巷走，更有氛围' }
+        ]
       },
       {
         locationId: 'hair_salon',
@@ -82,12 +91,12 @@ export const seoulDays: DayPlan[] = [
           startName: '弘大主街',
           endName: '홍대 미용실',
           steps: [
-            { mode: 'walk', from: '弘大主街', to: '양화로11길 14-10', duration: '约7分钟', distance: '约500米', instruction: '从弘大商圈步行至양화로11길 14-10 1층 101호' }
+            { mode: 'walk', from: '弘大主街', to: '양화로11길 14-10', duration: '约7分钟', distance: '约500米', instruction: '从弘大主街步行至양화로11길 14-10 1층 101호' }
           ]
         }
       },
       {
-        locationId: 'yeouido',
+        locationId: 'yeouido_hyundai',
         label: '京义线→5号线 · 约20分钟',
         transit: {
           distance: '约6.0公里',
@@ -100,7 +109,12 @@ export const seoulDays: DayPlan[] = [
             { mode: 'subway', line: '首尔地铁5号线', from: '孔德站', to: '汝矣渡口站', duration: '约7分钟', distance: '约2.6公里', instruction: '换乘5号线至汝矣渡口站下车' },
             { mode: 'walk', from: '汝矣渡口站3号出口', to: '汝矣岛现代百货', duration: '约5分钟', distance: '约400米', instruction: '经地下通道连接现代百货B2层，或从地面步行至正门' }
           ]
-        }
+        },
+        notes: [
+          { category: 'food', content: '现代百货B1层有很多美食，推荐尝试' },
+          { category: 'shopping', content: 'Starfield图书馆在现代百货5-6层，拍照打卡很美' },
+          { category: 'tips', content: '傍晚去汉江公园看日落，然后回来看夜景灯光秀' }
+        ]
       },
       {
         locationId: 'jinsook',
@@ -160,13 +174,13 @@ export const seoulDays: DayPlan[] = [
         }
       },
       {
-        locationId: 'hannam',
+        locationId: 'hannam_street',
         label: '地铁6号线+步行 · 约12分钟',
         transit: {
           distance: '约1.1公里',
           duration: '约12分钟',
           startName: 'Aank Hotel 梨泰院店',
-          endName: '汉南洞商圈',
+          endName: '汉南洞主街',
           steps: [
             { mode: 'walk', from: 'Aank Hotel 梨泰院店', to: '梨泰院站', duration: '约5分钟', distance: '约300米', instruction: '步行至梨泰院站' },
             { mode: 'subway', line: '首尔地铁6号线', from: '梨泰院站', to: '汉江镇站', duration: '约2分钟', distance: '约1.0公里', instruction: '乘坐6号线至汉江镇站下车' },
@@ -175,12 +189,12 @@ export const seoulDays: DayPlan[] = [
         }
       },
       {
-        locationId: 'hangang_hannam',
+        locationId: 'hangang_hannam_park',
         label: '步行下坡 · 约18分钟',
         transit: {
           distance: '约1.5公里',
           duration: '约18分钟',
-          startName: '汉南洞商圈',
+          startName: '汉南洞主街',
           endName: '汉江公园(汉南段)',
           steps: [
             { mode: 'walk', from: '汉南洞主街', to: '汉江公园入口', duration: '约18分钟', distance: '约1.5公里', instruction: '沿梨泰院路向南山方向步行下坡，经过汉南大桥北侧即可到达汉江公园' }
@@ -215,18 +229,18 @@ export const seoulDays: DayPlan[] = [
     path: [
       { locationId: 'aank_itaewon_group', label: '起点', isHotel: true },
       {
-        locationId: 'seongsu',
+        locationId: 'seongsu_entrance',
         label: '地铁6号线→2号线 · 约30分钟',
         transit: {
           distance: '约9.0公里',
           duration: '约30分钟',
           startName: '梨泰院Aank酒店',
-          endName: '圣水洞商圈',
+          endName: '圣水洞主街',
           steps: [
             { mode: 'walk', from: 'Aank Hotel 梨泰院店', to: '梨泰院站', duration: '约5分钟', distance: '约300米', instruction: '从酒店步行至梨泰院地铁站' },
             { mode: 'subway', line: '首尔地铁6号线', from: '梨泰院站', to: '新堂站', duration: '约20分钟', distance: '约8.0公里', instruction: '乘坐6号线至新堂站下车' },
             { mode: 'subway', line: '首尔地铁2号线', from: '新堂站', to: '圣水站', duration: '约2分钟', distance: '约1.0公里', instruction: '换乘2号线至圣水站下车' },
-            { mode: 'walk', from: '圣水站4号出口', to: '圣水洞商圈', duration: '约3分钟', distance: '约200米', instruction: '4号出口出站后沿圣水一路进入主街区' }
+            { mode: 'walk', from: '圣水站4号出口', to: '圣水洞主街', duration: '约3分钟', distance: '约200米', instruction: '4号出口出站后沿圣水一路进入主街区' }
           ]
         }
       },
@@ -263,10 +277,10 @@ export const seoulDays: DayPlan[] = [
         transit: {
           distance: '约9.0公里',
           duration: '约30分钟',
-          startName: '圣水洞商圈',
+          startName: '圣水洞主街',
           endName: 'Aank Hotel 梨泰院店',
           steps: [
-            { mode: 'walk', from: '圣水洞商圈/Gwonski猪蹄/두찜', to: '圣水站', duration: '约5分钟', distance: '约300米', instruction: '步行返回圣水站' },
+            { mode: 'walk', from: '圣水洞主街/Gwonski猪蹄/두찜', to: '圣水站', duration: '约5分钟', distance: '约300米', instruction: '步行返回圣水站' },
             { mode: 'subway', line: '首尔地铁2号线', from: '圣水站', to: '新堂站', duration: '约2分钟', distance: '约1.0公里', instruction: '乘坐2号线至新堂站下车' },
             { mode: 'subway', line: '首尔地铁6号线', from: '新堂站', to: '梨泰院站', duration: '约20分钟', distance: '约8.0公里', instruction: '换乘6号线至梨泰院站' },
             { mode: 'walk', from: '梨泰院站', to: 'Aank Hotel 梨泰院店', duration: '约5分钟', distance: '约300米', instruction: '从梨泰院站步行返回酒店' }
@@ -286,44 +300,44 @@ export const seoulDays: DayPlan[] = [
     path: [
       { locationId: 'aank_itaewon_group', label: '起点', isHotel: true },
       {
-        locationId: 'shilla',
+        locationId: 'shilla_dutyfree',
         label: '地铁6→3号线 · 约18分钟',
         transit: {
           distance: '约3.5公里',
           duration: '约18分钟',
           startName: '梨泰院Aank酒店',
-          endName: '新罗百货',
+          endName: '新罗免税店',
           steps: [
             { mode: 'walk', from: 'Aank Hotel 梨泰院店', to: '梨泰院站', duration: '约5分钟', distance: '约300米', instruction: '步行至梨泰院地铁站' },
             { mode: 'subway', line: '首尔地铁6号线', from: '梨泰院站', to: '药水站', duration: '约8分钟', distance: '约2.5公里', instruction: '乘坐6号线至药水站下车' },
             { mode: 'subway', line: '首尔地铁3号线', from: '药水站', to: '东国大学站', duration: '约2分钟', distance: '约1.0公里', instruction: '换乘3号线至东国大学站下车' },
-            { mode: 'walk', from: '东国大学站5号出口', to: '新罗百货', duration: '约5分钟', distance: '约400米', instruction: '5号出口出站后沿南山公园方向上坡步行至新罗免税店' }
+            { mode: 'walk', from: '东国大学站5号出口', to: '新罗免税店', duration: '约5分钟', distance: '约400米', instruction: '5号出口出站后沿南山公园方向上坡步行至新罗免税店' }
           ]
         }
       },
       {
-        locationId: 'shinsegae',
+        locationId: 'shinsegae_main',
         label: '免费穿梭巴士 · 约10分钟',
         transit: {
           distance: '约2.5公里',
           duration: '约10分钟',
-          startName: '新罗百货',
-          endName: '新世界百货',
+          startName: '新罗免税店',
+          endName: '新世界百货本店',
           steps: [
-            { mode: 'walk', from: '新罗百货', to: '新罗免费巴士站', duration: '约2分钟', distance: '约100米', instruction: '前往新罗免税店正门免费巴士站' },
-            { mode: 'bus', line: '新罗免费穿梭巴士', from: '新罗百货', to: '新世界百货', duration: '约5分钟', distance: '约2.3公里', instruction: '乘坐新罗免费巴士（每小时30分发车）至新世界百货站下车' },
+            { mode: 'walk', from: '新罗免税店', to: '新罗免费巴士站', duration: '约2分钟', distance: '约100米', instruction: '前往新罗免税店正门免费巴士站' },
+            { mode: 'bus', line: '新罗免费穿梭巴士', from: '新罗免税店', to: '新世界百货本店', duration: '约5分钟', distance: '约2.3公里', instruction: '乘坐新罗免费巴士（每小时30分发车）至新世界百货站下车' },
             { mode: 'walk', from: '新世界巴士站', to: '新世界百货本店', duration: '约3分钟', distance: '约200米', instruction: '步行至明洞新世界百货本店' }
           ]
         }
       },
       {
-        locationId: 'myeongdong',
+        locationId: 'myeongdong_street',
         label: '免费穿梭巴士/步行 · 约5分钟',
         transit: {
           distance: '约800米',
           duration: '约5分钟',
-          startName: '新世界百货',
-          endName: '明洞',
+          startName: '新世界百货本店',
+          endName: '明洞主街',
           steps: [
             { mode: 'walk', from: '新世界百货本店', to: '新世界免费巴士站', duration: '约2分钟', distance: '约100米', instruction: '步行至新世界百货免费巴士站' },
             { mode: 'bus', line: '新世界免费穿梭巴士', from: '新世界百货', to: '明洞主街', duration: '约3分钟', distance: '约700米', instruction: '乘坐新世界免费巴士至明洞主街下车（或步行约10分钟）' }
@@ -336,7 +350,7 @@ export const seoulDays: DayPlan[] = [
         transit: {
           distance: '约3.8公里',
           duration: '约25分钟',
-          startName: '明洞',
+          startName: '明洞主街',
           endName: '파피어프로스트',
           steps: [
             { mode: 'walk', from: '明洞主街', to: '乙支路3街站', duration: '约8分钟', distance: '约500米', instruction: '步行至乙支路3街站' },
@@ -375,13 +389,13 @@ export const seoulDays: DayPlan[] = [
     path: [
       { locationId: 'aank_itaewon_group', label: '起点', isHotel: true },
       {
-        locationId: 'narita_airport',
+        locationId: 'incheon_airport_t1',
         label: '地铁6号线→机场铁路 · 约80分钟',
         transit: {
           distance: '约55公里',
           duration: '约80分钟',
           startName: '梨泰院Aank酒店',
-          endName: '仁川国际机场',
+          endName: '仁川国际机场T1航站楼',
           steps: [
             { mode: 'walk', from: 'Aank Hotel 梨泰院店', to: '梨泰院站', duration: '约5分钟', distance: '约300米', instruction: '携带行李步行至梨泰院站' },
             { mode: 'subway', line: '首尔地铁6号线', from: '梨泰院站', to: '孔德站', duration: '约7分钟', distance: '约4.0公里', instruction: '乘坐6号线至孔德站下车' },

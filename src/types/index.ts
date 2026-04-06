@@ -2,8 +2,8 @@
 // 设计原则: 数据自包含，组件纯渲染，无需计算层
 
 /**
- * 地点类型
- * 所有地图上的位置点（酒店、商圈、景点、餐厅等）
+ * 具体地点类型
+ * 商圈/酒店内的实际目的地（景点、餐厅、店铺等）
  */
 export interface Location {
   id: string
@@ -11,9 +11,9 @@ export interface Location {
   lat: number
   lng: number
   color: string
-  type: 'hotel' | 'district' | 'spot'
+  type: 'spot'
   description?: string
-  parentId?: string  // 所属商圈/组ID（可选）
+  parentId: string   // 所属商圈/酒店组ID
   address?: string   // 具体地址，可复制到地图/打车软件
 }
 
@@ -66,6 +66,20 @@ export interface TransitDetail {
 }
 
 /**
+ * 备注分类
+ */
+export type NoteCategory = 'food' | 'shopping' | 'tips' | 'other'
+
+/**
+ * 备注项
+ * 地点的备注信息（吃什么、买什么等）
+ */
+export interface NoteItem {
+  category: NoteCategory
+  content: string
+}
+
+/**
  * 路径点
  * 包含完整的显示信息，无需计算
  */
@@ -74,6 +88,7 @@ export interface PathPoint {
   label: string          // 显示标签 (如 "地铁6号线 · 约20分钟")
   transit?: TransitDetail // 交通详情（可选）
   isHotel?: boolean      // 是否是酒店（用于特殊标记）
+  notes?: NoteItem[]     // 地点备注（可选）
 }
 
 /**

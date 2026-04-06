@@ -19,6 +19,16 @@ const mockData: ItineraryData = {
       description: '测试酒店描述',
       children: []
     },
+    district1: {
+      id: 'district1',
+      name: '测试商圈',
+      type: 'group',
+      lat: 37.55,
+      lng: 127.05,
+      color: '#8b5cf6',
+      description: '测试商圈描述',
+      children: ['spot1']
+    },
     spot1: {
       id: 'spot1',
       name: '景点1',
@@ -26,7 +36,8 @@ const mockData: ItineraryData = {
       lat: 37.6,
       lng: 127.1,
       color: '#ef4444',
-      description: '测试景点'
+      description: '测试景点',
+      parentId: 'district1'
     }
   },
   days: [

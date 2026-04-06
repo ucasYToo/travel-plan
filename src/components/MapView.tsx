@@ -1,7 +1,7 @@
 import { useMemo, useEffect } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet'
 import L from 'leaflet'
-import type { ItineraryData, TransitDetail, LocationOrGroup, LocationGroup } from '../types'
+import type { ItineraryData, TransitDetail, LocationOrGroup, LocationGroup, Location } from '../types'
 
 interface MapControllerProps {
   activeDay: number | null
@@ -97,51 +97,37 @@ export interface MapViewProps {
 const DISTRICT_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 export function MapView({ data, activeDay, resetView, onShowTransit }: MapViewProps): JSX.Element {
-  const { locationOrder, spotOrder } = useMemo(() => {
-    const locMap: Record<string, string> = {}
+  const { districtOrder, spotOrder } = useMemo(() => {
+    const districtMap: Record<string, string> = {}
     const spotMap: Record<string, string> = {}
 
     if (activeDay !== null) {
       const day = data.days[activeDay]
       if (day) {
-        let locIdx = 0
+        let districtIdx = 0
         let spotIdx = 1
 
         for (const point of day.path) {
           const loc = data.locations[point.locationId]
           if (!loc) continue
 
-          if (loc.type === 'group') {
-            if (!locMap[loc.id]) {
-              locMap[loc.id] = DISTRICT_LETTERS[locIdx++] ?? ''
-            }
-          } else if (loc.type === 'spot' || loc.type === 'hotel_group') {
+          if (loc.type === 'spot') {
             if (!spotMap[loc.id]) {
               spotMap[loc.id] = String(spotIdx++)
             }
+            // Assign letter badge to parent district if it's a group
+            if (loc.parentId) {
+              const parent = data.locations[loc.parentId]
+              if (parent && parent.type === 'group' && !districtMap[parent.id]) {
+                districtMap[parent.id] = DISTRICT_LETTERS[districtIdx++] ?? ''
+              }
+            }
           }
         }
       }
     }
 
-    return { locationOrder: locMap, spotOrder: spotMap }
-  }, [activeDay, data])
-
-  const visibleHotels = useMemo(() => {
-    const set = new Set<string>()
-    if (activeDay !== null) {
-      const day = data.days[activeDay]
-      if (day) {
-        set.add(day.baseHotelId)
-        // Also add any hotels in the path
-        for (const point of day.path) {
-          if (point.isHotel) {
-            set.add(point.locationId)
-          }
-        }
-      }
-    }
-    return set
+    return { districtOrder: districtMap, spotOrder: spotMap }
   }, [activeDay, data])
 
   const activePath = useMemo(() => {
@@ -176,77 +162,245 @@ export function MapView({ data, activeDay, resetView, onShowTransit }: MapViewPr
       />
       <MapController activeDay={activeDay} resetView={resetView} data={data} />
 
-      {/* Render all locations */}
-      {Object.values(data.locations).map((location) => {
-        // Determine visibility and badge
-        let isVisible = activeDay === null
-        let badge = ''
+      {/* Render markers for active day path */}
+      {(() => {
+        if (activeDay === null) {
+          // Show all locations when no day is selected
+          return Object.values(data.locations).map((location) => (
+            <Marker
+              key={`${location.id}-all`}
+              position={[location.lat, location.lng]}
+              icon={createCustomMarker(location, '')}
+              zIndexOffset={location.type === 'hotel_group' ? 500 : 0}
+            >
+              <Popup>
+                <div className="p-4 min-w-[200px]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: location.color }} />
+                    <h3 className="font-bold text-gray-900">{location.name}</h3>
+                  </div>
+                  {'address' in location && location.address && (
+                    <div className="mb-2 p-2 bg-gray-50 rounded">
+                      <p className="text-xs text-gray-500 mb-1">地址</p>
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm text-gray-700 font-mono">{location.address}</p>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigator.clipboard.writeText(location.address!)
+                              .then(() => alert('地址已复制！'))
+                              .catch(() => alert('复制失败，请手动复制'))
+                          }}
+                          className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                        >
+                          复制
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                  <p className="text-sm text-gray-600">{location.description}</p>
+                </div>
+              </Popup>
+            </Marker>
+          ))
+        }
 
-        if (activeDay !== null) {
-          const day = data.days[activeDay]
-          if (day) {
-            const inPath = day.path.some(p => p.locationId === location.id)
-            if (inPath) {
-              isVisible = true
-              // Groups (商圈/酒店组) use ABC, spots (子地点) use 123
-              if (location.type === 'group' || location.type === 'hotel_group') {
-                badge = locationOrder[location.id] || ''
-              } else if (location.type === 'spot') {
-                badge = spotOrder[location.id] || ''
+        const day = data.days[activeDay]
+        if (!day) return null
+
+        // Collect path items
+        const spotsInPath: { point: typeof day.path[0]; location: Location }[] = []
+        const hotelsInPath: { point: typeof day.path[0]; location: LocationGroup }[] = []
+        const districtsInPath = new Map<string, LocationGroup>()
+
+        for (const point of day.path) {
+          const loc = data.locations[point.locationId]
+          if (!loc) continue
+          if (loc.type === 'spot') {
+            spotsInPath.push({ point, location: loc })
+            if (loc.parentId) {
+              const parent = data.locations[loc.parentId]
+              if (parent && parent.type === 'group') {
+                districtsInPath.set(parent.id, parent)
               }
             }
-            // Hotel groups in path are always visible
-            if (location.type === 'hotel_group' && visibleHotels.has(location.id)) {
-              isVisible = true
-            }
+          } else if (loc.type === 'hotel_group') {
+            hotelsInPath.push({ point, location: loc })
           }
         }
 
-        if (!isVisible) return null
+        const markers: JSX.Element[] = []
 
-        const markerKey = `${location.id}-${activeDay ?? 'none'}-${badge}`
-
-        return (
-          <Marker
-            key={markerKey}
-            position={[location.lat, location.lng]}
-            icon={createCustomMarker(location, badge)}
-            zIndexOffset={location.type === 'hotel_group' ? 500 : 0}
-          >
-            <Popup>
-              <div className="p-4 min-w-[200px]">
-                <div className="flex items-center gap-2 mb-2">
-                  <span
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: location.color }}
-                  />
-                  <h3 className="font-bold text-gray-900">{location.name}</h3>
-                </div>
-                {'address' in location && location.address && (
-                  <div className="mb-2 p-2 bg-gray-50 rounded">
-                    <p className="text-xs text-gray-500 mb-1">地址</p>
-                    <div className="flex items-center gap-2">
-                      <p className="text-sm text-gray-700 font-mono">{location.address}</p>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          navigator.clipboard.writeText(location.address!)
-                            .then(() => alert('地址已复制！'))
-                            .catch(() => alert('复制失败，请手动复制'))
-                        }}
-                        className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                      >
-                        复制
-                      </button>
-                    </div>
+        // Render district markers first (behind spots)
+        for (const location of districtsInPath.values()) {
+          const badge = districtOrder[location.id] || ''
+          markers.push(
+            <Marker
+              key={`${location.id}-${activeDay}-${badge}`}
+              position={[location.lat, location.lng]}
+              icon={createCustomMarker(location, badge)}
+              zIndexOffset={-100}
+            >
+              <Popup>
+                <div className="p-4 min-w-[200px]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: location.color }} />
+                    <h3 className="font-bold text-gray-900">{location.name}</h3>
                   </div>
-                )}
-                <p className="text-sm text-gray-600">{location.description}</p>
-              </div>
-            </Popup>
-          </Marker>
-        )
-      })}
+                  {location.address && (
+                    <div className="mb-2 p-2 bg-gray-50 rounded">
+                      <p className="text-xs text-gray-500 mb-1">地址</p>
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm text-gray-700 font-mono">{location.address}</p>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigator.clipboard.writeText(location.address!)
+                              .then(() => alert('地址已复制！'))
+                              .catch(() => alert('复制失败，请手动复制'))
+                          }}
+                          className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                        >
+                          复制
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                  <p className="text-sm text-gray-600">{location.description}</p>
+                </div>
+              </Popup>
+            </Marker>
+          )
+        }
+
+        // Render hotel markers
+        for (const { location } of hotelsInPath) {
+          markers.push(
+            <Marker
+              key={`${location.id}-${activeDay}-hotel`}
+              position={[location.lat, location.lng]}
+              icon={createCustomMarker(location, '')}
+              zIndexOffset={500}
+            >
+              <Popup>
+                <div className="p-4 min-w-[200px]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: location.color }} />
+                    <h3 className="font-bold text-gray-900">{location.name}</h3>
+                  </div>
+                  {location.address && (
+                    <div className="mb-2 p-2 bg-gray-50 rounded">
+                      <p className="text-xs text-gray-500 mb-1">地址</p>
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm text-gray-700 font-mono">{location.address}</p>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigator.clipboard.writeText(location.address!)
+                              .then(() => alert('地址已复制！'))
+                              .catch(() => alert('复制失败，请手动复制'))
+                          }}
+                          className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                        >
+                          复制
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                  <p className="text-sm text-gray-600">{location.description}</p>
+                </div>
+              </Popup>
+            </Marker>
+          )
+        }
+
+        // Also show base hotel if not already in path
+        if (!hotelsInPath.some(h => h.location.id === day.baseHotelId)) {
+          const baseHotel = data.locations[day.baseHotelId]
+          if (baseHotel && baseHotel.type === 'hotel_group') {
+            markers.push(
+              <Marker
+                key={`${baseHotel.id}-${activeDay}-basehotel`}
+                position={[baseHotel.lat, baseHotel.lng]}
+                icon={createCustomMarker(baseHotel, '')}
+                zIndexOffset={500}
+              >
+                <Popup>
+                  <div className="p-4 min-w-[200px]">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: baseHotel.color }} />
+                      <h3 className="font-bold text-gray-900">{baseHotel.name}</h3>
+                    </div>
+                    {baseHotel.address && (
+                      <div className="mb-2 p-2 bg-gray-50 rounded">
+                        <p className="text-xs text-gray-500 mb-1">地址</p>
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm text-gray-700 font-mono">{baseHotel.address}</p>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              navigator.clipboard.writeText(baseHotel.address!)
+                                .then(() => alert('地址已复制！'))
+                                .catch(() => alert('复制失败，请手动复制'))
+                            }}
+                            className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                          >
+                            复制
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                    <p className="text-sm text-gray-600">{baseHotel.description}</p>
+                  </div>
+                </Popup>
+              </Marker>
+            )
+          }
+        }
+
+        // Render spot markers
+        for (const { location } of spotsInPath) {
+          const badge = spotOrder[location.id] || ''
+          markers.push(
+            <Marker
+              key={`${location.id}-${activeDay}-${badge}`}
+              position={[location.lat, location.lng]}
+              icon={createCustomMarker(location, badge)}
+            >
+              <Popup>
+                <div className="p-4 min-w-[200px]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: location.color }} />
+                    <h3 className="font-bold text-gray-900">{location.name}</h3>
+                  </div>
+                  {location.address && (
+                    <div className="mb-2 p-2 bg-gray-50 rounded">
+                      <p className="text-xs text-gray-500 mb-1">地址</p>
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm text-gray-700 font-mono">{location.address}</p>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigator.clipboard.writeText(location.address!)
+                              .then(() => alert('地址已复制！'))
+                              .catch(() => alert('复制失败，请手动复制'))
+                          }}
+                          className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                        >
+                          复制
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                  <p className="text-sm text-gray-600">{location.description}</p>
+                </div>
+              </Popup>
+            </Marker>
+          )
+        }
+
+        return markers
+      })()}
 
       {/* Render route polylines */}
       {routePoints.length > 1 &&

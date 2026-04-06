@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { MapView } from './components/MapView'
 import { Sidebar } from './components/Sidebar'
 import { TransportModal } from './components/TransportModal'
+import { LocationNotesModal } from './components/LocationNotesModal'
 import { CITY_OPTIONS, getCityData, DEFAULT_CITY } from './data'
-import type { TransitDetail } from './types'
+import type { TransitDetail, NoteItem } from './types'
 
 function App() {
   const [currentCity, setCurrentCity] = useState(DEFAULT_CITY)
@@ -12,6 +13,8 @@ function App() {
   const [resetView, setResetView] = useState(0)
   const [modalOpen, setModalOpen] = useState(false)
   const [transitDetail, setTransitDetail] = useState<TransitDetail | null>(null)
+  const [notesModalOpen, setNotesModalOpen] = useState(false)
+  const [notesData, setNotesData] = useState<{ locationName: string; notes: NoteItem[] } | null>(null)
 
   const cityData = getCityData(currentCity)
   if (!cityData) {
@@ -21,6 +24,11 @@ function App() {
   const showTransit = (detail: TransitDetail) => {
     setTransitDetail(detail)
     setModalOpen(true)
+  }
+
+  const showNotes = (locationName: string, notes: NoteItem[]) => {
+    setNotesData({ locationName, notes })
+    setNotesModalOpen(true)
   }
 
   const handleCityChange = (cityId: string) => {
@@ -46,6 +54,7 @@ function App() {
         }}
         isOpen={sidebarOpen}
         onShowTransit={showTransit}
+        onShowNotes={showNotes}
       />
 
       {/* Mobile Toggle Button */}
@@ -108,6 +117,13 @@ function App() {
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         detail={transitDetail}
+      />
+
+      <LocationNotesModal
+        open={notesModalOpen}
+        onClose={() => setNotesModalOpen(false)}
+        locationName={notesData?.locationName ?? ''}
+        notes={notesData?.notes ?? []}
       />
     </div>
   )
