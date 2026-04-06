@@ -23,7 +23,7 @@ export const seoulDays: DayPlan[] = [
           endName: '麻浦格莱德酒店',
           steps: [
             { mode: 'walk', from: '仁川国际机场T1/T2', to: '机场铁路入口', duration: '约5分钟', distance: '约300米', instruction: '跟随机场铁路 (AREX) 指示牌前往地下1层乘车口' },
-            { mode: 'train', line: '机场铁路 (AREX) 直达列车', from: '仁川国际机场', to: '孔德站', duration: '约50分钟', distance: '约45公里', instruction: '乘坐机场铁路直达列车，无需换乘，孔德站下车' },
+            { mode: 'train', line: '机场铁路 (AREX) 普通/一般列车', from: '仁川国际机场', to: '孔德站', duration: '约50分钟', distance: '约45公里', instruction: '乘坐机场铁路普通列车（蓝色标志），直达列车不停靠孔德站，孔德站下车' },
             { mode: 'walk', from: '孔德站8号出口', to: '麻浦格莱德酒店', duration: '约5分钟', distance: '约150米', instruction: '8号出口出站后步行约1分钟即达酒店正门' }
           ]
         },
@@ -33,7 +33,7 @@ export const seoulDays: DayPlan[] = [
       },
       {
         locationId: 'mapo_glad_group',
-        label: '机场铁路直达 · 约60分钟',
+        label: '机场铁路一般列车 · 约60分钟',
         isHotel: true
       }
     ]
@@ -146,30 +146,30 @@ export const seoulDays: DayPlan[] = [
       },
       {
         locationId: 'jinsook',
-        label: '地铁5号线+步行 · 约16分钟',
+        label: '地铁5号线+步行 · 约8分钟',
         transit: {
-          distance: '约3.3公里',
-          duration: '约16分钟',
+          distance: '约1.5公里',
+          duration: '约8分钟',
           startName: '汝矣岛现代百货',
           endName: '金熟成 麻浦站店',
           steps: [
             { mode: 'walk', from: '汝矣岛现代百货', to: '汝矣渡口站', duration: '约3分钟', distance: '约400米', instruction: '返回汝矣渡口站' },
-            { mode: 'subway', line: '首尔地铁5号线', from: '汝矣渡口站', to: '孔德站', duration: '约4分钟', distance: '约2.6公里', instruction: '乘坐5号线至孔德站下车' },
-            { mode: 'walk', from: '孔德站', to: '金熟成 麻浦站店', duration: '约9分钟', distance: '约700米', instruction: '从孔德站步行至桃花街14-1，金熟成烤肉店' }
+            { mode: 'subway', line: '首尔地铁5号线', from: '汝矣渡口站', to: '麻浦站', duration: '约2分钟', distance: '约1.3公里', instruction: '乘坐5号线坐1站至麻浦站下车（比孔德站更近）' },
+            { mode: 'walk', from: '麻浦站3号出口', to: '金熟成 麻浦站店', duration: '约3分钟', distance: '约200米', instruction: '从麻浦站3号出口步行至桃花街14-1，金熟成烤肉店' }
           ]
         }
       },
       {
         locationId: 'mapo_glad_group',
-        label: '返回酒店 · 约5分钟',
+        label: '返回酒店 · 约10分钟',
         isHotel: true,
         transit: {
-          distance: '约300米',
-          duration: '约5分钟',
+          distance: '约700米',
+          duration: '约10分钟',
           startName: '金熟成烤肉',
           endName: '麻浦格莱德酒店',
           steps: [
-            { mode: 'walk', from: '金熟成烤肉', to: '麻浦格莱德酒店', duration: '约5分钟', distance: '约300米', instruction: '从金熟成烤肉步行返回酒店' }
+            { mode: 'walk', from: '金熟成烤肉', to: '麻浦格莱德酒店', duration: '约10分钟', distance: '约700米', instruction: '从金熟成烤肉步行返回酒店' }
           ]
         }
       }
@@ -219,17 +219,17 @@ export const seoulDays: DayPlan[] = [
       },
       {
         locationId: 'hannam_street',
-        label: '地铁3→6号线+步行 · 约20分钟',
+        label: '地铁3→6号线+步行 · 约15分钟',
         transit: {
           distance: '约3.0公里',
-          duration: '约20分钟',
+          duration: '约15分钟',
           startName: '新罗免税店',
           endName: '汉南洞主街',
           steps: [
             { mode: 'walk', from: '新罗免税店', to: '东国大学站', duration: '约5分钟', distance: '约400米', instruction: '步行返回东国大学站' },
             { mode: 'subway', line: '首尔地铁3号线', from: '东国大学站', to: '药水站', duration: '约2分钟', distance: '约1.0公里', instruction: '乘坐3号线至药水站' },
-            { mode: 'subway', line: '首尔地铁6号线', from: '药水站', to: '梨泰院站', duration: '约8分钟', distance: '约2.5公里', instruction: '换乘6号线返回梨泰院方向' },
-            { mode: 'walk', from: '梨泰院站', to: '汉南洞主街', duration: '约5分钟', distance: '约400米', instruction: '从梨泰院站步行至汉南洞商圈（汉江镇站方向爬坡）' }
+            { mode: 'subway', line: '首尔地铁6号线', from: '药水站', to: '汉江镇站', duration: '约3分钟', distance: '约1.5公里', instruction: '换乘6号线至汉江镇站（比梨泰院站更靠近汉南核心区）' },
+            { mode: 'walk', from: '汉江镇站3号出口', to: '汉南洞主街', duration: '约5分钟', distance: '约300米', instruction: '从汉江镇站3号出口出站即进入汉南洞设计师品牌聚集区' }
           ]
         }
       },
@@ -346,17 +346,17 @@ export const seoulDays: DayPlan[] = [
       { locationId: 'aank_itaewon_group', label: '起点', isHotel: true },
       {
         locationId: 'shinsegae_main',
-        label: '地铁6号线 · 约20分钟',
+        label: '地铁6号线→4号线 · 约20分钟',
         transit: {
-          distance: '约4.0公里',
+          distance: '约5.5公里',
           duration: '约20分钟',
           startName: '梨泰院Aank酒店',
           endName: '新世界百货本店',
           steps: [
             { mode: 'walk', from: 'Aank Hotel 梨泰院店', to: '梨泰院站', duration: '约5分钟', distance: '约300米', instruction: '步行至梨泰院地铁站' },
-            { mode: 'subway', line: '首尔地铁6号线', from: '梨泰院站', to: '孔德站', duration: '约7分钟', distance: '约4.0公里', instruction: '乘坐6号线至孔德站' },
-            { mode: 'subway', line: '首尔地铁5号线', from: '孔德站', to: '市厅站', duration: '约5分钟', distance: '约1.5公里', instruction: '换乘5号线至市厅站下车' },
-            { mode: 'walk', from: '市厅站', to: '新世界百货本店', duration: '约3分钟', distance: '约300米', instruction: '从市厅站步行至新世界百货' }
+            { mode: 'subway', line: '首尔地铁6号线', from: '梨泰院站', to: '三角地站', duration: '约4分钟', distance: '约2.0公里', instruction: '乘坐6号线至三角地站' },
+            { mode: 'subway', line: '首尔地铁4号线', from: '三角地站', to: '会贤站', duration: '约6分钟', distance: '约3.5公里', instruction: '换乘4号线至会贤站下车' },
+            { mode: 'walk', from: '会贤站7号出口', to: '新世界百货本店', duration: '约2分钟', distance: '约100米', instruction: '7号出口出站即达新世界百货' }
           ]
         }
       },
@@ -391,16 +391,16 @@ export const seoulDays: DayPlan[] = [
       },
       {
         locationId: 'aank_itaewon_group',
-        label: '地铁3→6号线 · 约25分钟',
+        label: '地铁3→6号线 · 约30分钟',
         isHotel: true,
         transit: {
-          distance: '约5.5公里',
-          duration: '约25分钟',
+          distance: '约8.0公里',
+          duration: '约30分钟',
           startName: '파피어프로스트',
           endName: 'Aank Hotel 梨泰院店',
           steps: [
             { mode: 'walk', from: '파피어프로스트', to: '景福宫站', duration: '约5分钟', distance: '约300米', instruction: '步行返回景福宫站' },
-            { mode: 'subway', line: '首尔地铁3号线', from: '景福宫站', to: '药水站', duration: '约8分钟', distance: '约2.5公里', instruction: '乘坐3号线至药水站下车' },
+            { mode: 'subway', line: '首尔地铁3号线', from: '景福宫站', to: '药水站', duration: '约13分钟', distance: '约5.0公里', instruction: '乘坐3号线至药水站下车' },
             { mode: 'subway', line: '首尔地铁6号线', from: '药水站', to: '梨泰院站', duration: '约7分钟', distance: '约2.7公里', instruction: '换乘6号线至梨泰院站' },
             { mode: 'walk', from: '梨泰院站', to: 'Aank Hotel 梨泰院店', duration: '约5分钟', distance: '约300米', instruction: '从梨泰院站步行返回酒店' }
           ]
@@ -430,7 +430,7 @@ export const seoulDays: DayPlan[] = [
             { mode: 'walk', from: 'Aank Hotel 梨泰院店', to: '梨泰院站', duration: '约5分钟', distance: '约300米', instruction: '携带行李步行至梨泰院站' },
             { mode: 'subway', line: '首尔地铁6号线', from: '梨泰院站', to: '孔德站', duration: '约7分钟', distance: '约4.0公里', instruction: '乘坐6号线至孔德站下车' },
             { mode: 'walk', from: '孔德站', to: '机场铁路换乘通道', duration: '约3分钟', distance: '约100米', instruction: '站内换乘至机场铁路 (AREX)' },
-            { mode: 'train', line: '机场铁路 (AREX) 直达列车', from: '孔德站', to: '仁川国际机场', duration: '约60分钟', distance: '约50公里', instruction: '乘坐机场铁路直达列车前往仁川国际机场T1/T2航站楼' },
+            { mode: 'train', line: '机场铁路 (AREX) 普通/一般列车', from: '孔德站', to: '仁川国际机场', duration: '约60分钟', distance: '约50公里', instruction: '乘坐机场铁路普通列车（蓝色标志）前往仁川国际机场T1/T2航站楼' },
             { mode: 'walk', from: '机场铁路下车口', to: '出发大厅', duration: '约5分钟', distance: '约200米', instruction: '跟随出发大厅指示牌办理值机和出境手续' }
           ]
         }
