@@ -62,6 +62,7 @@ function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: numbe
 - Hotel proximity (10%): Close to that day's hotel
 
 ### Transit Planning
+- **For the first location of each day, always calculate transit from the day's hotel (`baseHotelId`) to that location, and insert the hotel as `path[0]` with `isHotel: true`**
 - < 500m: Walking
 - 500m - 1.5km: Walking or taxi
 - > 1.5km with nearby subway: Use seoul-metro API
@@ -81,6 +82,8 @@ Use lowercase, replace spaces with underscores, add number suffix if conflict.
 - Never delete existing locations without explicit confirmation
 - Always validate: check for duplicate IDs, valid parent references
 - Maintain data consistency between locations.ts and days.ts
+- **Every day's `path` must start with the day's `baseHotelId` hotel group** (Day 1 arrival may start from airport, Day 2+ must begin at the hotel)
+- **The first transit segment must describe travel from the hotel to the first non-hotel location**
 - Run tests after every modification
 - Get user confirmation before writing files
 

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, within } from '@testing-library/react'
 import { Sidebar } from './Sidebar'
 import type { ItineraryData } from '../types'
 
@@ -60,7 +60,7 @@ const mockData: ItineraryData = {
       baseHotelId: 'hotel1',
       path: [
         { locationId: 'hotel1', label: '起点', isHotel: true },
-        { locationId: 'spot1', label: '地铁 · 10分钟' },
+        { locationId: 'spot1', label: '地铁 · 10分钟', notes: [{ category: 'tips', content: '测试备注内容' }] },
         { locationId: 'hotel1', label: '返回酒店', isHotel: true }
       ]
     },
@@ -164,5 +164,88 @@ describe('Sidebar', () => {
     // "景点1" appears multiple times, check at least one exists
     const spotElements = screen.getAllByText('景点1')
     expect(spotElements.length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('calls onShowLocationDetail when a spot row is clicked', () => {
+    const handleDetail = vi.fn()
+    render(
+      <Sidebar
+        data={mockData}
+        activeDay={1}
+        onSelectDay={() => {}}
+        isOpen={true}
+        onShowLocationDetail={handleDetail}
+      />
+    )
+    const dayButtons = screen.getAllByRole('button')
+    const day2Button = dayButtons[1]
+    const spotRow = within(day2Button).getByText('景点1').parentElement
+    expect(spotRow).toBeTruthy()
+    fireEvent.click(spotRow!)
+    expect(handleDetail).toHaveBeenCalled()
+  })
+
+  it('calls onShowLocationDetail when a district header is clicked', () => {
+    const handleDetail = vi.fn()
+    render(
+      <Sidebar
+        data={mockData}
+        activeDay={1}
+        onSelectDay={() => {}}
+        isOpen={true}
+        onShowLocationDetail={handleDetail}
+      />
+    )
+    const dayButtons = screen.getAllByRole('button')
+    const day2Button = dayButtons[1]
+    const districtHeader = within(day2Button).getByText('测试商圈').parentElement
+    expect(districtHeader).toBeTruthy()
+    fireEvent.click(districtHeader!)
+    expect(handleDetail).toHaveBeenCalledWith(
+      expect.objectContaining({ id: 'district1' }),
+      undefined,
+      1
+    )
+  })
+
+  it('calls onShowLocationDetail when a hotel row is clicked', () => {
+    const handleDetail = vi.fn()
+    render(
+      <Sidebar
+        data={mockData}
+        activeDay={1}
+        onSelectDay={() => {}}
+        isOpen={true}
+        onShowLocationDetail={handleDetail}
+      />
+    )
+    const dayButtons = screen.getAllByRole('button')
+    const day2Button = dayButtons[1]
+    const hotelRows = within(day2Button).getAllByText('测试酒店')
+    expect(hotelRows.length).toBeGreaterThanOrEqual(1)
+    fireEvent.click(hotelRows[0].parentElement!)
+    expect(handleDetail).toHaveBeenCalled()
+  })
+
+  it('passes notes to onShowLocationDetail when spot has notes', () => {
+    const handleDetail = vi.fn()
+    render(
+      <Sidebar
+        data={mockData}
+        activeDay={1}
+        onSelectDay={() => {}}
+        isOpen={true}
+        onShowLocationDetail={handleDetail}
+      />
+    )
+    const dayButtons = screen.getAllByRole('button')
+    const day2Button = dayButtons[1]
+    const spotRow = within(day2Button).getByText('景点1').parentElement
+    fireEvent.click(spotRow!)
+    expect(handleDetail).toHaveBeenCalledWith(
+      expect.objectContaining({ id: 'spot1', name: '景点1' }),
+      [{ category: 'tips', content: '测试备注内容' }],
+      1
+    )
   })
 })

@@ -20,7 +20,7 @@ export interface SidebarProps {
   onSelectDay: (index: number) => void
   isOpen: boolean
   onShowTransit?: (detail: TransitDetail) => void
-  onShowNotes?: (locationName: string, notes: NoteItem[]) => void
+  onShowLocationDetail?: (location: LocationOrGroup, notes?: NoteItem[], dayIndex?: number) => void
 }
 
 // 获取路径中的地点信息
@@ -39,7 +39,7 @@ function getHotels(locations: Record<string, LocationOrGroup>) {
   return Object.values(locations).filter(loc => loc.type === 'hotel_group')
 }
 
-export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, onShowNotes }: SidebarProps): JSX.Element {
+export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, onShowLocationDetail }: SidebarProps): JSX.Element {
   const hotels = getHotels(data.locations)
 
   return (
@@ -91,9 +91,8 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
               const baseHotel = data.locations[day.baseHotelId]
               const pathWithLocations = getPathLocations(day, data.locations)
 
-              // Group consecutive points by location type for display
-              // Day 1 (arrival) starts from airport (first point has transit), Day 2+ skip start hotel
-              const startIndex = day.day === 1 ? 0 : 1
+              // Show full path including hotel start point for all days
+              const startIndex = 0
 
               // Assign badges: groups (ABC) for districts, numbers (123) for spots
               let districtIdx = 0
@@ -122,9 +121,6 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
               let currentDistrictId: string | null = null
 
               pathSlice.forEach(({ point, location }, idx) => {
-                const hasNotes = point.notes && point.notes.length > 0
-                const hasTransit = !!point.transit
-
                 if (location.type === 'spot') {
                   const parent = location.parentId ? data.locations[location.parentId] : null
                   const parentIsDistrict = parent && parent.type === 'group'
@@ -134,7 +130,11 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
                     routeItems.push(
                       <div
                         key={`district-${idx}`}
-                        className="flex items-center gap-2 rounded px-1.5 py-1 -mx-1 text-xs text-gray-900 font-medium bg-white border border-gray-200"
+                        className={[
+                          'flex items-center gap-2 rounded px-1.5 py-1 -mx-1 text-xs text-gray-900 font-medium bg-white border border-gray-200',
+                          onShowLocationDetail ? 'cursor-pointer hover:bg-gray-100' : ''
+                        ].join(' ')}
+                        onClick={onShowLocationDetail ? () => onShowLocationDetail(parent, undefined, index) : undefined}
                       >
                         <span
                           className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center text-white text-[10px]"
@@ -143,6 +143,9 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
                           {districtBadges[parent.id] || '●'}
                         </span>
                         <span className="flex-1 min-w-0">{parent.name}</span>
+                        {onShowLocationDetail ? (
+                          <span className="ml-auto text-[10px] text-blue-500 shrink-0">查看详情</span>
+                        ) : null}
                       </div>
                     )
                   }
@@ -157,9 +160,9 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
                       key={`loc-${idx}`}
                       className={[
                         'flex items-center gap-2 rounded px-1.5 py-1 -mx-1 transition text-[10px] text-gray-600 ml-4',
-                        hasNotes ? 'cursor-pointer hover:bg-gray-100' : ''
+                        onShowLocationDetail ? 'cursor-pointer hover:bg-gray-100' : ''
                       ].join(' ')}
-                      onClick={hasNotes && onShowNotes ? () => onShowNotes(location.name, point.notes!) : undefined}
+                      onClick={onShowLocationDetail ? () => onShowLocationDetail(location, point.notes, index) : undefined}
                     >
                       <span
                         className="w-4 h-4 rounded-full shrink-0 flex items-center justify-center text-white text-[8px]"
@@ -168,8 +171,8 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
                         {badge || '•'}
                       </span>
                       <span className="flex-1 min-w-0">{location.name}</span>
-                      {hasNotes ? (
-                        <span className="ml-auto text-[10px] text-green-600 shrink-0">查看备注</span>
+                      {onShowLocationDetail ? (
+                        <span className="ml-auto text-[10px] text-blue-500 shrink-0">查看详情</span>
                       ) : null}
                     </div>
                   )
@@ -178,7 +181,11 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
                   routeItems.push(
                     <div
                       key={`loc-${idx}`}
-                      className="flex items-center gap-2 rounded px-1.5 py-1 -mx-1 text-xs text-gray-900 font-medium bg-white border border-gray-200"
+                      className={[
+                        'flex items-center gap-2 rounded px-1.5 py-1 -mx-1 text-xs text-gray-900 font-medium bg-white border border-gray-200',
+                        onShowLocationDetail ? 'cursor-pointer hover:bg-gray-100' : ''
+                      ].join(' ')}
+                      onClick={onShowLocationDetail ? () => onShowLocationDetail(location, point.notes, index) : undefined}
                     >
                       <span
                         className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center text-white text-[10px]"
@@ -187,19 +194,24 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
                         住
                       </span>
                       <span className="flex-1 min-w-0">{location.name}</span>
+                      {onShowLocationDetail ? (
+                        <span className="ml-auto text-[10px] text-blue-500 shrink-0">查看详情</span>
+                      ) : null}
                     </div>
                   )
                 }
 
-                // Transit line
-                if (idx < pathSlice.length - 1 && hasTransit) {
+                // Transit line: show how to get to the next point
+                if (idx < pathSlice.length - 1) {
                   const nextPoint = pathSlice[idx + 1]?.point
-                  if (nextPoint?.transit) {
+                  // Transit can be on nextPoint (Day 2+ destination) or current point (Day 1 airport source)
+                  const transitData = nextPoint?.transit || point.transit
+                  if (transitData && nextPoint?.label) {
                     routeItems.push(
                       <div
                         key={`transit-${idx}`}
                         className="flex items-center gap-2 py-0.5 ml-6 cursor-pointer hover:bg-gray-100 rounded px-1.5 -mx-1 transition"
-                        onClick={onShowTransit ? () => onShowTransit(nextPoint.transit!) : undefined}
+                        onClick={onShowTransit ? () => onShowTransit(transitData) : undefined}
                       >
                         <span className="text-gray-300 text-xs">└─</span>
                         <span className="text-[10px] text-blue-500">{nextPoint.label}</span>
@@ -247,8 +259,8 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
 
       {/* Legend */}
       <div className="px-4 py-3 border-t border-gray-100 bg-gray-50/80 text-xs shrink-0">
-        <p className="text-gray-500">点击地点查看备注，点击交通详情查看换乘方案</p>
-        <p className="text-gray-400 text-[10px] mt-1">有备注的地点显示"查看备注"，有交通的段落显示"交通详情"</p>
+        <p className="text-gray-500">点击地点查看详情，点击交通详情查看换乘方案</p>
+        <p className="text-gray-400 text-[10px] mt-1">地点详情包含地址、描述和备注，有交通的段落显示"交通详情"</p>
       </div>
 
       {/* Footer */}

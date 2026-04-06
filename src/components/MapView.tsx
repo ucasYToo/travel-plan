@@ -1,7 +1,7 @@
 import { useMemo, useEffect } from 'react'
-import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Polyline, useMap } from 'react-leaflet'
 import L from 'leaflet'
-import type { ItineraryData, TransitDetail, LocationOrGroup, LocationGroup, Location } from '../types'
+import type { ItineraryData, TransitDetail, LocationOrGroup, LocationGroup, Location, NoteItem } from '../types'
 
 interface MapControllerProps {
   activeDay: number | null
@@ -46,7 +46,7 @@ function isLocationGroup(loc: LocationOrGroup): loc is LocationGroup {
   return loc.type === 'group' || loc.type === 'hotel_group'
 }
 
-function createCustomMarker(location: LocationOrGroup, badge?: string): L.DivIcon {
+function createCustomMarker(location: LocationOrGroup, badge?: string, showName = false): L.DivIcon {
   const isGroup = isLocationGroup(location)
   const isHotelGroup = location.type === 'hotel_group'
   // Groups (商圈/酒店组): 40px, Spots (子地点): 24px
@@ -64,16 +64,27 @@ function createCustomMarker(location: LocationOrGroup, badge?: string): L.DivIco
       ? `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="${svgColor}" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`
       : `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="${svgColor}" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`
 
-  const iconHtml = `<div class="marker-pulse" style="color: ${svgColor}; position:relative; display:inline-block">${svg}${orderBadge}</div>`
+  const nameLabel = showName
+    ? `<div style="margin-top:2px;padding:1px 6px;background:rgba(255,255,255,0.95);border:1px solid rgba(0,0,0,0.08);border-radius:9999px;font-size:10px;font-weight:600;color:#1f2937;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,0.1)">${location.name}</div>`
+    : ''
+
+  const iconHtml = `
+    <div style="display:flex;flex-direction:column;align-items:center">
+      <div class="marker-pulse" style="color: ${svgColor}; position:relative; display:inline-block">${svg}${orderBadge}</div>
+      ${nameLabel}
+    </div>
+  `
 
   // Spots get a slight offset to avoid fully overlapping their parent group
   const anchorShift = !isGroup && badge ? 8 : 0
+  // When showing name, anchor needs to account for label height (~18px)
+  const labelHeight = showName ? 18 : 0
 
   return L.divIcon({
     html: iconHtml,
     className: 'custom-marker',
-    iconSize: [size, size],
-    iconAnchor: [size / 2 + anchorShift, size - anchorShift / 2],
+    iconSize: [size, size + labelHeight],
+    iconAnchor: [size / 2 + anchorShift, size - anchorShift / 2 + labelHeight],
     popupAnchor: [0, -size + anchorShift / 2]
   })
 }
@@ -92,11 +103,14 @@ export interface MapViewProps {
   activeDay: number | null
   resetView: number
   onShowTransit?: (detail: TransitDetail) => void
+  onShowLocationDetail?: (location: LocationOrGroup, notes?: NoteItem[], dayIndex?: number) => void
+  showLocationNames?: boolean
+  showTransitLabels?: boolean
 }
 
 const DISTRICT_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-export function MapView({ data, activeDay, resetView, onShowTransit }: MapViewProps): JSX.Element {
+export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocationDetail, showLocationNames = false, showTransitLabels = false }: MapViewProps): JSX.Element {
   const { districtOrder, spotOrder } = useMemo(() => {
     const districtMap: Record<string, string> = {}
     const spotMap: Record<string, string> = {}
@@ -170,38 +184,14 @@ export function MapView({ data, activeDay, resetView, onShowTransit }: MapViewPr
             <Marker
               key={`${location.id}-all`}
               position={[location.lat, location.lng]}
-              icon={createCustomMarker(location, '')}
+              icon={createCustomMarker(location, '', showLocationNames)}
               zIndexOffset={location.type === 'hotel_group' ? 500 : 0}
-            >
-              <Popup>
-                <div className="p-4 min-w-[200px]">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: location.color }} />
-                    <h3 className="font-bold text-gray-900">{location.name}</h3>
-                  </div>
-                  {'address' in location && location.address && (
-                    <div className="mb-2 p-2 bg-gray-50 rounded">
-                      <p className="text-xs text-gray-500 mb-1">地址</p>
-                      <div className="flex items-center gap-2">
-                        <p className="text-sm text-gray-700 font-mono">{location.address}</p>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            navigator.clipboard.writeText(location.address!)
-                              .then(() => alert('地址已复制！'))
-                              .catch(() => alert('复制失败，请手动复制'))
-                          }}
-                          className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                        >
-                          复制
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                  <p className="text-sm text-gray-600">{location.description}</p>
-                </div>
-              </Popup>
-            </Marker>
+              eventHandlers={
+                onShowLocationDetail
+                  ? { click: () => onShowLocationDetail(location, undefined, activeDay ?? undefined) }
+                  : undefined
+              }
+            />
           ))
         }
 
@@ -238,79 +228,31 @@ export function MapView({ data, activeDay, resetView, onShowTransit }: MapViewPr
             <Marker
               key={`${location.id}-${activeDay}-${badge}`}
               position={[location.lat, location.lng]}
-              icon={createCustomMarker(location, badge)}
+              icon={createCustomMarker(location, badge, showLocationNames)}
               zIndexOffset={-100}
-            >
-              <Popup>
-                <div className="p-4 min-w-[200px]">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: location.color }} />
-                    <h3 className="font-bold text-gray-900">{location.name}</h3>
-                  </div>
-                  {location.address && (
-                    <div className="mb-2 p-2 bg-gray-50 rounded">
-                      <p className="text-xs text-gray-500 mb-1">地址</p>
-                      <div className="flex items-center gap-2">
-                        <p className="text-sm text-gray-700 font-mono">{location.address}</p>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            navigator.clipboard.writeText(location.address!)
-                              .then(() => alert('地址已复制！'))
-                              .catch(() => alert('复制失败，请手动复制'))
-                          }}
-                          className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                        >
-                          复制
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                  <p className="text-sm text-gray-600">{location.description}</p>
-                </div>
-              </Popup>
-            </Marker>
+              eventHandlers={
+                onShowLocationDetail
+                  ? { click: () => onShowLocationDetail(location, undefined, activeDay ?? undefined) }
+                  : undefined
+              }
+            />
           )
         }
 
         // Render hotel markers
-        for (const { location } of hotelsInPath) {
+        for (const { point, location } of hotelsInPath) {
           markers.push(
             <Marker
               key={`${location.id}-${activeDay}-hotel`}
               position={[location.lat, location.lng]}
-              icon={createCustomMarker(location, '')}
+              icon={createCustomMarker(location, '', showLocationNames)}
               zIndexOffset={500}
-            >
-              <Popup>
-                <div className="p-4 min-w-[200px]">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: location.color }} />
-                    <h3 className="font-bold text-gray-900">{location.name}</h3>
-                  </div>
-                  {location.address && (
-                    <div className="mb-2 p-2 bg-gray-50 rounded">
-                      <p className="text-xs text-gray-500 mb-1">地址</p>
-                      <div className="flex items-center gap-2">
-                        <p className="text-sm text-gray-700 font-mono">{location.address}</p>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            navigator.clipboard.writeText(location.address!)
-                              .then(() => alert('地址已复制！'))
-                              .catch(() => alert('复制失败，请手动复制'))
-                          }}
-                          className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                        >
-                          复制
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                  <p className="text-sm text-gray-600">{location.description}</p>
-                </div>
-              </Popup>
-            </Marker>
+              eventHandlers={
+                onShowLocationDetail
+                  ? { click: () => onShowLocationDetail(location, point.notes, activeDay ?? undefined) }
+                  : undefined
+              }
+            />
           )
         }
 
@@ -322,80 +264,32 @@ export function MapView({ data, activeDay, resetView, onShowTransit }: MapViewPr
               <Marker
                 key={`${baseHotel.id}-${activeDay}-basehotel`}
                 position={[baseHotel.lat, baseHotel.lng]}
-                icon={createCustomMarker(baseHotel, '')}
+                icon={createCustomMarker(baseHotel, '', showLocationNames)}
                 zIndexOffset={500}
-              >
-                <Popup>
-                  <div className="p-4 min-w-[200px]">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: baseHotel.color }} />
-                      <h3 className="font-bold text-gray-900">{baseHotel.name}</h3>
-                    </div>
-                    {baseHotel.address && (
-                      <div className="mb-2 p-2 bg-gray-50 rounded">
-                        <p className="text-xs text-gray-500 mb-1">地址</p>
-                        <div className="flex items-center gap-2">
-                          <p className="text-sm text-gray-700 font-mono">{baseHotel.address}</p>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              navigator.clipboard.writeText(baseHotel.address!)
-                                .then(() => alert('地址已复制！'))
-                                .catch(() => alert('复制失败，请手动复制'))
-                            }}
-                            className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                          >
-                            复制
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                    <p className="text-sm text-gray-600">{baseHotel.description}</p>
-                  </div>
-                </Popup>
-              </Marker>
+                eventHandlers={
+                  onShowLocationDetail
+                    ? { click: () => onShowLocationDetail(baseHotel, undefined, activeDay ?? undefined) }
+                    : undefined
+                }
+              />
             )
           }
         }
 
         // Render spot markers
-        for (const { location } of spotsInPath) {
+        for (const { point, location } of spotsInPath) {
           const badge = spotOrder[location.id] || ''
           markers.push(
             <Marker
               key={`${location.id}-${activeDay}-${badge}`}
               position={[location.lat, location.lng]}
-              icon={createCustomMarker(location, badge)}
-            >
-              <Popup>
-                <div className="p-4 min-w-[200px]">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: location.color }} />
-                    <h3 className="font-bold text-gray-900">{location.name}</h3>
-                  </div>
-                  {location.address && (
-                    <div className="mb-2 p-2 bg-gray-50 rounded">
-                      <p className="text-xs text-gray-500 mb-1">地址</p>
-                      <div className="flex items-center gap-2">
-                        <p className="text-sm text-gray-700 font-mono">{location.address}</p>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            navigator.clipboard.writeText(location.address!)
-                              .then(() => alert('地址已复制！'))
-                              .catch(() => alert('复制失败，请手动复制'))
-                          }}
-                          className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                        >
-                          复制
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                  <p className="text-sm text-gray-600">{location.description}</p>
-                </div>
-              </Popup>
-            </Marker>
+              icon={createCustomMarker(location, badge, showLocationNames)}
+              eventHandlers={
+                onShowLocationDetail
+                  ? { click: () => onShowLocationDetail(location, point.notes, activeDay ?? undefined) }
+                  : undefined
+              }
+            />
           )
         }
 
@@ -427,7 +321,8 @@ export function MapView({ data, activeDay, resetView, onShowTransit }: MapViewPr
         })}
 
       {/* Render route labels */}
-      {routePoints.length > 1 &&
+      {showTransitLabels &&
+        routePoints.length > 1 &&
         Array.from({ length: routePoints.length - 1 }).map((_, i) => {
           const p1 = routePoints[i]
           const p2 = routePoints[i + 1]

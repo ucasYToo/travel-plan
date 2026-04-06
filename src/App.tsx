@@ -1,10 +1,31 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { MapView } from './components/MapView'
 import { Sidebar } from './components/Sidebar'
 import { TransportModal } from './components/TransportModal'
-import { LocationNotesModal } from './components/LocationNotesModal'
+import { LocationDetailModal } from './components/LocationDetailModal'
 import { CITY_OPTIONS, getCityData, DEFAULT_CITY } from './data'
-import type { TransitDetail, NoteItem } from './types'
+import type { TransitDetail, NoteItem, LocationOrGroup } from './types'
+
+const STORAGE_KEY = 'seoul-map-settings'
+
+function getInitialSettings() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (raw) {
+      const parsed = JSON.parse(raw)
+      return {
+        showLocationNames: !!parsed.showLocationNames,
+        showTransit: !!parsed.showTransit
+      }
+    }
+  } catch {
+    // ignore
+  }
+  return {
+    showLocationNames: true,
+    showTransit: false
+  }
+}
 
 function App() {
   const [currentCity, setCurrentCity] = useState(DEFAULT_CITY)
@@ -13,8 +34,13 @@ function App() {
   const [resetView, setResetView] = useState(0)
   const [modalOpen, setModalOpen] = useState(false)
   const [transitDetail, setTransitDetail] = useState<TransitDetail | null>(null)
-  const [notesModalOpen, setNotesModalOpen] = useState(false)
-  const [notesData, setNotesData] = useState<{ locationName: string; notes: NoteItem[] } | null>(null)
+  const [detailModalOpen, setDetailModalOpen] = useState(false)
+  const [detailData, setDetailData] = useState<{ location: LocationOrGroup; notes?: NoteItem[]; dayIndex?: number } | null>(null)
+  const [settings, setSettings] = useState(getInitialSettings)
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(settings))
+  }, [settings])
 
   const cityData = getCityData(currentCity)
   if (!cityData) {
@@ -26,9 +52,9 @@ function App() {
     setModalOpen(true)
   }
 
-  const showNotes = (locationName: string, notes: NoteItem[]) => {
-    setNotesData({ locationName, notes })
-    setNotesModalOpen(true)
+  const showLocationDetail = (location: LocationOrGroup, notes?: NoteItem[], dayIndex?: number) => {
+    setDetailData({ location, notes, dayIndex })
+    setDetailModalOpen(true)
   }
 
   const handleCityChange = (cityId: string) => {
@@ -44,6 +70,9 @@ function App() {
         activeDay={activeDay}
         resetView={resetView}
         onShowTransit={showTransit}
+        onShowLocationDetail={showLocationDetail}
+        showLocationNames={settings.showLocationNames}
+        showTransitLabels={settings.showTransit}
       />
       <Sidebar
         data={cityData}
@@ -54,7 +83,7 @@ function App() {
         }}
         isOpen={sidebarOpen}
         onShowTransit={showTransit}
-        onShowNotes={showNotes}
+        onShowLocationDetail={showLocationDetail}
       />
 
       {/* Mobile Toggle Button */}
@@ -82,6 +111,28 @@ function App() {
 
       {/* Desktop Quick Actions */}
       <div className="absolute top-4 right-4 z-10 hidden sm:flex gap-2 items-center">
+        {/* Map Display Controls */}
+        <div className="flex gap-2 items-center bg-white/90 backdrop-blur rounded-full shadow-md px-3 py-1.5">
+          <label className="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={settings.showLocationNames}
+              onChange={(e) => setSettings(s => ({ ...s, showLocationNames: e.target.checked }))}
+              className="w-3.5 h-3.5 rounded border-gray-300 text-blue-500 focus:ring-blue-400"
+            />
+            地点名
+          </label>
+          <span className="w-px h-3 bg-gray-200" />
+          <label className="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={settings.showTransit}
+              onChange={(e) => setSettings(s => ({ ...s, showTransit: e.target.checked }))}
+              className="w-3.5 h-3.5 rounded border-gray-300 text-blue-500 focus:ring-blue-400"
+            />
+            交通
+          </label>
+        </div>
         {/* City Selector */}
         <select
           value={currentCity}
@@ -113,17 +164,42 @@ function App() {
         </button>
       </div>
 
+      {/* Mobile Display Controls */}
+      <div className="absolute top-4 right-4 z-30 sm:hidden flex gap-2 items-center bg-white/95 backdrop-blur rounded-full shadow-md px-3 py-1.5">
+        <label className="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={settings.showLocationNames}
+            onChange={(e) => setSettings(s => ({ ...s, showLocationNames: e.target.checked }))}
+            className="w-3.5 h-3.5 rounded border-gray-300 text-blue-500 focus:ring-blue-400"
+          />
+          地点名
+        </label>
+        <span className="w-px h-3 bg-gray-200" />
+        <label className="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={settings.showTransit}
+            onChange={(e) => setSettings(s => ({ ...s, showTransit: e.target.checked }))}
+            className="w-3.5 h-3.5 rounded border-gray-300 text-blue-500 focus:ring-blue-400"
+          />
+          交通
+        </label>
+      </div>
+
       <TransportModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         detail={transitDetail}
       />
 
-      <LocationNotesModal
-        open={notesModalOpen}
-        onClose={() => setNotesModalOpen(false)}
-        locationName={notesData?.locationName ?? ''}
-        notes={notesData?.notes ?? []}
+      <LocationDetailModal
+        open={detailModalOpen}
+        onClose={() => setDetailModalOpen(false)}
+        location={detailData?.location ?? null}
+        notes={detailData?.notes}
+        data={cityData}
+        dayIndex={detailData?.dayIndex}
       />
     </div>
   )
