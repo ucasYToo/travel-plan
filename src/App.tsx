@@ -80,8 +80,11 @@ function App() {
 
   const showLocationDetail = (location: LocationOrGroup, notes?: NoteItem[], dayIndex?: number) => {
     setSelectedLocation({ location, notes, dayIndex })
-    setDetailData({ location, notes, dayIndex })
-    setDetailModalOpen(true)
+    // Only open modal on mobile; desktop uses the right panel
+    if (typeof window !== 'undefined' && window.innerWidth < 640) {
+      setDetailData({ location, notes, dayIndex })
+      setDetailModalOpen(true)
+    }
   }
 
   const handleCityChange = (cityId: string) => {
