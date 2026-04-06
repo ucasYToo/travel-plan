@@ -35,7 +35,6 @@ function App() {
         data={cityData}
         activeDay={activeDay}
         resetView={resetView}
-        onShowTransit={showTransit}
       />
       <Sidebar
         data={cityData}

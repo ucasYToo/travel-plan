@@ -87,16 +87,44 @@ export const seoulDays: DayPlan[] = [
         }
       },
       {
-        locationId: 'yeouido',
-        label: '京义线→5号线 · 约20分钟',
+        locationId: 'boseung',
+        label: '步行 · 约12分钟',
         transit: {
-          distance: '约6.0公里',
-          duration: '约20分钟',
-          startName: '홍대 미용실',
-          endName: '汝矣岛现代百货',
+          distance: '约900米',
+          duration: '约12分钟',
+          startName: '理发店 홍대 미용실',
+          endName: '保承会馆 보승회관',
           steps: [
             { mode: 'walk', from: '홍대 미용실', to: '弘益大学站', duration: '约5分钟', distance: '约400米', instruction: '从理发店步行返回弘益大学站' },
-            { mode: 'subway', line: '京义线', from: '弘益大学站', to: '孔德站', duration: '约3分钟', distance: '约2.3公里', instruction: '乘坐京义线至孔德站' },
+            { mode: 'walk', from: '弘益大学站8号出口', to: '保承会馆', duration: '约7分钟', distance: '约500米', instruction: '从弘大入口站8号出口步行至어울마당로 131（2楼）' }
+          ]
+        }
+      },
+      {
+        locationId: 'oats',
+        label: '步行 · 约12分钟',
+        transit: {
+          distance: '约900米',
+          duration: '约12分钟',
+          startName: '保承会馆 보승회관',
+          endName: 'Oats Coffee 延南店',
+          steps: [
+            { mode: 'walk', from: '保承会馆', to: '弘益大学站2号出口方向', duration: '约5分钟', distance: '约400米', instruction: '从保承会馆步行至弘大入口站2号出口方向' },
+            { mode: 'walk', from: '弘大入口站2号出口', to: 'Oats Coffee', duration: '约7分钟', distance: '约500米', instruction: '穿过延南洞步行至성미산로29길 29-8' }
+          ]
+        }
+      },
+      {
+        locationId: 'yeouido',
+        label: '京义线→5号线 · 约25分钟',
+        transit: {
+          distance: '约6.5公里',
+          duration: '约25分钟',
+          startName: 'Oats Coffee 延南店',
+          endName: '汝矣岛现代百货',
+          steps: [
+            { mode: 'walk', from: 'Oats Coffee', to: '加佐站', duration: '约8分钟', distance: '约600米', instruction: '从Oats Coffee步行至加佐站' },
+            { mode: 'subway', line: '京义线', from: '加佐站', to: '孔德站', duration: '约5分钟', distance: '约2.7公里', instruction: '乘坐京义线至孔德站' },
             { mode: 'subway', line: '首尔地铁5号线', from: '孔德站', to: '汝矣渡口站', duration: '约7分钟', distance: '约2.6公里', instruction: '换乘5号线至汝矣渡口站下车' },
             { mode: 'walk', from: '汝矣渡口站3号出口', to: '汝矣岛现代百货', duration: '约5分钟', distance: '约400米', instruction: '经地下通道连接现代百货B2层，或从地面步行至正门' }
           ]
@@ -134,12 +162,12 @@ export const seoulDays: DayPlan[] = [
     ]
   },
 
-  // Day 3: 汉南洞+汉江公园·搬家日 (2026-05-01)
+  // Day 3: 新罗+汉南洞+汉江公园·搬家日 (2026-05-01)
   {
     day: 3,
     date: '2026-05-01',
-    title: '搬家日·汉南洞+汉江公园',
-    note: '早上从麻浦格莱德退房，携带行李前往梨泰院Aank酒店办理入住放行李，上午汉南洞设计师品牌、咖啡漫游，傍晚汉江公园散步吹风。',
+    title: '搬家日·新罗免税+汉南洞+汉江公园',
+    note: '早上从麻浦格莱德退房，前往梨泰院Aank酒店办理入住放行李，上午新罗免税店采购，下午汉南洞设计师品牌、咖啡漫游，傍晚汉江公园散步吹风。',
     baseHotelId: 'aank_itaewon_group',
     path: [
       { locationId: 'mapo_glad_group', label: '起点（退房日）', isHotel: true },
@@ -160,17 +188,34 @@ export const seoulDays: DayPlan[] = [
         }
       },
       {
-        locationId: 'hannam',
-        label: '地铁6号线+步行 · 约12分钟',
+        locationId: 'shilla',
+        label: '地铁6→3号线 · 约18分钟',
         transit: {
-          distance: '约1.1公里',
-          duration: '约12分钟',
-          startName: 'Aank Hotel 梨泰院店',
+          distance: '约3.5公里',
+          duration: '约18分钟',
+          startName: '梨泰院Aank酒店',
+          endName: '新罗百货',
+          steps: [
+            { mode: 'walk', from: 'Aank Hotel 梨泰院店', to: '梨泰院站', duration: '约5分钟', distance: '约300米', instruction: '步行至梨泰院地铁站' },
+            { mode: 'subway', line: '首尔地铁6号线', from: '梨泰院站', to: '药水站', duration: '约8分钟', distance: '约2.5公里', instruction: '乘坐6号线至药水站下车' },
+            { mode: 'subway', line: '首尔地铁3号线', from: '药水站', to: '东国大学站', duration: '约2分钟', distance: '约1.0公里', instruction: '换乘3号线至东国大学站下车' },
+            { mode: 'walk', from: '东国大学站5号出口', to: '新罗百货', duration: '约5分钟', distance: '约400米', instruction: '5号出口出站后沿南山公园方向上坡步行至新罗免税店' }
+          ]
+        }
+      },
+      {
+        locationId: 'hannam',
+        label: '地铁3→6号线+步行 · 约20分钟',
+        transit: {
+          distance: '约3.0公里',
+          duration: '约20分钟',
+          startName: '新罗百货',
           endName: '汉南洞商圈',
           steps: [
-            { mode: 'walk', from: 'Aank Hotel 梨泰院店', to: '梨泰院站', duration: '约5分钟', distance: '约300米', instruction: '步行至梨泰院站' },
-            { mode: 'subway', line: '首尔地铁6号线', from: '梨泰院站', to: '汉江镇站', duration: '约2分钟', distance: '约1.0公里', instruction: '乘坐6号线至汉江镇站下车' },
-            { mode: 'walk', from: '汉江镇站3号出口', to: '汉南洞主街', duration: '约5分钟', distance: '约400米', instruction: '3号出口出站后爬坡步行进入汉南洞 designer 街区' }
+            { mode: 'walk', from: '新罗百货', to: '东国大学站', duration: '约5分钟', distance: '约400米', instruction: '步行返回东国大学站' },
+            { mode: 'subway', line: '首尔地铁3号线', from: '东国大学站', to: '药水站', duration: '约2分钟', distance: '约1.0公里', instruction: '乘坐3号线至药水站' },
+            { mode: 'subway', line: '首尔地铁6号线', from: '药水站', to: '梨泰院站', duration: '约8分钟', distance: '约2.5公里', instruction: '换乘6号线返回梨泰院方向' },
+            { mode: 'walk', from: '梨泰院站', to: '汉南洞主街', duration: '约5分钟', distance: '约400米', instruction: '从梨泰院站步行至汉南洞商圈（汉江镇站方向爬坡）' }
           ]
         }
       },
@@ -276,43 +321,28 @@ export const seoulDays: DayPlan[] = [
     ]
   },
 
-  // Day 5: 东北线免税收官 (2026-05-03)
+  // Day 5: 市中区购物+西村文创 (2026-05-03)
   {
     day: 5,
     date: '2026-05-03',
-    title: '东北线免税收官',
-    note: '上午新罗免税店大牌采购，中午新世界百货地下美食街，傍晚明洞晚餐+最后补货',
+    title: '市中区购物+西村文创',
+    note: '上午新世界百货购物，中午明洞地下美食街，下午西村手账店，傍晚最后补货',
     baseHotelId: 'aank_itaewon_group',
     path: [
       { locationId: 'aank_itaewon_group', label: '起点', isHotel: true },
       {
-        locationId: 'shilla',
-        label: '地铁6→3号线 · 约18分钟',
-        transit: {
-          distance: '约3.5公里',
-          duration: '约18分钟',
-          startName: '梨泰院Aank酒店',
-          endName: '新罗百货',
-          steps: [
-            { mode: 'walk', from: 'Aank Hotel 梨泰院店', to: '梨泰院站', duration: '约5分钟', distance: '约300米', instruction: '步行至梨泰院地铁站' },
-            { mode: 'subway', line: '首尔地铁6号线', from: '梨泰院站', to: '药水站', duration: '约8分钟', distance: '约2.5公里', instruction: '乘坐6号线至药水站下车' },
-            { mode: 'subway', line: '首尔地铁3号线', from: '药水站', to: '东国大学站', duration: '约2分钟', distance: '约1.0公里', instruction: '换乘3号线至东国大学站下车' },
-            { mode: 'walk', from: '东国大学站5号出口', to: '新罗百货', duration: '约5分钟', distance: '约400米', instruction: '5号出口出站后沿南山公园方向上坡步行至新罗免税店' }
-          ]
-        }
-      },
-      {
         locationId: 'shinsegae',
-        label: '免费穿梭巴士 · 约10分钟',
+        label: '地铁6号线 · 约20分钟',
         transit: {
-          distance: '约2.5公里',
-          duration: '约10分钟',
-          startName: '新罗百货',
+          distance: '约4.0公里',
+          duration: '约20分钟',
+          startName: '梨泰院Aank酒店',
           endName: '新世界百货',
           steps: [
-            { mode: 'walk', from: '新罗百货', to: '新罗免费巴士站', duration: '约2分钟', distance: '约100米', instruction: '前往新罗免税店正门免费巴士站' },
-            { mode: 'bus', line: '新罗免费穿梭巴士', from: '新罗百货', to: '新世界百货', duration: '约5分钟', distance: '约2.3公里', instruction: '乘坐新罗免费巴士（每小时30分发车）至新世界百货站下车' },
-            { mode: 'walk', from: '新世界巴士站', to: '新世界百货本店', duration: '约3分钟', distance: '约200米', instruction: '步行至明洞新世界百货本店' }
+            { mode: 'walk', from: 'Aank Hotel 梨泰院店', to: '梨泰院站', duration: '约5分钟', distance: '约300米', instruction: '步行至梨泰院地铁站' },
+            { mode: 'subway', line: '首尔地铁6号线', from: '梨泰院站', to: '孔德站', duration: '约7分钟', distance: '约4.0公里', instruction: '乘坐6号线至孔德站' },
+            { mode: 'subway', line: '首尔地铁5号线', from: '孔德站', to: '市厅站', duration: '约5分钟', distance: '约1.5公里', instruction: '换乘5号线至市厅站下车' },
+            { mode: 'walk', from: '市厅站', to: '新世界百货本店', duration: '约3分钟', distance: '约300米', instruction: '从市厅站步行至新世界百货' }
           ]
         }
       },

@@ -39,7 +39,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     type: 'group',
     description: '年轻文化 · 夜生活 · 街头艺术',
     address: '서울 마포구 홍익로',
-    children: ['hair_salon']
+    children: ['oats', 'boseung', 'hair_salon']
   },
   yeouido: {
     id: 'yeouido',
@@ -87,23 +87,23 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
   },
   shilla: {
     id: 'shilla',
-    name: '新罗百货',
+    name: '新罗百货--烟弹返点',
     lat: 37.5561,
     lng: 127.0098,
     color: '#f97316',
     type: 'group',
-    description: '免税购物天堂 · 高端品牌云集',
+    description: '烟弹返点',
     address: '서울 중구 동호로 249',
     children: []
   },
   shinsegae: {
     id: 'shinsegae',
-    name: '新世界百货',
+    name: '新世界百货-keen返点',
     lat: 37.5598,
     lng: 126.9815,
     color: '#14b8a6',
     type: 'group',
-    description: '百年老店 · 奢华购物地标',
+    description: 'keen返点',
     address: '서울 중구 소공로 63',
     children: []
   },
@@ -175,9 +175,31 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
     address: '서울 성동구 성수이로8길 5',
     parentId: 'seongsu'
   },
+  boseung: {
+    id: 'boseung',
+    name: '汤饭--保承会馆 보승회관',
+    type: 'spot',
+    lat: 37.5575,
+    lng: 126.9225,
+    color: '#f97316',
+    description: '弘大24小时汤饭店 · 猪肉汤饭·脊骨土豆汤·米肠汤',
+    address: '서울 마포구 어울마당로 131',
+    parentId: 'hongdae'
+  },
+  oats: {
+    id: 'oats',
+    name: 'Oats Coffee',
+    type: 'spot',
+    lat: 37.5655,
+    lng: 126.9265,
+    color: '#78350f',
+    description: '延南洞网红咖啡店 · 维也纳咖啡·云朵奶油',
+    address: '서울 마포구 성미산로29길 29-8',
+    parentId: 'hongdae'
+  },
   hair_salon: {
     id: 'hair_salon',
-    name: '理发段 홍대 미용실',
+    name: '理发店 홍대 미용실',
     type: 'spot',
     lat: 37.5555,
     lng: 126.9235,
@@ -188,7 +210,7 @@ export const seoulLocations: Record<string, LocationOrGroup> = {
   },
   papier_prost: {
     id: 'papier_prost',
-    name: '파피어프로스트 (Papier Prost)',
+    name: '手账店 파피어프로스트 (Papier Prost)',
     type: 'spot',
     lat: 37.5803,
     lng: 126.9692,

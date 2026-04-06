@@ -1,7 +1,7 @@
 import { useMemo, useEffect } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet'
 import L from 'leaflet'
-import type { ItineraryData, TransitDetail, LocationOrGroup, LocationGroup } from '../types'
+import type { ItineraryData, LocationOrGroup, LocationGroup } from '../types'
 
 interface MapControllerProps {
   activeDay: number | null
@@ -78,25 +78,15 @@ function createCustomMarker(location: LocationOrGroup, badge?: string): L.DivIco
   })
 }
 
-function createRouteLabelIcon(text: string): L.DivIcon {
-  return L.divIcon({
-    html: `<div style="max-width:180px;padding:4px 10px;background:#fff;border:1px solid #d1d5db;border-radius:9999px;font-size:11px;font-weight:600;color:#1f2937;box-shadow:0 1px 4px rgba(0,0,0,0.12);white-space:normal;word-break:break-word;text-align:center;line-height:1.3">${text}</div>`,
-    className: 'route-label',
-    iconSize: [180, 40],
-    iconAnchor: [90, 20]
-  })
-}
-
 export interface MapViewProps {
   data: ItineraryData
   activeDay: number | null
   resetView: number
-  onShowTransit?: (detail: TransitDetail) => void
 }
 
 const DISTRICT_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-export function MapView({ data, activeDay, resetView, onShowTransit }: MapViewProps): JSX.Element {
+export function MapView({ data, activeDay, resetView }: MapViewProps): JSX.Element {
   const { locationOrder, spotOrder } = useMemo(() => {
     const locMap: Record<string, string> = {}
     const spotMap: Record<string, string> = {}
@@ -272,30 +262,6 @@ export function MapView({ data, activeDay, resetView, onShowTransit }: MapViewPr
           )
         })}
 
-      {/* Render route labels */}
-      {routePoints.length > 1 &&
-        Array.from({ length: routePoints.length - 1 }).map((_, i) => {
-          const p1 = routePoints[i]
-          const p2 = routePoints[i + 1]
-          if (!p2.point.label) return null
-          const midLat = (p1.location.lat + p2.location.lat) / 2
-          const midLng = (p1.location.lng + p2.location.lng) / 2
-          // Transit data is stored on the starting point (p1), not the ending point (p2)
-          const transitData = p1.point.transit
-          return (
-            <Marker
-              key={`label-${i}`}
-              position={[midLat, midLng]}
-              icon={createRouteLabelIcon(p2.point.label)}
-              zIndexOffset={1000}
-              eventHandlers={
-                onShowTransit && transitData
-                  ? { click: () => onShowTransit(transitData) }
-                  : undefined
-              }
-            />
-          )
-        })}
     </MapContainer>
   )
 }
