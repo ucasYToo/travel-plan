@@ -62,10 +62,16 @@
   width: 260px !important;
 }
 
-/* Mobile adjustments */
-@media (max-width: 640px) {
-  .sidebar-panel {
-    width: 85vw;
-    max-width: 320px;
+/* Touch target expansion for coarse pointers */
+@media (pointer: coarse) {
+  .custom-marker,
+  .route-label {
+    position: relative;
+  }
+  .custom-marker::after,
+  .route-label::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
   }
 }

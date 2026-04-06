@@ -44,7 +44,7 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
 
   return (
     <aside
-      className={`sidebar-panel absolute left-0 top-0 bottom-0 w-80 bg-white/95 backdrop-blur shadow-xl z-10 flex flex-col transition-transform duration-300 sm:translate-x-0 ${
+      className={`sidebar-panel absolute left-0 top-0 bottom-0 w-full sm:w-80 bg-white/95 backdrop-blur shadow-xl z-10 flex flex-col transition-transform duration-300 sm:translate-x-0 ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       }`}
     >

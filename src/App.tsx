@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { MapView } from './components/MapView'
 import { Sidebar } from './components/Sidebar'
+import { MapControls } from './components/MapControls'
 import { TransportModal } from './components/TransportModal'
 import { LocationDetailModal } from './components/LocationDetailModal'
-import { CITY_OPTIONS, getCityData, DEFAULT_CITY } from './data'
+import { getCityData, DEFAULT_CITY } from './data'
 import type { TransitDetail, NoteItem, LocationOrGroup } from './types'
 
 const STORAGE_KEY = 'seoul-map-settings'
@@ -63,6 +64,15 @@ function App() {
     setResetView(v => v + 1)
   }
 
+  const handleClearRoute = () => {
+    setActiveDay(null)
+  }
+
+  const handleResetView = () => {
+    setActiveDay(null)
+    setResetView(v => v + 1)
+  }
+
   return (
     <div className="relative h-full w-full">
       <MapView
@@ -109,83 +119,24 @@ function App() {
         </svg>
       </button>
 
-      {/* Desktop Quick Actions */}
-      <div className="absolute top-4 right-4 z-10 hidden sm:flex gap-2 items-center">
-        {/* Map Display Controls */}
-        <div className="flex gap-2 items-center bg-white/90 backdrop-blur rounded-full shadow-md px-3 py-1.5">
-          <label className="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer select-none">
-            <input
-              type="checkbox"
-              checked={settings.showLocationNames}
-              onChange={(e) => setSettings(s => ({ ...s, showLocationNames: e.target.checked }))}
-              className="w-3.5 h-3.5 rounded border-gray-300 text-blue-500 focus:ring-blue-400"
-            />
-            地点名
-          </label>
-          <span className="w-px h-3 bg-gray-200" />
-          <label className="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer select-none">
-            <input
-              type="checkbox"
-              checked={settings.showTransit}
-              onChange={(e) => setSettings(s => ({ ...s, showTransit: e.target.checked }))}
-              className="w-3.5 h-3.5 rounded border-gray-300 text-blue-500 focus:ring-blue-400"
-            />
-            交通
-          </label>
-        </div>
-        {/* City Selector */}
-        <select
-          value={currentCity}
-          onChange={(e) => handleCityChange(e.target.value)}
-          className="px-3 py-1.5 bg-white rounded-full shadow-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition cursor-pointer outline-none"
-        >
-          {CITY_OPTIONS.map((city) => (
-            <option key={city.id} value={city.id}>
-              {city.flag} {city.name}
-            </option>
-          ))}
-        </select>
-        <button
-          type="button"
-          onClick={() => setActiveDay(null)}
-          className="px-3 py-1.5 bg-white rounded-full shadow-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
-        >
-          清除路线
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setActiveDay(null)
-            setResetView((v) => v + 1)
-          }}
-          className="px-3 py-1.5 bg-white rounded-full shadow-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
-        >
-          查看全景
-        </button>
-      </div>
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div
+          data-testid="sidebar-overlay"
+          className="fixed inset-0 bg-black/30 z-[5] sm:hidden"
+          onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
+        />
+      )}
 
-      {/* Mobile Display Controls */}
-      <div className="absolute top-4 right-4 z-30 sm:hidden flex gap-2 items-center bg-white/95 backdrop-blur rounded-full shadow-md px-3 py-1.5">
-        <label className="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer select-none">
-          <input
-            type="checkbox"
-            checked={settings.showLocationNames}
-            onChange={(e) => setSettings(s => ({ ...s, showLocationNames: e.target.checked }))}
-            className="w-3.5 h-3.5 rounded border-gray-300 text-blue-500 focus:ring-blue-400"
-          />
-          地点名
-        </label>
-        <span className="w-px h-3 bg-gray-200" />
-        <label className="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer select-none">
-          <input
-            type="checkbox"
-            checked={settings.showTransit}
-            onChange={(e) => setSettings(s => ({ ...s, showTransit: e.target.checked }))}
-            className="w-3.5 h-3.5 rounded border-gray-300 text-blue-500 focus:ring-blue-400"
-          />
-          交通
-        </label>
-      </div>
+      <MapControls
+        currentCity={currentCity}
+        settings={settings}
+        onCityChange={handleCityChange}
+        onClearRoute={handleClearRoute}
+        onResetView={handleResetView}
+        onSettingsChange={setSettings}
+      />
 
       <TransportModal
         open={modalOpen}

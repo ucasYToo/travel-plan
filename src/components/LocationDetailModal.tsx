@@ -97,21 +97,21 @@ export function LocationDetailModal({ open, onClose, location, notes, data, dayI
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 sm:p-6"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md max-h-[85vh] overflow-y-auto bg-white rounded-2xl shadow-2xl"
+        className="w-full max-w-md max-h-[80dvh] sm:max-h-[85vh] overflow-y-auto bg-white rounded-2xl shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-5 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-500 to-violet-500 text-white">
+        <div className="px-4 sm:px-5 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-500 to-violet-500 text-white">
           <div className="flex items-center justify-between">
             <h2 className="text-base font-bold">地点详情</h2>
             <button
               type="button"
               onClick={onClose}
-              className="w-7 h-7 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition text-white text-sm"
+              className="min-w-11 min-h-11 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition text-white text-sm"
               aria-label="关闭"
             >
               ✕
@@ -124,7 +124,7 @@ export function LocationDetailModal({ open, onClose, location, notes, data, dayI
         </div>
 
         {/* Content */}
-        <div className="px-5 py-4 space-y-4">
+        <div className="px-4 sm:px-5 py-4 space-y-4">
           {/* Description */}
           {hasDescription && (
             <div>
@@ -214,7 +214,7 @@ export function LocationDetailModal({ open, onClose, location, notes, data, dayI
         </div>
 
         {/* Footer */}
-        <div className="px-5 py-3 border-t border-gray-100 bg-gray-50 text-center">
+        <div className="px-4 sm:px-5 py-3 border-t border-gray-100 bg-gray-50 text-center">
           <button
             type="button"
             onClick={onClose}
