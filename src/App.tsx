@@ -35,7 +35,7 @@ function App() {
   // Panel state
   const [leftPanelCollapsed, setLeftPanelCollapsed] = useState(false)
   const [rightPanelCollapsed, setRightPanelCollapsed] = useState(true)
-  const [itinerarySnap, setItinerarySnap] = useState(0) // 0=collapsed, 1=peek, 2=full
+  const [itinerarySnap, setItinerarySnap] = useState(1) // 0=collapsed, 1=peek, 2=full
 
   const [resetView, setResetView] = useState(0)
   const [selectedLocation, setSelectedLocation] = useState<{ location: LocationOrGroup; notes?: NoteItem[]; dayIndex?: number } | null>(null)
@@ -132,10 +132,17 @@ function App() {
         <MapControls
           currentCity={currentCity}
           settings={settings}
+          dayOptions={cityData.days.map(d => `Day${d.day}`)}
+          activeDay={activeDay}
           onCityChange={handleCityChange}
           onClearRoute={handleClearRoute}
           onResetView={handleResetView}
+          onSelectDay={(idx) => {
+            setActiveDay(idx === activeDay ? null : idx)
+          }}
           onSettingsChange={setSettings}
+          viewMode={itinerarySnap >= 2 ? 'full' : 'route'}
+          onRouteView={() => setItinerarySnap(0)}
         />
       </div>
 
@@ -215,13 +222,13 @@ function App() {
 
       {/* Mobile: Itinerary Bottom Sheet */}
       <BottomSheet
-        snapPoints={['48px', '40vh', '85vh']}
+        snapPoints={['48px', '45vh', 'calc(100vh - 72px)']}
         activeSnap={itinerarySnap}
         onSnapChange={(idx) => {
           setItinerarySnap(idx)
           setLeftPanelCollapsed(idx === 0)
         }}
-        showBackdrop={itinerarySnap > 0}
+        showBackdrop={itinerarySnap === 2}
       >
         <SidebarContent
           data={cityData}

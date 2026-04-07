@@ -1,15 +1,20 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, fireEvent, within } from '@testing-library/react'
+import { render, fireEvent, within, screen } from '@testing-library/react'
 import { MapControls } from './MapControls'
 
 describe('MapControls', () => {
   const defaultProps = {
     currentCity: 'seoul',
     settings: { showLocationNames: true, showTransit: false },
+    dayOptions: ['Day1', 'Day2', 'Day3'],
+    activeDay: 0,
     onCityChange: vi.fn(),
     onClearRoute: vi.fn(),
     onResetView: vi.fn(),
-    onSettingsChange: vi.fn()
+    onSelectDay: vi.fn(),
+    onSettingsChange: vi.fn(),
+    viewMode: 'route' as const,
+    onRouteView: vi.fn()
   }
 
   it('renders desktop controls hidden on mobile', () => {
@@ -29,7 +34,18 @@ describe('MapControls', () => {
     const bottomBar = container.querySelector('.fixed.bottom-0')
     expect(bottomBar).toBeTruthy()
     expect(within(bottomBar as HTMLElement).getByText('清除路线')).toBeInTheDocument()
-    expect(within(bottomBar as HTMLElement).getByText('查看全景')).toBeInTheDocument()
+  })
+
+  it('renders mobile view toggle', () => {
+    render(<MapControls {...defaultProps} />)
+    expect(screen.getByText('全景')).toBeInTheDocument()
+    expect(screen.getByText('路线')).toBeInTheDocument()
+  })
+
+  it('highlights full view when viewMode is full', () => {
+    render(<MapControls {...defaultProps} viewMode="full" />)
+    const fullViewBtn = screen.getByText('全景')
+    expect(fullViewBtn.className).toContain('bg-[#A8E6CF]')
   })
 
   it('calls onClearRoute when clear route button is clicked', () => {
@@ -41,9 +57,8 @@ describe('MapControls', () => {
   })
 
   it('calls onResetView when reset view button is clicked', () => {
-    const { container } = render(<MapControls {...defaultProps} />)
-    const bottomBar = container.querySelector('.fixed.bottom-0')
-    const resetBtn = within(bottomBar as HTMLElement).getByText('查看全景')
+    render(<MapControls {...defaultProps} />)
+    const resetBtn = screen.getByText('全景')
     fireEvent.click(resetBtn)
     expect(defaultProps.onResetView).toHaveBeenCalled()
   })

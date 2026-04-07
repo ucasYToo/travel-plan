@@ -10,6 +10,11 @@ interface BottomSheetProps {
 }
 
 function snapToPixels(snap: string, viewportHeight: number): number {
+  // Handle calc(100vh - 72px)
+  const calcMatch = snap.match(/^calc\((\d+)vh\s*-\s*(\d+)px\)$/)
+  if (calcMatch) {
+    return viewportHeight * (parseFloat(calcMatch[1]) / 100) - parseFloat(calcMatch[2])
+  }
   const match = snap.match(/^([\d.]+)(px|vh)$/)
   if (!match) return 100
   const [, value, unit] = match
