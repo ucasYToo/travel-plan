@@ -1,0 +1,197 @@
+.container > * + * {
+  margin-top: 20px;
+}
+
+.sectionTitle {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--stone);
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.textBody {
+  font-size: 14px;
+  color: var(--ink-light);
+  line-height: 1.6;
+}
+
+.addressBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-spring);
+  border-radius: 12px;
+}
+
+.addressText {
+  font-size: 14px;
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  flex: 1;
+  overflow-wrap: break-word;
+  line-height: 1.4;
+}
+
+.copyButton {
+  padding: 6px 12px;
+  font-size: 11px;
+  background-color: var(--bud-green);
+  color: #fff;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+
+.copyButton:hover {
+  background-color: var(--bud-deep);
+}
+
+.notesSection {
+  border-top: 1px solid var(--border-spring);
+  padding-top: 16px;
+}
+
+.notesTitle {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--stone);
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.noteGroup > * + * {
+  margin-top: 8px;
+}
+
+.noteGroupHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.noteBadge {
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-spring);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+}
+
+.noteItem {
+  padding-left: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-left: 2px solid rgba(244, 164, 184, 0.4);
+  font-size: 14px;
+  color: var(--ink-light);
+  line-height: 1.6;
+}
+
+.spotsSection {
+  border-top: 1px solid var(--border-spring);
+  padding-top: 16px;
+}
+
+.spotsTitle {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--stone);
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.spotCard {
+  padding: 12px;
+  border-radius: 12px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-spring);
+  transition: box-shadow 0.2s ease;
+}
+
+.spotCard:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.spotHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.spotDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+}
+
+.spotName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.spotAddress {
+  font-size: 10px;
+  color: var(--stone);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spotDescription {
+  font-size: 12px;
+  color: var(--stone);
+  line-height: 1.6;
+}
+
+.notesWrapper {
+  margin-top: 8px;
+}
+
+.notesWrapper > * + * {
+  margin-top: 12px;
+}
+
+.noteCategory {
+  margin-bottom: 4px;
+}
+
+.noteCategoryHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--stone);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.noteCategoryItem {
+  padding-left: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-left: 2px solid rgba(244, 164, 184, 0.4);
+  font-size: 12px;
+  color: var(--ink-light);
+  line-height: 1.6;
+}

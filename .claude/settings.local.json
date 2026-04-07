@@ -20,7 +20,9 @@
       "Bash(pwd:*)",
       "Read(*)",
       "Edit(*)",
-      "Write(*)"
+      "Write(*)",
+      "Bash(pkill -f \"vite preview\")",
+      "Bash(pkill -f \"vite\")"
     ]
   }
 }

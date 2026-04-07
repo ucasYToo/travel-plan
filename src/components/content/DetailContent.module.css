@@ -1,0 +1,217 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--bg-main);
+}
+
+.header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-spring);
+  background-color: var(--bg-card);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.backButton {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid var(--border-spring);
+  color: var(--stone);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.backButton:hover {
+  color: var(--ink);
+  border-color: var(--sakura-pink);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  flex: 1;
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+.badges {
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background-color: var(--bud-pale);
+  color: var(--bud-deep);
+  font-weight: 500;
+  border: 1px solid rgba(122, 196, 160, 0.2);
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+
+.content > * + * {
+  margin-top: 16px;
+}
+
+.routeSummary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.timeline {
+  position: relative;
+  padding-left: 16px;
+  border-left: 2px solid var(--border-spring);
+}
+
+.timeline > * + * {
+  margin-top: 20px;
+}
+
+.timelineStep {
+  position: relative;
+}
+
+.timelineDot {
+  position: absolute;
+  left: -21px;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background-color: var(--bg-card);
+  border: 2px solid var(--border-spring);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--stone);
+}
+
+.stepBody {
+  padding-bottom: 4px;
+}
+
+.stepMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--stone);
+}
+
+.stepInstruction {
+  font-size: 14px;
+  color: var(--ink);
+  margin-top: 4px;
+  line-height: 1.6;
+}
+
+.stepDetail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 10px;
+  color: var(--stone);
+}
+
+.footer {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border-spring);
+  background-color: var(--bg-card);
+  text-align: center;
+  font-size: 10px;
+  color: var(--stone-light);
+  flex-shrink: 0;
+}
+
+.locationHeader {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-spring);
+  background-color: var(--bg-card);
+  flex-shrink: 0;
+}
+
+.locationTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.locationColorDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+}
+
+.locationName {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+}
+
+.locationType {
+  font-size: 10px;
+  color: var(--stone);
+  margin-top: 4px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.scrollable {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 24px;
+  text-align: center;
+}
+
+.emptyContent {
+  max-width: 20rem;
+}
+
+.emptyTitle {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.emptyHint {
+  color: var(--stone);
+  font-size: 14px;
+  line-height: 1.6;
+}

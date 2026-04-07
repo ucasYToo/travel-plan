@@ -6,6 +6,7 @@ import { SidebarContent } from './components/content/SidebarContent'
 import { DetailContent, type DetailViewMode } from './components/content/DetailContent'
 import { getCityData, DEFAULT_CITY } from './data'
 import type { TransitDetail, NoteItem, LocationOrGroup } from './types'
+import styles from './App.module.css'
 
 const STORAGE_KEY = 'seoul-map-settings'
 
@@ -118,19 +119,19 @@ function App() {
 
   if (!cityData) {
     return (
-      <div className="h-full w-full flex items-center justify-center p-8 text-center">
-        <div className="max-w-md">
-          <p className="font-display text-2xl text-[var(--ink)] mb-2">城市数据加载失败</p>
-          <p className="text-sm text-[var(--stone)]">请检查网络连接或稍后再试</p>
+      <div className={styles.errorPage}>
+        <div className={styles.errorContent}>
+          <p className={styles.errorTitle}>城市数据加载失败</p>
+          <p className={styles.errorHint}>请检查网络连接或稍后再试</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="relative h-full w-full">
+    <div className={styles.page}>
       {/* Map always fills the entire viewport */}
-      <div className="absolute inset-0 h-full w-full">
+      <div className={styles.mapContainer}>
         <MapView
           data={cityData}
           activeDay={activeDay}
@@ -160,12 +161,12 @@ function App() {
 
       {/* Left Panel: fixed overlay (desktop only) */}
       {!leftPanelCollapsed && (
-        <aside className="hidden sm:flex fixed left-0 top-0 bottom-0 w-80 z-20 flex-col animate-slide-in-left border-r border-[var(--border-spring)] glass-solid shadow-spring-lg">
+        <aside className={styles.leftPanel}>
           {/* Collapse toggle */}
           <button
             type="button"
             onClick={() => setLeftPanelCollapsed(true)}
-            className="absolute top-5 -right-5 w-8 h-8 flex items-center justify-center rounded-full bg-white border border-[var(--border-spring)] text-[var(--stone)] hover:text-[var(--ink)] hover:border-[var(--sakura-pink)] transition shadow-spring"
+            className={styles.leftToggle}
             aria-label="收起面板"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -190,7 +191,7 @@ function App() {
         <button
           type="button"
           onClick={() => setLeftPanelCollapsed(false)}
-          className="fixed left-4 top-4 z-30 w-10 h-10 bg-white border border-[var(--border-spring)] rounded-full flex items-center justify-center text-[var(--ink)] hover:border-[var(--sakura-pink)] transition shadow-spring"
+          className={styles.collapsedButton}
           aria-label="展开菜单"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -203,7 +204,7 @@ function App() {
 
       {/* Right Panel: fixed overlay (desktop only) */}
       {!rightPanelCollapsed && detailViewMode !== 'none' && (
-        <aside className="hidden sm:flex fixed right-0 top-0 bottom-0 w-80 z-20 flex-col animate-slide-in-right border-l border-[var(--border-spring)] bg-[var(--bg-main)] shadow-spring-lg">
+        <aside className={styles.rightPanel}>
           {/* Collapse/close toggle */}
           <button
             type="button"
@@ -212,10 +213,10 @@ function App() {
               setSelectedTransit(null)
               setRightPanelCollapsed(true)
             }}
-            className="absolute top-5 -left-5 w-8 h-8 flex items-center justify-center rounded-full bg-white border border-[var(--border-spring)] text-[var(--stone)] hover:text-[var(--ink)] hover:border-[var(--sakura-pink)] transition shadow-spring"
+            className={styles.rightToggle}
             aria-label="收起面板"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rotate-180">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'rotate(180deg)' }}>
               <polyline points="15 18 9 12 15 6" />
             </svg>
           </button>

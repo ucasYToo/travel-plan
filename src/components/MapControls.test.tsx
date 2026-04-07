@@ -17,50 +17,48 @@ describe('MapControls', () => {
   }
 
   it('renders desktop controls hidden on mobile', () => {
-    const { container } = render(<MapControls {...defaultProps} />)
-    const desktop = container.querySelector('.hidden.sm\\:flex')
-    expect(desktop).toBeTruthy()
+    const { getByTestId } = render(<MapControls {...defaultProps} />)
+    expect(getByTestId('desktop-controls')).toBeTruthy()
   })
 
   it('renders mobile top controls', () => {
-    const { container } = render(<MapControls {...defaultProps} />)
-    const mobileTop = container.querySelector('.sm\\:hidden.flex.flex-col.gap-2')
-    expect(mobileTop).toBeTruthy()
+    const { getByTestId } = render(<MapControls {...defaultProps} />)
+    expect(getByTestId('mobile-top-controls')).toBeTruthy()
   })
 
   it('renders mobile view toggle', () => {
-    const { container } = render(<MapControls {...defaultProps} />)
-    const mobileTop = container.querySelector('.sm\\:hidden.flex.flex-col.gap-2')
+    const { getByTestId } = render(<MapControls {...defaultProps} />)
+    const mobileTop = getByTestId('mobile-top-controls')
     expect(within(mobileTop as HTMLElement).getByText('全景')).toBeInTheDocument()
     expect(within(mobileTop as HTMLElement).getByText('线路')).toBeInTheDocument()
   })
 
   it('highlights full view when viewMode is full', () => {
-    const { container } = render(<MapControls {...defaultProps} viewMode="full" />)
-    const mobileTop = container.querySelector('.sm\\:hidden.flex.flex-col.gap-2')
+    const { getByTestId } = render(<MapControls {...defaultProps} viewMode="full" />)
+    const mobileTop = getByTestId('mobile-top-controls')
     const fullViewBtn = within(mobileTop as HTMLElement).getByText('全景')
-    expect(fullViewBtn.className).toContain('bg-[var(--bud-green)]')
+    expect(fullViewBtn).toHaveAttribute('data-active', 'true')
   })
 
   it('calls onResetView when reset view button is clicked', () => {
-    const { container } = render(<MapControls {...defaultProps} />)
-    const mobileTop = container.querySelector('.sm\\:hidden.flex.flex-col.gap-2')
+    const { getByTestId } = render(<MapControls {...defaultProps} />)
+    const mobileTop = getByTestId('mobile-top-controls')
     const resetBtn = within(mobileTop as HTMLElement).getByText('全景')
     fireEvent.click(resetBtn)
     expect(defaultProps.onResetView).toHaveBeenCalled()
   })
 
   it('calls onCityChange when mobile top city selector changes', () => {
-    const { container } = render(<MapControls {...defaultProps} />)
-    const mobileTop = container.querySelector('.sm\\:hidden.flex.flex-col.gap-2')
+    const { getByTestId } = render(<MapControls {...defaultProps} />)
+    const mobileTop = getByTestId('mobile-top-controls')
     const citySelect = within(mobileTop as HTMLElement).getByDisplayValue('🇰🇷 首尔')
     fireEvent.change(citySelect, { target: { value: 'seoul' } })
     expect(defaultProps.onCityChange).toHaveBeenCalledWith('seoul')
   })
 
   it('calls onSettingsChange when desktop location names checkbox toggles', () => {
-    const { container } = render(<MapControls {...defaultProps} />)
-    const desktop = container.querySelector('.hidden.sm\\:flex')
+    const { getByTestId } = render(<MapControls {...defaultProps} />)
+    const desktop = getByTestId('desktop-controls')
     const checkbox = within(desktop as HTMLElement).getByLabelText('地点名')
     fireEvent.click(checkbox)
     expect(defaultProps.onSettingsChange).toHaveBeenCalledWith(
@@ -69,8 +67,8 @@ describe('MapControls', () => {
   })
 
   it('calls onSettingsChange when desktop transit checkbox toggles', () => {
-    const { container } = render(<MapControls {...defaultProps} />)
-    const desktop = container.querySelector('.hidden.sm\\:flex')
+    const { getByTestId } = render(<MapControls {...defaultProps} />)
+    const desktop = getByTestId('desktop-controls')
     const checkbox = within(desktop as HTMLElement).getByLabelText('交通')
     fireEvent.click(checkbox)
     expect(defaultProps.onSettingsChange).toHaveBeenCalledWith(

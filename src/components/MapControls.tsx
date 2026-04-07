@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import clsx from 'clsx'
 import { CITY_OPTIONS } from '../data'
+import styles from './MapControls.module.css'
 
 export interface MapControlsSettings {
   showLocationNames: boolean
@@ -36,17 +38,17 @@ export function MapControls({
   const [daysExpanded, setDaysExpanded] = useState(true)
 
   const firstRow = (
-    <div className="flex items-center justify-between bg-white/90 backdrop-blur-md rounded-2xl shadow-spring border border-[var(--border-spring)] px-3 py-2 sm:px-4 sm:py-2.5">
-      <div className="flex items-center gap-2 min-w-0">
+    <div className={styles.firstRow}>
+      <div className={styles.leftGroup}>
         {zoom !== undefined && (
-          <span className="px-2 py-0.5 rounded-full bg-[var(--sakura-pale)] text-[10px] font-semibold text-[var(--sakura-deep)] shrink-0 sm:text-xs">
+          <span className={styles.zoomBadge}>
             z{zoom}
           </span>
         )}
         <select
           value={currentCity}
           onChange={(e) => onCityChange(e.target.value)}
-          className="px-1 py-1 bg-transparent text-xs font-medium text-[var(--ink)] cursor-pointer outline-none truncate max-w-[90px] sm:max-w-[140px] sm:text-sm"
+          className={styles.citySelect}
         >
           {CITY_OPTIONS.map((city) => (
             <option key={city.id} value={city.id}>
@@ -55,46 +57,46 @@ export function MapControls({
           ))}
         </select>
       </div>
-      <div className="flex items-center bg-[var(--bg-main)] rounded-full p-0.5 border border-[var(--border-spring)]">
+      <div className={styles.viewToggle}>
         <button
           type="button"
           onClick={onResetView}
-          className={`px-2.5 py-1 rounded-full text-[11px] font-medium transition sm:px-4 sm:py-1.5 sm:text-xs ${
-            viewMode === 'full'
-              ? 'bg-[var(--bud-green)] text-white'
-              : 'text-[var(--stone)] hover:text-[var(--ink)]'
-          }`}
+          data-active={viewMode === 'full' ? 'true' : undefined}
+          className={clsx(styles.viewButton, {
+            [styles.viewButtonActive]: viewMode === 'full',
+            [styles.viewButtonInactive]: viewMode !== 'full',
+          })}
         >
           全景
         </button>
         <button
           type="button"
           onClick={onRouteView}
-          className={`px-2.5 py-1 rounded-full text-[11px] font-medium transition sm:px-4 sm:py-1.5 sm:text-xs ${
-            viewMode === 'route'
-              ? 'bg-[var(--bud-green)] text-white'
-              : 'text-[var(--stone)] hover:text-[var(--ink)]'
-          }`}
+          data-active={viewMode === 'route' ? 'true' : undefined}
+          className={clsx(styles.viewButton, {
+            [styles.viewButtonActive]: viewMode === 'route',
+            [styles.viewButtonInactive]: viewMode !== 'route',
+          })}
         >
           线路
         </button>
       </div>
-      <div className="flex items-center gap-2">
-        <label className="flex items-center gap-1.5 text-[11px] text-[var(--ink)] cursor-pointer select-none sm:text-xs sm:gap-2">
+      <div className={styles.settingsGroup}>
+        <label className={styles.checkboxLabel}>
           <input
             type="checkbox"
             checked={settings.showLocationNames}
             onChange={(e) => onSettingsChange({ ...settings, showLocationNames: e.target.checked })}
-            className="w-3.5 h-3.5 rounded border-[var(--border-spring)] text-[var(--sakura-pink)] focus:ring-[var(--sakura-pink)] sm:w-4 sm:h-4"
+            className={styles.checkbox}
           />
           地点名
         </label>
-        <label className="flex items-center gap-1.5 text-[11px] text-[var(--ink)] cursor-pointer select-none sm:text-xs sm:gap-2">
+        <label className={styles.checkboxLabel}>
           <input
             type="checkbox"
             checked={settings.showTransit}
             onChange={(e) => onSettingsChange({ ...settings, showTransit: e.target.checked })}
-            className="w-3.5 h-3.5 rounded border-[var(--border-spring)] text-[var(--sakura-pink)] focus:ring-[var(--sakura-pink)] sm:w-4 sm:h-4"
+            className={styles.checkbox}
           />
           交通
         </label>
@@ -103,20 +105,19 @@ export function MapControls({
   )
 
   const secondRow = (
-    <div className="flex items-center gap-1.5">
+    <div className={styles.secondRow}>
       {daysExpanded ? (
         <>
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar px-1 py-0.5 flex-1 sm:overflow-visible sm:gap-2">
+          <div className={styles.daysList}>
             {dayOpts.map((label, i) => (
               <button
                 key={i}
                 type="button"
                 onClick={() => onSelectDay(i)}
-                className={`shrink-0 px-3 py-1 rounded-full text-[11px] font-medium transition border sm:px-4 sm:py-1.5 sm:text-xs ${
-                  activeDay === i
-                    ? 'bg-[var(--sakura-pink)] border-[var(--sakura-pink)] text-white'
-                    : 'bg-white/90 border-[var(--border-spring)] text-[var(--stone)] hover:bg-white'
-                }`}
+                className={clsx(styles.dayButton, {
+                  [styles.dayButtonActive]: activeDay === i,
+                  [styles.dayButtonInactive]: activeDay !== i,
+                })}
               >
                 {label}
               </button>
@@ -125,7 +126,7 @@ export function MapControls({
           <button
             type="button"
             onClick={() => setDaysExpanded(false)}
-            className="shrink-0 p-1.5 rounded-full bg-white border border-[var(--border-spring)] text-[var(--stone)] hover:text-[var(--ink)] transition shadow-sm sm:p-2"
+            className={styles.iconButton}
             aria-label="收起日期"
           >
             <svg
@@ -137,7 +138,7 @@ export function MapControls({
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="sm:w-4 sm:h-4"
+              className={styles.iconSvg}
             >
               <polyline points="15 18 9 12 15 6" />
             </svg>
@@ -147,7 +148,7 @@ export function MapControls({
         <button
           type="button"
           onClick={() => setDaysExpanded(true)}
-          className="shrink-0 p-1.5 rounded-full bg-white border border-[var(--border-spring)] text-[var(--stone)] hover:text-[var(--ink)] transition shadow-sm ml-auto sm:p-2"
+          className={clsx(styles.iconButton, styles.mlAuto)}
           aria-label="展开日期"
         >
           <svg
@@ -159,7 +160,7 @@ export function MapControls({
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="sm:w-4 sm:h-4"
+            className={styles.iconSvg}
           >
             <polyline points="9 18 15 12 9 6" />
           </svg>
@@ -171,13 +172,13 @@ export function MapControls({
   return (
     <>
       {/* Desktop: Top Right Two Rows */}
-      <div className="absolute top-4 right-4 z-20 hidden sm:flex flex-col gap-2 w-fit sm:gap-3">
+      <div className={styles.desktopControls} data-testid="desktop-controls">
         {firstRow}
         {secondRow}
       </div>
 
       {/* Mobile: Top Two Rows */}
-      <div className="absolute top-3 left-3 right-3 z-30 sm:hidden flex flex-col gap-2">
+      <div className={styles.mobileTopControls} data-testid="mobile-top-controls">
         {firstRow}
         {secondRow}
       </div>

@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect, type CSSProperties } from 'react'
+import styles from './BottomSheet.module.css'
 
 interface BottomSheetProps {
   snapPoints: string[]
@@ -159,10 +160,10 @@ export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, sh
   }
 
   return (
-    <div className="sm:hidden">
+    <div className={styles.wrapperDesktopHide}>
       {showBackdrop && (
         <div
-          className="fixed inset-0 bg-[#2A2A2A]/15 z-40"
+          className={styles.backdrop}
           style={backdropStyle}
           onClick={() => animateToSnap(0)}
           aria-hidden="true"
@@ -171,20 +172,20 @@ export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, sh
 
       <div
         ref={containerRef}
-        className="fixed bottom-0 left-0 right-0 z-50 bg-[var(--bg-main)] rounded-t-2xl shadow-[0_-6px_30px_rgba(244,164,184,0.18)] overflow-hidden will-change-transform border-t border-[var(--border-spring)]"
+        className={styles.sheet}
         style={containerStyle}
       >
         <div
-          className="flex items-center justify-center h-10 cursor-grab active:cursor-grabbing select-none touch-none"
+          className={styles.handle}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerCancel}
         >
-          <div className="w-10 h-1 rounded-full bg-[var(--mist)]/60" />
+          <div className={styles.handleBar} />
         </div>
 
-        <div className="overflow-y-auto" style={{ height: `calc(100% - 40px)` }}>
+        <div className={styles.content} style={{ height: `calc(100% - 40px)` }}>
           {children}
         </div>
       </div>

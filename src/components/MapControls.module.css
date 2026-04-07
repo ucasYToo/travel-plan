@@ -1,0 +1,282 @@
+.desktopControls {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 20;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  width: fit-content;
+}
+
+@media (min-width: 640px) {
+  .desktopControls {
+    display: flex;
+    gap: 12px;
+  }
+}
+
+.mobileTopControls {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (min-width: 640px) {
+  .mobileTopControls {
+    display: none;
+  }
+}
+
+.firstRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-spring);
+  padding: 8px 12px;
+}
+
+@media (min-width: 640px) {
+  .firstRow {
+    padding: 10px 16px;
+  }
+}
+
+.leftGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.zoomBadge {
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background-color: var(--sakura-pale);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--sakura-deep);
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .zoomBadge {
+    font-size: 12px;
+  }
+}
+
+.citySelect {
+  padding: 4px;
+  background-color: transparent;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 90px;
+  border: none;
+}
+
+@media (min-width: 640px) {
+  .citySelect {
+    max-width: 140px;
+    font-size: 14px;
+  }
+}
+
+.viewToggle {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-main);
+  border-radius: 9999px;
+  padding: 2px;
+  border: 1px solid var(--border-spring);
+}
+
+.viewButton {
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 500;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+@media (min-width: 640px) {
+  .viewButton {
+    padding: 6px 16px;
+    font-size: 12px;
+  }
+}
+
+.viewButtonActive {
+  background-color: var(--bud-green);
+  color: #fff;
+}
+
+.viewButtonInactive {
+  color: var(--stone);
+}
+
+.viewButtonInactive:hover {
+  color: var(--ink);
+}
+
+.settingsGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--ink);
+  cursor: pointer;
+  user-select: none;
+}
+
+@media (min-width: 640px) {
+  .checkboxLabel {
+    font-size: 12px;
+    gap: 8px;
+  }
+}
+
+.checkbox {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1px solid var(--border-spring);
+  accent-color: var(--sakura-pink);
+  cursor: pointer;
+}
+
+@media (min-width: 640px) {
+  .checkbox {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.secondRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.daysList {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 4px;
+  flex: 1;
+}
+
+.daysList::-webkit-scrollbar {
+  display: none;
+}
+
+.daysList {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (min-width: 640px) {
+  .daysList {
+    overflow: visible;
+    gap: 8px;
+  }
+}
+
+.dayButton {
+  flex-shrink: 0;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 500;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+@media (min-width: 640px) {
+  .dayButton {
+    padding: 6px 16px;
+    font-size: 12px;
+  }
+}
+
+.dayButtonActive {
+  background-color: var(--sakura-pink);
+  border-color: var(--sakura-pink);
+  color: #fff;
+}
+
+.dayButtonInactive {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-color: var(--border-spring);
+  color: var(--stone);
+}
+
+.dayButtonInactive:hover {
+  background-color: #fff;
+}
+
+.iconButton {
+  flex-shrink: 0;
+  padding: 6px;
+  border-radius: 9999px;
+  background-color: #fff;
+  border: 1px solid var(--border-spring);
+  color: var(--stone);
+  transition: color 0.2s ease, background-color 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconButton:hover {
+  color: var(--ink);
+}
+
+@media (min-width: 640px) {
+  .iconButton {
+    padding: 8px;
+  }
+}
+
+.iconSvg {
+  width: 14px;
+  height: 14px;
+}
+
+@media (min-width: 640px) {
+  .iconSvg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.mlAuto {
+  margin-left: auto;
+}

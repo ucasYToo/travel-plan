@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet'
+import styles from './ZoomIndicator.module.css'
 
 export function ZoomIndicator() {
   const map = useMap()
@@ -14,9 +15,7 @@ export function ZoomIndicator() {
   }, [map])
 
   return (
-    <div
-      className="fixed top-3 left-3 sm:top-40 sm:right-3 sm:left-auto z-[1000] bg-white/90 px-2.5 py-1 rounded-full text-xs font-semibold text-[#2D3436] shadow-sm pointer-events-none"
-    >
+    <div className={styles.container}>
       z{zoom}
     </div>
   )

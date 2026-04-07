@@ -37,6 +37,14 @@ html, body, #root {
   font-family: var(--font-body);
   background-color: var(--bg-main);
   color: var(--ink);
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 /* Soft ambient spring glow instead of grain */

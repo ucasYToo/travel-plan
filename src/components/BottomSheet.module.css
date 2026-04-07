@@ -1,0 +1,56 @@
+.wrapperDesktopHide {
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .wrapperDesktopHide {
+    display: none;
+  }
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(42, 42, 42, 0.15);
+  z-index: 40;
+}
+
+.sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: var(--bg-main);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  border-top: 1px solid var(--border-spring);
+  box-shadow: 0 -6px 30px rgba(244, 164, 184, 0.18);
+  overflow: hidden;
+  will-change: transform;
+}
+
+.handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.handle:active {
+  cursor: grabbing;
+}
+
+.handleBar {
+  width: 40px;
+  height: 4px;
+  border-radius: 9999px;
+  background-color: rgba(209, 213, 219, 0.6);
+}
+
+.content {
+  overflow-y: auto;
+}

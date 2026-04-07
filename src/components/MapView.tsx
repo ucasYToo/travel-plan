@@ -2,6 +2,7 @@ import { useMemo, useEffect } from 'react'
 import { MapContainer, Marker, Polyline, useMap } from 'react-leaflet'
 import { SmartTileLayer } from './SmartTileLayer'
 import L from 'leaflet'
+import styles from './MapView.module.css'
 import type { ItineraryData, TransitDetail, LocationOrGroup, LocationGroup, Location, NoteItem } from '../types'
 
 interface MapControllerProps {
@@ -188,7 +189,7 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
 
   return (
     <MapContainer
-      className="absolute inset-0 z-0"
+      className={styles.mapContainer}
       style={{ height: '100%', width: '100%' }}
       center={[37.545, 126.96]}
       zoom={12}

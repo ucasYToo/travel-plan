@@ -1,4 +1,5 @@
 import type { ItineraryData, Location, LocationOrGroup, NoteItem, NoteCategory } from '../types'
+import styles from './LocationDetailContent.module.css'
 
 const CATEGORY_ICON: Record<NoteCategory, string> = {
   food: '食',
@@ -42,18 +43,18 @@ function renderNotesSection(notes: NoteItem[]) {
   if (categories.length === 0) return null
 
   return (
-    <div className="space-y-3 mt-2">
+    <div className={styles.notesWrapper}>
       {categories.map((category) => (
-        <div key={category} className="space-y-1">
-          <div className="flex items-center gap-2 text-[10px] font-semibold text-[var(--stone)] tracking-wide uppercase">
-            <span className="w-5 h-5 rounded-full bg-[var(--bg-card)] border border-[var(--border-spring)] flex items-center justify-center text-[10px]">
+        <div key={category} className={styles.noteCategory}>
+          <div className={styles.noteCategoryHeader}>
+            <span className={styles.noteBadge}>
               {CATEGORY_ICON[category]}
             </span>
             <span>{CATEGORY_NAME[category]}</span>
           </div>
-          <div className="space-y-1">
+          <div>
             {grouped[category].map((note, idx) => (
-              <div key={idx} className="pl-3 py-1 border-l-2 border-[var(--sakura-pink)]/40 text-xs text-[var(--ink-light)] leading-relaxed">
+              <div key={idx} className={styles.noteCategoryItem}>
                 {note.content}
               </div>
             ))}
@@ -91,21 +92,21 @@ export function LocationDetailContent({ location, notes, data, dayIndex }: Locat
     : []
 
   return (
-    <div className="space-y-5">
+    <div className={styles.container}>
       {/* Description */}
       {hasDescription && (
         <div>
-          <h3 className="text-[10px] font-semibold text-[var(--stone)] mb-1.5 tracking-wide uppercase">描述</h3>
-          <p className="text-sm text-[var(--ink-light)] leading-relaxed">{location.description}</p>
+          <h3 className={styles.sectionTitle}>描述</h3>
+          <p className={styles.textBody}>{location.description}</p>
         </div>
       )}
 
       {/* Address */}
       {hasAddress && (
         <div>
-          <h3 className="text-[10px] font-semibold text-[var(--stone)] mb-1.5 tracking-wide uppercase">地址</h3>
-          <div className="flex items-center gap-2 p-3 bg-[var(--bg-card)] border border-[var(--border-spring)] rounded-xl">
-            <p className="text-sm text-[var(--ink)] font-mono flex-1 break-all leading-snug">{location.address}</p>
+          <h3 className={styles.sectionTitle}>地址</h3>
+          <div className={styles.addressBox}>
+            <p className={styles.addressText}>{location.address}</p>
             <button
               type="button"
               onClick={() => {
@@ -113,7 +114,7 @@ export function LocationDetailContent({ location, notes, data, dayIndex }: Locat
                   .then(() => alert('地址已复制'))
                   .catch(() => alert('复制失败，请手动复制'))
               }}
-              className="px-3 py-1.5 text-[11px] bg-[var(--bud-green)] text-white rounded-lg hover:bg-[var(--bud-deep)] transition shrink-0 font-medium"
+              className={styles.copyButton}
             >
               复制
             </button>
@@ -123,22 +124,22 @@ export function LocationDetailContent({ location, notes, data, dayIndex }: Locat
 
       {/* Notes (for spot/hotel direct notes) */}
       {hasNotes && categories.length > 0 && (
-        <div className="border-t border-[var(--border-spring)] pt-4">
-          <h3 className="text-[10px] font-semibold text-[var(--stone)] mb-3 tracking-wide uppercase">备注</h3>
-          <div className="space-y-4">
+        <div className={styles.notesSection}>
+          <h3 className={styles.notesTitle}>备注</h3>
+          <div className={styles.container}>
             {categories.map((category) => (
-              <div key={category} className="space-y-2">
-                <div className="flex items-center gap-2 text-sm font-semibold text-[var(--ink)]">
-                  <span className="w-5 h-5 rounded-full bg-[var(--bg-card)] border border-[var(--border-spring)] flex items-center justify-center text-[10px]">
+              <div key={category} className={styles.noteGroup}>
+                <div className={styles.noteGroupHeader}>
+                  <span className={styles.noteBadge}>
                     {CATEGORY_ICON[category]}
                   </span>
                   <span>{CATEGORY_NAME[category]}</span>
                 </div>
-                <div className="space-y-2">
+                <div>
                   {groupedNotes![category].map((note, idx) => (
                     <div
                       key={idx}
-                      className="pl-4 py-2 border-l-2 border-[var(--sakura-pink)]/40 text-sm text-[var(--ink-light)] leading-relaxed"
+                      className={styles.noteItem}
                     >
                       {note.content}
                     </div>
@@ -152,26 +153,26 @@ export function LocationDetailContent({ location, notes, data, dayIndex }: Locat
 
       {/* Children spots for group/hotel_group */}
       {childrenSpots.length > 0 && (
-        <div className="border-t border-[var(--border-spring)] pt-4">
-          <h3 className="text-[10px] font-semibold text-[var(--stone)] mb-3 tracking-wide uppercase">
+        <div className={styles.spotsSection}>
+          <h3 className={styles.spotsTitle}>
             {location.type === 'hotel_group' ? '周边地点' : '商圈地点'}
           </h3>
-          <div className="space-y-3">
+          <div className={styles.container}>
             {childrenSpots.map((spot) => {
               const spotNotes = dayIndex !== undefined && data
                 ? getNotesForLocation(spot.id, data, dayIndex)
                 : []
               return (
-                <div key={spot.id} className="p-3 rounded-xl bg-[var(--bg-card)] border border-[var(--border-spring)] transition hover:shadow-spring">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: spot.color }} />
-                    <span className="text-sm font-semibold text-[var(--ink)]">{spot.name}</span>
+                <div key={spot.id} className={styles.spotCard}>
+                  <div className={styles.spotHeader}>
+                    <span className={styles.spotDot} style={{ backgroundColor: spot.color }} />
+                    <span className={styles.spotName}>{spot.name}</span>
                   </div>
                   {spot.address && (
-                    <p className="text-[10px] text-[var(--stone)] font-mono mb-1 truncate">{spot.address}</p>
+                    <p className={styles.spotAddress}>{spot.address}</p>
                   )}
                   {spot.description && (
-                    <p className="text-xs text-[var(--stone)] leading-relaxed">{spot.description}</p>
+                    <p className={styles.spotDescription}>{spot.description}</p>
                   )}
                   {renderNotesSection(spotNotes)}
                 </div>
