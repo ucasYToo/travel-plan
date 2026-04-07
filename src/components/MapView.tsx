@@ -199,19 +199,26 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
 
       {(() => {
         if (activeDay === null) {
-          return Object.values(data.locations).map((location) => (
-            <Marker
-              key={`${location.id}-all`}
-              position={[location.lat, location.lng]}
-              icon={createCustomMarker(location, '', showLocationNames)}
-              zIndexOffset={location.type === 'hotel_group' ? 500 : 0}
-              eventHandlers={
-                onShowLocationDetail
-                  ? { click: () => onShowLocationDetail(location, undefined, activeDay ?? undefined) }
-                  : undefined
-              }
-            />
-          ))
+          return Object.values(data.locations)
+            .filter((location) => {
+              if (location.type !== 'spot' || !location.parentId) return true
+              const parent = data.locations[location.parentId]
+              if (parent && parent.lat === location.lat && parent.lng === location.lng) return false
+              return true
+            })
+            .map((location) => (
+              <Marker
+                key={`${location.id}-all`}
+                position={[location.lat, location.lng]}
+                icon={createCustomMarker(location, '', showLocationNames)}
+                zIndexOffset={location.type === 'hotel_group' ? 500 : 0}
+                eventHandlers={
+                  onShowLocationDetail
+                    ? { click: () => onShowLocationDetail(location, undefined, activeDay ?? undefined) }
+                    : undefined
+                }
+              />
+            ))
         }
 
         const day = data.days[activeDay]
@@ -292,6 +299,11 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
         }
 
         for (const { point, location } of spotsInPath) {
+          // Skip if the spot overlaps with its parent district
+          if (location.parentId) {
+            const parent = data.locations[location.parentId]
+            if (parent && parent.lat === location.lat && parent.lng === location.lng) continue
+          }
           const badge = spotOrder[location.id] || ''
           markers.push(
             <Marker
