@@ -62,6 +62,12 @@
   width: 260px !important;
 }
 
+/* Slide-in animation for mobile overlay panels */
+@keyframes slideIn {
+  from { transform: translateX(var(--slide-from, 100%)); }
+  to { transform: translateX(0); }
+}
+
 /* Touch target expansion for coarse pointers */
 @media (pointer: coarse) {
   .custom-marker,

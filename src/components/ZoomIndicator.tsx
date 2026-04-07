@@ -17,8 +17,9 @@ export function ZoomIndicator() {
     <div
       style={{
         position: 'absolute',
-        bottom: 40,
-        right: 10,
+        top: 12,
+        left: '50%',
+        transform: 'translateX(-50%)',
         zIndex: 1000,
         background: 'rgba(255,255,255,0.9)',
         padding: '4px 10px',

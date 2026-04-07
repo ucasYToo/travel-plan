@@ -1,4 +1,4 @@
-import type { ItineraryData, TransitDetail, DayPlan, LocationOrGroup, NoteItem } from '../types'
+import type { ItineraryData, TransitDetail, DayPlan, LocationOrGroup, NoteItem } from '../../types'
 
 // 格式化日期显示 (2026-04-29 -> 4月29日)
 function formatDate(dateStr: string): string {
@@ -14,15 +14,6 @@ function formatDayTitle(day: DayPlan): string {
   return `day ${day.day} ${day.title}`
 }
 
-export interface SidebarProps {
-  data: ItineraryData
-  activeDay: number | null
-  onSelectDay: (index: number) => void
-  isOpen: boolean
-  onShowTransit?: (detail: TransitDetail) => void
-  onShowLocationDetail?: (location: LocationOrGroup, notes?: NoteItem[], dayIndex?: number) => void
-}
-
 // 获取路径中的地点信息
 function getPathLocations(day: DayPlan, locations: Record<string, LocationOrGroup>) {
   return day.path
@@ -34,25 +25,29 @@ function getPathLocations(day: DayPlan, locations: Record<string, LocationOrGrou
     .filter((item): item is { point: typeof day.path[0]; location: LocationOrGroup; index: number } => item !== null)
 }
 
-// 获取酒店信息（现在酒店是 hotel_group 类型）
+// 获取酒店信息
 function getHotels(locations: Record<string, LocationOrGroup>) {
   return Object.values(locations).filter(loc => loc.type === 'hotel_group')
 }
 
-export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, onShowLocationDetail }: SidebarProps): JSX.Element {
+export interface SidebarContentProps {
+  data: ItineraryData
+  activeDay: number | null
+  onSelectDay: (index: number) => void
+  onShowTransit?: (detail: TransitDetail) => void
+  onShowLocationDetail?: (location: LocationOrGroup, notes?: NoteItem[], dayIndex?: number) => void
+}
+
+export function SidebarContent({ data, activeDay, onSelectDay, onShowTransit, onShowLocationDetail }: SidebarContentProps) {
   const hotels = getHotels(data.locations)
 
   return (
-    <aside
-      className={`sidebar-panel absolute left-0 top-0 bottom-0 w-full sm:w-80 bg-white/95 backdrop-blur shadow-xl z-50 flex flex-col transition-transform duration-300 sm:static sm:translate-x-0 sm:shadow-none sm:col-start-1 sm:h-full ${
-        isOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}
-    >
+    <>
       {/* Header */}
       <div className="px-5 py-4 border-b border-[#DFE6E9] bg-white shrink-0">
         <div className="flex items-center gap-2">
           <h1 className="text-lg font-bold text-[#2D3436]">{data.metadata.title}</h1>
-          <span className="text-[#A8E6CF]">🌱</span>
+          <span className="text-[#A8E6CF]">&#127793;</span>
         </div>
         <p className="text-xs text-[#636E72] mt-1">{data.metadata.subtitle}</p>
       </div>
@@ -73,7 +68,7 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
                     className="w-6 h-6 rounded-full flex items-center justify-center text-white text-[10px] font-bold"
                     style={{ backgroundColor: hotel.color }}
                   >
-                    🏠
+                    &#127968;
                   </div>
                   <p className="font-bold text-[#2D3436] text-xs truncate">{hotel.name}</p>
                 </div>
@@ -94,10 +89,9 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
               const baseHotel = data.locations[day.baseHotelId]
               const pathWithLocations = getPathLocations(day, data.locations)
 
-              // Show full path including hotel start point for all days
               const startIndex = 0
 
-              // Assign badges: groups (ABC) for districts, numbers (123) for spots
+              // Build badges
               let districtIdx = 0
               let spotIdx = 1
               const districtBadges: Record<string, string> = {}
@@ -108,7 +102,6 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
                   if (!spotBadges[location.id]) {
                     spotBadges[location.id] = String(spotIdx++)
                   }
-                  // Assign district badge for group-type parents
                   if (location.parentId) {
                     const parent = data.locations[location.parentId]
                     if (parent && parent.type === 'group' && !districtBadges[parent.id]) {
@@ -118,7 +111,6 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
                 }
               })
 
-              // Build route items: group spots by their district parent
               const routeItems: JSX.Element[] = []
               const pathSlice = pathWithLocations.slice(startIndex)
               let currentDistrictId: string | null = null
@@ -143,7 +135,7 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
                           className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center text-white text-[10px]"
                           style={{ background: parent.color }}
                         >
-                          {districtBadges[parent.id] || '●'}
+                          {districtBadges[parent.id] || '\u25CF'}
                         </span>
                         <span className="flex-1 min-w-0">{parent.name}</span>
                         {onShowLocationDetail ? (
@@ -171,7 +163,7 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
                         className="w-4 h-4 rounded-full shrink-0 flex items-center justify-center text-white text-[8px]"
                         style={{ background: location.color }}
                       >
-                        {badge || '•'}
+                        {badge || '\u2022'}
                       </span>
                       <span className="flex-1 min-w-0">{location.name}</span>
                       {onShowLocationDetail ? (
@@ -183,7 +175,7 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
                   currentDistrictId = null
                   routeItems.push(
                     <div
-                      key={`loc-${idx}`}
+                      key={`hotel-${idx}`}
                       className={[
                         'flex items-center gap-2 rounded px-1.5 py-1 -mx-1 text-xs text-[#2D3436] font-medium bg-white border border-[#DFE6E9]',
                         onShowLocationDetail ? 'cursor-pointer hover:bg-[#F5F7FA]' : ''
@@ -194,7 +186,7 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
                         className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center text-white text-[10px]"
                         style={{ background: location.color }}
                       >
-                        🏠
+                        &#127968;
                       </span>
                       <span className="flex-1 min-w-0">{location.name}</span>
                       {onShowLocationDetail ? (
@@ -204,10 +196,9 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
                   )
                 }
 
-                // Transit line: show how to get to the next point
+                // Transit line
                 if (idx < pathSlice.length - 1) {
                   const nextPoint = pathSlice[idx + 1]?.point
-                  // Transit can be on nextPoint (Day 2+ destination) or current point (Day 1 airport source)
                   const transitData = nextPoint?.transit || point.transit
                   if (transitData && nextPoint?.label) {
                     routeItems.push(
@@ -270,6 +261,6 @@ export function Sidebar({ data, activeDay, onSelectDay, isOpen, onShowTransit, o
       <div className="px-4 py-2 border-t border-[#DFE6E9] text-[10px] text-[#B2BEC3] text-center shrink-0">
         数据仅供参考 · 实际路线请以当地交通为准
       </div>
-    </aside>
+    </>
   )
 }

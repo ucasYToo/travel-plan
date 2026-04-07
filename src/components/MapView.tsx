@@ -164,7 +164,7 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
 
   return (
     <MapContainer
-      className="absolute inset-0 z-0 sm:static sm:w-full sm:h-full"
+      className="absolute inset-0 z-0"
       style={{ height: '100%', width: '100%' }}
       center={[37.545, 126.96]}
       zoom={12}

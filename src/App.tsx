@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { MapView } from './components/MapView'
-import { Sidebar } from './components/Sidebar'
 import { MapControls } from './components/MapControls'
-import { TransportModal } from './components/TransportModal'
-import { LocationDetailModal } from './components/LocationDetailModal'
-import { LocationDetailPanel } from './components/LocationDetailPanel'
+import { BottomSheet } from './components/BottomSheet'
+import { SidebarContent } from './components/content/SidebarContent'
+import { DetailContent, type DetailViewMode } from './components/content/DetailContent'
 import { getCityData, DEFAULT_CITY } from './data'
 import type { TransitDetail, NoteItem, LocationOrGroup } from './types'
 
@@ -32,13 +31,16 @@ function getInitialSettings() {
 function App() {
   const [currentCity, setCurrentCity] = useState(DEFAULT_CITY)
   const [activeDay, setActiveDay] = useState<number | null>(null)
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  // Panel state
+  const [leftPanelCollapsed, setLeftPanelCollapsed] = useState(false)
+  const [rightPanelCollapsed, setRightPanelCollapsed] = useState(true)
+  const [itinerarySnap, setItinerarySnap] = useState(0) // 0=collapsed, 1=peek, 2=full
+
   const [resetView, setResetView] = useState(0)
-  const [modalOpen, setModalOpen] = useState(false)
-  const [transitDetail, setTransitDetail] = useState<TransitDetail | null>(null)
-  const [detailModalOpen, setDetailModalOpen] = useState(false)
-  const [detailData, setDetailData] = useState<{ location: LocationOrGroup; notes?: NoteItem[]; dayIndex?: number } | null>(null)
   const [selectedLocation, setSelectedLocation] = useState<{ location: LocationOrGroup; notes?: NoteItem[]; dayIndex?: number } | null>(null)
+  const [selectedTransit, setSelectedTransit] = useState<TransitDetail | null>(null)
+  const [detailViewMode, setDetailViewMode] = useState<DetailViewMode>('none')
   const [settings, setSettings] = useState(getInitialSettings)
 
   useEffect(() => {
@@ -66,26 +68,34 @@ function App() {
       }
     } else {
       setSelectedLocation(null)
+      setRightPanelCollapsed(true)
+      setDetailViewMode('none')
+      setSelectedTransit(null)
     }
   }, [activeDay, cityData])
 
-  if (!cityData) {
-    return <div className="p-8 text-center">城市数据加载失败</div>
-  }
+  const showTransit = useCallback((detail: TransitDetail) => {
+    setSelectedTransit(detail)
+    setDetailViewMode('transit')
+    setRightPanelCollapsed(false)
+  }, [])
 
-  const showTransit = (detail: TransitDetail) => {
-    setTransitDetail(detail)
-    setModalOpen(true)
-  }
-
-  const showLocationDetail = (location: LocationOrGroup, notes?: NoteItem[], dayIndex?: number) => {
+  const showLocationDetail = useCallback((location: LocationOrGroup, notes?: NoteItem[], dayIndex?: number) => {
     setSelectedLocation({ location, notes, dayIndex })
-    // Only open modal on mobile; desktop uses the right panel
-    if (typeof window !== 'undefined' && window.innerWidth < 640) {
-      setDetailData({ location, notes, dayIndex })
-      setDetailModalOpen(true)
+    setDetailViewMode('location')
+    setRightPanelCollapsed(false)
+  }, [])
+
+  const handleBackFromTransit = useCallback(() => {
+    if (selectedLocation) {
+      setDetailViewMode('location')
+      setSelectedTransit(null)
+    } else {
+      setDetailViewMode('none')
+      setSelectedTransit(null)
+      setRightPanelCollapsed(true)
     }
-  }
+  }, [selectedLocation])
 
   const handleCityChange = (cityId: string) => {
     setCurrentCity(cityId)
@@ -102,36 +112,14 @@ function App() {
     setResetView(v => v + 1)
   }
 
-  const handleDownloadJSON = () => {
-    const data = JSON.stringify(cityData, null, 2)
-    const blob = new Blob([data], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    const fileName = cityData.metadata.title || 'itinerary'
-    a.download = `${fileName}.json`
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
+  if (!cityData) {
+    return <div className="p-8 text-center">城市数据加载失败</div>
   }
 
   return (
-    <div className="relative h-full w-full sm:grid sm:grid-rows-1 sm:grid-cols-[280px_1fr_360px]">
-      <Sidebar
-        data={cityData}
-        activeDay={activeDay}
-        onSelectDay={(idx) => {
-          setActiveDay(idx)
-          setSidebarOpen(false)
-        }}
-        isOpen={sidebarOpen}
-        onShowTransit={showTransit}
-        onShowLocationDetail={showLocationDetail}
-      />
-
-      {/* Center: Map + Controls */}
-      <div className="relative h-full sm:col-start-2">
+    <div className="relative h-full w-full">
+      {/* Map always fills the entire viewport */}
+      <div className="absolute inset-0 h-full w-full">
         <MapView
           data={cityData}
           activeDay={activeDay}
@@ -151,63 +139,131 @@ function App() {
         />
       </div>
 
-      {/* Right: Detail panel (desktop only) */}
-      <div className="hidden sm:flex sm:col-start-3 sm:h-full bg-[#F5F7FA] overflow-y-auto p-4">
-        <LocationDetailPanel
-          location={selectedLocation?.location ?? null}
-          notes={selectedLocation?.notes}
-          data={cityData}
-          dayIndex={selectedLocation?.dayIndex}
-        />
-      </div>
+      {/* Left Panel: fixed overlay (desktop only) */}
+      {!leftPanelCollapsed && (
+        <aside className="hidden sm:flex fixed left-0 top-0 bottom-0 w-72 bg-white/95 backdrop-blur shadow-xl z-20 flex-col">
+          {/* Collapse toggle */}
+          <button
+            type="button"
+            onClick={() => setLeftPanelCollapsed(true)}
+            className="absolute top-4 -right-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 backdrop-blur-sm shadow-sm hover:bg-white transition"
+            aria-label="收起面板"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
 
-      {/* Mobile Toggle Button */}
-      <button
-        type="button"
-        onClick={() => setSidebarOpen((v) => !v)}
-        className="absolute top-4 left-4 z-50 sm:hidden w-10 h-10 bg-white/80 backdrop-blur-md rounded-full shadow-soft flex items-center justify-center text-[#2D3436] hover:bg-white transition border border-white/50"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
-      </button>
-
-      {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
-        <div
-          data-testid="sidebar-overlay"
-          className="fixed inset-0 bg-black/30 z-[40] sm:hidden"
-          onClick={() => setSidebarOpen(false)}
-          aria-hidden="true"
-        />
+          <SidebarContent
+            data={cityData}
+            activeDay={activeDay}
+            onSelectDay={(idx) => {
+              setActiveDay(idx)
+            }}
+            onShowTransit={showTransit}
+            onShowLocationDetail={showLocationDetail}
+          />
+        </aside>
       )}
 
-      <TransportModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        detail={transitDetail}
-      />
+      {/* Left panel collapsed toggle button */}
+      {leftPanelCollapsed && (
+        <button
+          type="button"
+          onClick={() => setLeftPanelCollapsed(false)}
+          className="fixed left-4 top-4 z-30 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full shadow-soft flex items-center justify-center text-[#2D3436] hover:bg-white transition border border-white/50"
+          aria-label="展开菜单"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+      )}
 
-      <LocationDetailModal
-        open={detailModalOpen}
-        onClose={() => setDetailModalOpen(false)}
-        location={detailData?.location ?? null}
-        notes={detailData?.notes}
-        data={cityData}
-        dayIndex={detailData?.dayIndex}
-      />
+      {/* Right Panel: fixed overlay (desktop only) */}
+      {!rightPanelCollapsed && detailViewMode !== 'none' && (
+        <aside className="hidden sm:flex fixed right-0 top-0 bottom-0 w-80 bg-[#F5F7FA] z-20 flex-col">
+          {/* Collapse/close toggle */}
+          <button
+            type="button"
+            onClick={() => {
+              setDetailViewMode('none')
+              setSelectedTransit(null)
+              setRightPanelCollapsed(true)
+            }}
+            className="absolute top-4 -left-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 backdrop-blur-sm shadow-sm hover:bg-white transition"
+            aria-label="收起面板"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="rotate-180">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+
+          <DetailContent
+            viewMode={detailViewMode}
+            location={selectedLocation?.location ?? null}
+            notes={selectedLocation?.notes}
+            data={cityData}
+            dayIndex={selectedLocation?.dayIndex}
+            transitDetail={selectedTransit}
+            onBack={detailViewMode === 'transit' ? handleBackFromTransit : undefined}
+          />
+        </aside>
+      )}
+
+      {/* Mobile: Itinerary Bottom Sheet */}
+      <BottomSheet
+        snapPoints={['48px', '40vh', '85vh']}
+        activeSnap={itinerarySnap}
+        onSnapChange={(idx) => {
+          setItinerarySnap(idx)
+          setLeftPanelCollapsed(idx === 0)
+        }}
+        showBackdrop={itinerarySnap > 0}
+      >
+        <SidebarContent
+          data={cityData}
+          activeDay={activeDay}
+          onSelectDay={(idx) => {
+            setActiveDay(idx)
+          }}
+          onShowTransit={showTransit}
+          onShowLocationDetail={showLocationDetail}
+        />
+      </BottomSheet>
+
+      {/* Mobile: Detail Bottom Sheet */}
+      {detailViewMode !== 'none' && (
+        <BottomSheet
+          snapPoints={['75vh']}
+          activeSnap={1}
+          onSnapChange={(idx) => {
+            if (idx === 0) {
+              setDetailViewMode('none')
+              setSelectedTransit(null)
+              setRightPanelCollapsed(true)
+            }
+          }}
+          showBackdrop={false}
+          onClose={() => {
+            setDetailViewMode('none')
+            setSelectedTransit(null)
+            setRightPanelCollapsed(true)
+          }}
+        >
+          <DetailContent
+            viewMode={detailViewMode}
+            location={selectedLocation?.location ?? null}
+            notes={selectedLocation?.notes}
+            data={cityData}
+            dayIndex={selectedLocation?.dayIndex}
+            transitDetail={selectedTransit}
+            onBack={detailViewMode === 'transit' ? handleBackFromTransit : undefined}
+          />
+        </BottomSheet>
+      )}
     </div>
   )
 }
