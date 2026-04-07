@@ -250,17 +250,6 @@ export function SidebarContent({ data, activeDay, onSelectDay, onShowTransit, on
           </div>
         </section>
       </div>
-
-      {/* Legend */}
-      <div className="px-4 py-3 border-t border-[#DFE6E9] bg-[#F5F7FA] text-xs shrink-0">
-        <p className="text-[#636E72]">点击地点查看详情，点击交通详情查看换乘方案</p>
-        <p className="text-[#B2BEC3] text-[10px] mt-1">地点详情包含地址、描述和备注，有交通的段落显示"交通详情"</p>
-      </div>
-
-      {/* Footer */}
-      <div className="px-4 py-2 border-t border-[#DFE6E9] text-[10px] text-[#B2BEC3] text-center shrink-0">
-        数据仅供参考 · 实际路线请以当地交通为准
-      </div>
     </>
   )
 }
