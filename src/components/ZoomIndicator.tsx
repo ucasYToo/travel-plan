@@ -15,21 +15,7 @@ export function ZoomIndicator() {
 
   return (
     <div
-      style={{
-        position: 'absolute',
-        top: 12,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        zIndex: 1000,
-        background: 'rgba(255,255,255,0.9)',
-        padding: '4px 10px',
-        borderRadius: 9999,
-        fontSize: 12,
-        fontWeight: 600,
-        color: '#2D3436',
-        boxShadow: '0 1px 4px rgba(0,0,0,0.1)',
-        pointerEvents: 'none',
-      }}
+      className="fixed top-3 left-3 sm:top-40 sm:right-3 sm:left-auto z-[1000] bg-white/90 px-2.5 py-1 rounded-full text-xs font-semibold text-[#2D3436] shadow-sm pointer-events-none"
     >
       z{zoom}
     </div>

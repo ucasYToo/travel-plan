@@ -10,7 +10,6 @@ interface BottomSheetProps {
 }
 
 function snapToPixels(snap: string, viewportHeight: number): number {
-  // Handle calc(100vh - 72px)
   const calcMatch = snap.match(/^calc\((\d+)vh\s*-\s*(\d+)px\)$/)
   if (calcMatch) {
     return viewportHeight * (parseFloat(calcMatch[1]) / 100) - parseFloat(calcMatch[2])
@@ -29,19 +28,20 @@ export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, sh
 
   const dragStartRef = useRef(0)
   const dragStartHeightRef = useRef(0)
+  const lastMoveTimeRef = useRef(0)
+  const lastMoveYRef = useRef(0)
+  const velocityRef = useRef(0)
   const containerRef = useRef<HTMLDivElement>(null)
 
   const getViewportHeight = useCallback(() => {
     return window.innerHeight || document.documentElement.clientHeight
   }, [])
 
-  // Initialize height from snapPoints
   useEffect(() => {
     const vh = getViewportHeight()
     setHeight(snapToPixels(snapPoints[activeSnap] || snapPoints[0], vh))
   }, [activeSnap, snapPoints, getViewportHeight])
 
-  // Recalculate on resize
   useEffect(() => {
     const handleResize = () => {
       const vh = getViewportHeight()
@@ -73,84 +73,117 @@ export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, sh
     return nearest
   }, [snapPoints, getViewportHeight])
 
+  const animateToSnap = useCallback((index: number) => {
+    const vh = getViewportHeight()
+    const snapHeight = snapToPixels(snapPoints[index], vh)
+    setHeight(snapHeight)
+    setDragOffset(0)
+    onSnapChange(index)
+    if (index === 0 && onClose) {
+      onClose()
+    }
+  }, [getViewportHeight, snapPoints, onSnapChange, onClose])
+
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     setIsDragging(true)
     setDragOffset(0)
     dragStartRef.current = e.clientY
     dragStartHeightRef.current = height
+    lastMoveTimeRef.current = Date.now()
+    lastMoveYRef.current = e.clientY
+    velocityRef.current = 0
     ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
   }, [height])
 
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
     if (!isDragging) return
+    const now = Date.now()
     const deltaY = e.clientY - dragStartRef.current
-    // Dragging up (negative deltaY) increases height
-    // Dragging down (positive deltaY) decreases height
     const newHeight = clampHeight(dragStartHeightRef.current - deltaY)
     setDragOffset(newHeight - dragStartHeightRef.current)
     setHeight(newHeight)
+
+    const dt = now - lastMoveTimeRef.current
+    if (dt > 0) {
+      velocityRef.current = (e.clientY - lastMoveYRef.current) / dt
+    }
+    lastMoveTimeRef.current = now
+    lastMoveYRef.current = e.clientY
   }, [isDragging, clampHeight])
 
   const handlePointerUp = useCallback((e: React.PointerEvent) => {
     if (!isDragging) return
     setIsDragging(false)
 
+    const velocity = velocityRef.current
     const newHeight = clampHeight(dragStartHeightRef.current + dragOffset)
     const nearestSnap = findNearestSnap(newHeight)
 
     const vh = getViewportHeight()
-    const snapHeight = snapToPixels(snapPoints[nearestSnap], vh)
-    setHeight(snapHeight)
-    setDragOffset(0)
-    onSnapChange(nearestSnap)
+    const snapPx = snapToPixels(snapPoints[nearestSnap], vh)
+    const dist = newHeight - snapPx
+    const velocityThreshold = 0.4
 
-    // If collapsed to minimum and onClose provided, call it
-    if (nearestSnap === 0 && onClose) {
-      onClose()
+    let targetSnap = nearestSnap
+    if (Math.abs(velocity) > velocityThreshold) {
+      if (velocity > 0 && dist >= 0 && nearestSnap > 0) {
+        targetSnap = nearestSnap - 1
+      } else if (velocity < 0 && dist <= 0 && nearestSnap < snapPoints.length - 1) {
+        targetSnap = nearestSnap + 1
+      }
     }
 
+    animateToSnap(targetSnap)
     ;(e.target as HTMLElement).releasePointerCapture(e.pointerId)
-  }, [isDragging, dragOffset, clampHeight, findNearestSnap, getViewportHeight, snapPoints, onSnapChange, onClose])
+  }, [isDragging, dragOffset, clampHeight, findNearestSnap, getViewportHeight, snapPoints, animateToSnap])
 
-  const isMinSnap = activeSnap === 0
+  const handlePointerCancel = useCallback((e: React.PointerEvent) => {
+    if (!isDragging) return
+    setIsDragging(false)
+    animateToSnap(activeSnap)
+    ;(e.target as HTMLElement).releasePointerCapture(e.pointerId)
+  }, [isDragging, activeSnap, animateToSnap])
+
+  const isMinSnap = activeSnap === 0 && height <= currentMinHeight + 2
 
   const containerStyle: CSSProperties = {
     height: `${height}px`,
-    transition: isDragging ? 'none' : 'height 0.35s cubic-bezier(0.32, 0.72, 0, 1)',
+    transition: isDragging ? 'none' : 'height 0.4s cubic-bezier(0.25, 1, 0.5, 1)',
     touchAction: 'none',
+  }
+
+  const backdropStyle: CSSProperties = {
+    opacity: isMinSnap ? 0 : 1,
+    transition: isDragging ? 'none' : 'opacity 0.35s ease',
+    pointerEvents: isMinSnap ? 'none' : 'auto',
   }
 
   return (
     <div className="sm:hidden">
-      {/* Backdrop */}
-      {showBackdrop && !isMinSnap && (
+      {showBackdrop && (
         <div
           className="fixed inset-0 bg-black/30 z-40"
-          onClick={() => {
-            onSnapChange(0)
-            onClose?.()
-          }}
+          style={backdropStyle}
+          onClick={() => animateToSnap(0)}
           aria-hidden="true"
         />
       )}
 
-      {/* Sheet */}
       <div
         ref={containerRef}
-        className="fixed bottom-0 left-0 right-0 z-50 bg-[#F5F7FA] rounded-t-2xl shadow-[0_-4px_20px_rgba(0,0,0,0.12)] overflow-hidden"
+        className="fixed bottom-0 left-0 right-0 z-50 bg-[#F5F7FA] rounded-t-2xl shadow-[0_-4px_24px_rgba(0,0,0,0.14)] overflow-hidden will-change-transform"
         style={containerStyle}
       >
-        {/* Drag handle */}
         <div
           className="flex items-center justify-center h-10 cursor-grab active:cursor-grabbing select-none touch-none"
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerCancel}
         >
           <div className="w-10 h-1 rounded-full bg-gray-400/60" />
         </div>
 
-        {/* Content */}
         <div className="overflow-y-auto" style={{ height: `calc(100% - 40px)` }}>
           {children}
         </div>

@@ -1,7 +1,6 @@
 import { useMemo, useEffect } from 'react'
 import { MapContainer, Marker, Polyline, useMap } from 'react-leaflet'
 import { SmartTileLayer } from './SmartTileLayer'
-import { ZoomIndicator } from './ZoomIndicator'
 import L from 'leaflet'
 import type { ItineraryData, TransitDetail, LocationOrGroup, LocationGroup, Location, NoteItem } from '../types'
 
@@ -9,9 +8,10 @@ interface MapControllerProps {
   activeDay: number | null
   resetView: number
   data: ItineraryData
+  onZoomChange?: (zoom: number) => void
 }
 
-function MapController({ activeDay, resetView, data }: MapControllerProps) {
+function MapController({ activeDay, resetView, data, onZoomChange }: MapControllerProps) {
   const map = useMap()
 
   useEffect(() => {
@@ -23,20 +23,45 @@ function MapController({ activeDay, resetView, data }: MapControllerProps) {
   }, [map])
 
   useEffect(() => {
+    const handleZoom = () => {
+      onZoomChange?.(map.getZoom())
+    }
+    map.on('zoomend', handleZoom)
+    handleZoom()
+    return () => {
+      map.off('zoomend', handleZoom)
+    }
+  }, [map, onZoomChange])
+
+  useEffect(() => {
     if (activeDay !== null) {
       const day = data.days[activeDay]
-      if (day && day.path.length > 1) {
-        // Focus on the first non-hotel point, or second point if first is hotel
-        const focusPoint = day.path.find(p => !p.isHotel) || day.path[1] || day.path[0]
-        if (focusPoint) {
-          const loc = data.locations[focusPoint.locationId]
+      if (day && day.path.length > 0) {
+        const bounds = L.latLngBounds([])
+        let hasValidPoint = false
+        for (const point of day.path) {
+          const loc = data.locations[point.locationId]
           if (loc) {
-            map.flyTo([loc.lat, loc.lng], 15, { duration: 1 })
+            bounds.extend([loc.lat, loc.lng])
+            hasValidPoint = true
           }
+        }
+        if (hasValidPoint) {
+          map.fitBounds(bounds, { padding: [40, 40], maxZoom: 16, duration: 1 })
         }
       }
     } else {
-      map.flyTo([37.545, 126.96], 12, { duration: 1 })
+      const bounds = L.latLngBounds([])
+      let hasValidPoint = false
+      for (const loc of Object.values(data.locations)) {
+        bounds.extend([loc.lat, loc.lng])
+        hasValidPoint = true
+      }
+      if (hasValidPoint) {
+        map.fitBounds(bounds, { padding: [40, 40], maxZoom: 14, duration: 1 })
+      } else {
+        map.flyTo([37.545, 126.96], 12, { duration: 1 })
+      }
     }
   }, [map, activeDay, resetView, data])
 
@@ -108,11 +133,12 @@ export interface MapViewProps {
   onShowLocationDetail?: (location: LocationOrGroup, notes?: NoteItem[], dayIndex?: number) => void
   showLocationNames?: boolean
   showTransitLabels?: boolean
+  onZoomChange?: (zoom: number) => void
 }
 
 const DISTRICT_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocationDetail, showLocationNames = false, showTransitLabels = false }: MapViewProps): JSX.Element {
+export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocationDetail, showLocationNames = false, showTransitLabels = false, onZoomChange }: MapViewProps): JSX.Element {
   const { districtOrder, spotOrder } = useMemo(() => {
     const districtMap: Record<string, string> = {}
     const spotMap: Record<string, string> = {}
@@ -171,8 +197,7 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
       zoomControl={false}
     >
       <SmartTileLayer />
-      <ZoomIndicator />
-      <MapController activeDay={activeDay} resetView={resetView} data={data} />
+      <MapController activeDay={activeDay} resetView={resetView} data={data} onZoomChange={onZoomChange} />
 
       {/* Render markers for active day path */}
       {(() => {

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, fireEvent, within, screen } from '@testing-library/react'
+import { render, fireEvent, within } from '@testing-library/react'
 import { MapControls } from './MapControls'
 
 describe('MapControls', () => {
@@ -9,7 +9,6 @@ describe('MapControls', () => {
     dayOptions: ['Day1', 'Day2', 'Day3'],
     activeDay: 0,
     onCityChange: vi.fn(),
-    onClearRoute: vi.fn(),
     onResetView: vi.fn(),
     onSelectDay: vi.fn(),
     onSettingsChange: vi.fn(),
@@ -25,48 +24,36 @@ describe('MapControls', () => {
 
   it('renders mobile top controls', () => {
     const { container } = render(<MapControls {...defaultProps} />)
-    const mobileTop = container.querySelector('.sm\\:hidden.flex.gap-2')
+    const mobileTop = container.querySelector('.sm\\:hidden.flex.flex-col.gap-2')
     expect(mobileTop).toBeTruthy()
   })
 
-  it('renders mobile bottom toolbar', () => {
-    const { container } = render(<MapControls {...defaultProps} />)
-    const bottomBar = container.querySelector('.fixed.bottom-0')
-    expect(bottomBar).toBeTruthy()
-    expect(within(bottomBar as HTMLElement).getByText('清除路线')).toBeInTheDocument()
-  })
-
   it('renders mobile view toggle', () => {
-    render(<MapControls {...defaultProps} />)
-    expect(screen.getByText('全景')).toBeInTheDocument()
-    expect(screen.getByText('路线')).toBeInTheDocument()
+    const { container } = render(<MapControls {...defaultProps} />)
+    const mobileTop = container.querySelector('.sm\\:hidden.flex.flex-col.gap-2')
+    expect(within(mobileTop as HTMLElement).getByText('全景')).toBeInTheDocument()
+    expect(within(mobileTop as HTMLElement).getByText('线路')).toBeInTheDocument()
   })
 
   it('highlights full view when viewMode is full', () => {
-    render(<MapControls {...defaultProps} viewMode="full" />)
-    const fullViewBtn = screen.getByText('全景')
+    const { container } = render(<MapControls {...defaultProps} viewMode="full" />)
+    const mobileTop = container.querySelector('.sm\\:hidden.flex.flex-col.gap-2')
+    const fullViewBtn = within(mobileTop as HTMLElement).getByText('全景')
     expect(fullViewBtn.className).toContain('bg-[#A8E6CF]')
   })
 
-  it('calls onClearRoute when clear route button is clicked', () => {
-    const { container } = render(<MapControls {...defaultProps} />)
-    const bottomBar = container.querySelector('.fixed.bottom-0')
-    const clearBtn = within(bottomBar as HTMLElement).getByText('清除路线')
-    fireEvent.click(clearBtn)
-    expect(defaultProps.onClearRoute).toHaveBeenCalled()
-  })
-
   it('calls onResetView when reset view button is clicked', () => {
-    render(<MapControls {...defaultProps} />)
-    const resetBtn = screen.getByText('全景')
+    const { container } = render(<MapControls {...defaultProps} />)
+    const mobileTop = container.querySelector('.sm\\:hidden.flex.flex-col.gap-2')
+    const resetBtn = within(mobileTop as HTMLElement).getByText('全景')
     fireEvent.click(resetBtn)
     expect(defaultProps.onResetView).toHaveBeenCalled()
   })
 
-  it('calls onCityChange when bottom bar city selector changes', () => {
+  it('calls onCityChange when mobile top city selector changes', () => {
     const { container } = render(<MapControls {...defaultProps} />)
-    const bottomBar = container.querySelector('.fixed.bottom-0')
-    const citySelect = within(bottomBar as HTMLElement).getByDisplayValue('🇰🇷 首尔')
+    const mobileTop = container.querySelector('.sm\\:hidden.flex.flex-col.gap-2')
+    const citySelect = within(mobileTop as HTMLElement).getByDisplayValue('🇰🇷 首尔')
     fireEvent.change(citySelect, { target: { value: 'seoul' } })
     expect(defaultProps.onCityChange).toHaveBeenCalledWith('seoul')
   })

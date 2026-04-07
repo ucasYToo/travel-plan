@@ -42,6 +42,7 @@ function App() {
   const [selectedTransit, setSelectedTransit] = useState<TransitDetail | null>(null)
   const [detailViewMode, setDetailViewMode] = useState<DetailViewMode>('none')
   const [settings, setSettings] = useState(getInitialSettings)
+  const [zoom, setZoom] = useState(12)
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(settings))
@@ -103,12 +104,15 @@ function App() {
     setResetView(v => v + 1)
   }
 
-  const handleClearRoute = () => {
-    setActiveDay(null)
-  }
-
   const handleResetView = () => {
     setActiveDay(null)
+    setResetView(v => v + 1)
+  }
+
+  const handleRouteView = () => {
+    if (activeDay === null) {
+      setActiveDay(0)
+    }
     setResetView(v => v + 1)
   }
 
@@ -128,6 +132,7 @@ function App() {
           onShowLocationDetail={showLocationDetail}
           showLocationNames={settings.showLocationNames}
           showTransitLabels={settings.showTransit}
+          onZoomChange={setZoom}
         />
         <MapControls
           currentCity={currentCity}
@@ -135,20 +140,20 @@ function App() {
           dayOptions={cityData.days.map(d => `Day${d.day}`)}
           activeDay={activeDay}
           onCityChange={handleCityChange}
-          onClearRoute={handleClearRoute}
           onResetView={handleResetView}
           onSelectDay={(idx) => {
             setActiveDay(idx === activeDay ? null : idx)
           }}
           onSettingsChange={setSettings}
-          viewMode={itinerarySnap >= 2 ? 'full' : 'route'}
-          onRouteView={() => setItinerarySnap(0)}
+          viewMode={activeDay === null ? 'full' : 'route'}
+          onRouteView={handleRouteView}
+          zoom={zoom}
         />
       </div>
 
       {/* Left Panel: fixed overlay (desktop only) */}
       {!leftPanelCollapsed && (
-        <aside className="hidden sm:flex fixed left-0 top-0 bottom-0 w-72 bg-white/95 backdrop-blur shadow-xl z-20 flex-col">
+        <aside className="hidden sm:flex fixed left-0 top-0 bottom-0 w-80 bg-white/95 backdrop-blur shadow-xl z-20 flex-col">
           {/* Collapse toggle */}
           <button
             type="button"
@@ -165,7 +170,7 @@ function App() {
             data={cityData}
             activeDay={activeDay}
             onSelectDay={(idx) => {
-              setActiveDay(idx)
+              setActiveDay(idx === activeDay ? null : idx)
             }}
             onShowTransit={showTransit}
             onShowLocationDetail={showLocationDetail}
@@ -234,7 +239,11 @@ function App() {
           data={cityData}
           activeDay={activeDay}
           onSelectDay={(idx) => {
-            setActiveDay(idx)
+            const nextDay = idx === activeDay ? null : idx
+            setActiveDay(nextDay)
+            if (nextDay !== null) {
+              setItinerarySnap(0)
+            }
           }}
           onShowTransit={showTransit}
           onShowLocationDetail={showLocationDetail}
@@ -244,7 +253,7 @@ function App() {
       {/* Mobile: Detail Bottom Sheet */}
       {detailViewMode !== 'none' && (
         <BottomSheet
-          snapPoints={['75vh']}
+          snapPoints={['48px', '75vh']}
           activeSnap={1}
           onSnapChange={(idx) => {
             if (idx === 0) {
@@ -253,7 +262,7 @@ function App() {
               setRightPanelCollapsed(true)
             }
           }}
-          showBackdrop={false}
+          showBackdrop={true}
           onClose={() => {
             setDetailViewMode('none')
             setSelectedTransit(null)
