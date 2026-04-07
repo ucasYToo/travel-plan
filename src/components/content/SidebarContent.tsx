@@ -9,9 +9,9 @@ function formatDate(dateStr: string): string {
 // 格式化日期标题
 function formatDayTitle(day: DayPlan): string {
   if (day.date) {
-    return `${formatDate(day.date)} ${day.title}`
+    return `${formatDate(day.date)} · ${day.title}`
   }
-  return `day ${day.day} ${day.title}`
+  return `Day ${day.day} · ${day.title}`
 }
 
 // 获取路径中的地点信息
@@ -44,35 +44,32 @@ export function SidebarContent({ data, activeDay, onSelectDay, onShowTransit, on
   return (
     <>
       {/* Header */}
-      <div className="px-5 py-4 border-b border-[#DFE6E9] bg-white shrink-0">
-        <div className="flex items-center gap-2">
-          <h1 className="text-lg font-bold text-[#2D3436]">{data.metadata.title}</h1>
-          <span className="text-[#A8E6CF]">&#127793;</span>
-        </div>
-        <p className="text-xs text-[#636E72] mt-1">{data.metadata.subtitle}</p>
+      <div className="px-6 py-5 border-b border-[var(--border-spring)] shrink-0">
+        <h1 className="font-display text-xl font-semibold tracking-tight text-[var(--ink)]">{data.metadata.title}</h1>
+        <p className="text-xs text-[var(--stone)] mt-1.5 font-medium tracking-wide">{data.metadata.subtitle}</p>
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto sidebar-scroll p-4 space-y-5">
+      <div className="flex-1 overflow-y-auto sidebar-scroll p-5 space-y-6">
         {/* Hotels Info */}
         {hotels.length > 0 && (
-          <div className={`grid gap-2 ${hotels.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+          <div className={`grid gap-3 ${hotels.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
             {hotels.map((hotel) => (
               <div
                 key={hotel.id}
-                className="p-2 rounded-[16px] border"
-                style={{ backgroundColor: `${hotel.color}15`, borderColor: `${hotel.color}30` }}
+                className="p-3 rounded-2xl border border-[var(--border-spring)] bg-[var(--bg-card)] transition hover:shadow-spring"
+                style={{ borderColor: `${hotel.color}40` }}
               >
-                <div className="flex items-center gap-1.5 mb-1">
+                <div className="flex items-center gap-2 mb-1.5">
                   <div
-                    className="w-6 h-6 rounded-full flex items-center justify-center text-white text-[10px] font-bold"
+                    className="w-7 h-7 rounded-full flex items-center justify-center text-white text-[10px] font-semibold"
                     style={{ backgroundColor: hotel.color }}
                   >
-                    &#127968;
+                    住
                   </div>
-                  <p className="font-bold text-[#2D3436] text-xs truncate">{hotel.name}</p>
+                  <p className="font-semibold text-[var(--ink)] text-xs truncate">{hotel.name}</p>
                 </div>
-                <p className="text-[10px] text-[#636E72] leading-tight line-clamp-2">{hotel.description}</p>
+                <p className="text-[10px] text-[var(--stone)] leading-relaxed line-clamp-2">{hotel.description}</p>
               </div>
             ))}
           </div>
@@ -80,11 +77,11 @@ export function SidebarContent({ data, activeDay, onSelectDay, onShowTransit, on
 
         {/* Itinerary Section */}
         <section>
-          <h2 className="text-sm font-bold text-[#2D3436] mb-3 flex items-center gap-2">
-            <span className="w-1 h-4 bg-[#A8E6CF] rounded-full"></span>
-            {data.days.length}日行程规划
+          <h2 className="text-xs font-semibold text-[var(--stone)] mb-4 flex items-center gap-2 tracking-wide uppercase">
+            <span className="w-1 h-4 bg-[var(--sakura-pink)] rounded-full" />
+            {data.days.length} 日行程
           </h2>
-          <div className="space-y-2">
+          <div className="space-y-3">
             {data.days.map((day, index) => {
               const baseHotel = data.locations[day.baseHotelId]
               const pathWithLocations = getPathLocations(day, data.locations)
@@ -126,20 +123,20 @@ export function SidebarContent({ data, activeDay, onSelectDay, onShowTransit, on
                       <div
                         key={`district-${idx}`}
                         className={[
-                          'flex items-center gap-2 rounded px-1.5 py-1 -mx-1 text-xs text-[#2D3436] font-medium bg-white border border-[#DFE6E9]',
-                          onShowLocationDetail ? 'cursor-pointer hover:bg-[#F5F7FA]' : ''
+                          'flex items-center gap-2 rounded-lg px-2 py-1.5 -mx-1 text-xs text-[var(--ink)] font-medium bg-[var(--bg-card)] border border-[var(--border-spring)]',
+                          onShowLocationDetail ? 'cursor-pointer hover:border-[var(--sakura-pink)]' : ''
                         ].join(' ')}
                         onClick={onShowLocationDetail ? (e) => { e.stopPropagation(); onShowLocationDetail(parent, undefined, index) } : undefined}
                       >
                         <span
-                          className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center text-white text-[10px]"
+                          className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center text-white text-[10px] font-semibold"
                           style={{ background: parent.color }}
                         >
-                          {districtBadges[parent.id] || '\u25CF'}
+                          {districtBadges[parent.id] || '●'}
                         </span>
                         <span className="flex-1 min-w-0">{parent.name}</span>
                         {onShowLocationDetail ? (
-                          <span className="ml-auto text-[10px] text-[#88D8B0] shrink-0">查看详情</span>
+                          <span className="ml-auto text-[10px] text-[var(--sakura-deep)] shrink-0 font-medium">详情</span>
                         ) : null}
                       </div>
                     )
@@ -154,20 +151,20 @@ export function SidebarContent({ data, activeDay, onSelectDay, onShowTransit, on
                     <div
                       key={`loc-${idx}`}
                       className={[
-                        'flex items-center gap-2 rounded px-1.5 py-1 -mx-1 transition text-[10px] text-[#636E72] ml-4',
-                        onShowLocationDetail ? 'cursor-pointer hover:bg-[#F5F7FA]' : ''
+                        'flex items-center gap-2 rounded-lg px-2 py-1 -mx-1 transition text-[10px] text-[var(--stone)] ml-4',
+                        onShowLocationDetail ? 'cursor-pointer hover:bg-[var(--bg-card)]' : ''
                       ].join(' ')}
                       onClick={onShowLocationDetail ? (e) => { e.stopPropagation(); onShowLocationDetail(location, point.notes, index) } : undefined}
                     >
                       <span
-                        className="w-4 h-4 rounded-full shrink-0 flex items-center justify-center text-white text-[8px]"
+                        className="w-4 h-4 rounded-full shrink-0 flex items-center justify-center text-white text-[8px] font-semibold"
                         style={{ background: location.color }}
                       >
-                        {badge || '\u2022'}
+                        {badge || '•'}
                       </span>
                       <span className="flex-1 min-w-0">{location.name}</span>
                       {onShowLocationDetail ? (
-                        <span className="ml-auto text-[10px] text-[#88D8B0] shrink-0">查看详情</span>
+                        <span className="ml-auto text-[10px] text-[var(--sakura-deep)] shrink-0 font-medium">详情</span>
                       ) : null}
                     </div>
                   )
@@ -177,20 +174,20 @@ export function SidebarContent({ data, activeDay, onSelectDay, onShowTransit, on
                     <div
                       key={`hotel-${idx}`}
                       className={[
-                        'flex items-center gap-2 rounded px-1.5 py-1 -mx-1 text-xs text-[#2D3436] font-medium bg-white border border-[#DFE6E9]',
-                        onShowLocationDetail ? 'cursor-pointer hover:bg-[#F5F7FA]' : ''
+                        'flex items-center gap-2 rounded-lg px-2 py-1.5 -mx-1 text-xs text-[var(--ink)] font-medium bg-[var(--bg-card)] border border-[var(--border-spring)]',
+                        onShowLocationDetail ? 'cursor-pointer hover:border-[var(--sakura-pink)]' : ''
                       ].join(' ')}
                       onClick={onShowLocationDetail ? (e) => { e.stopPropagation(); onShowLocationDetail(location, point.notes, index) } : undefined}
                     >
                       <span
-                        className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center text-white text-[10px]"
+                        className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center text-white text-[10px] font-semibold"
                         style={{ background: location.color }}
                       >
-                        &#127968;
+                        住
                       </span>
                       <span className="flex-1 min-w-0">{location.name}</span>
                       {onShowLocationDetail ? (
-                        <span className="ml-auto text-[10px] text-[#88D8B0] shrink-0">查看详情</span>
+                        <span className="ml-auto text-[10px] text-[var(--sakura-deep)] shrink-0 font-medium">详情</span>
                       ) : null}
                     </div>
                   )
@@ -204,12 +201,12 @@ export function SidebarContent({ data, activeDay, onSelectDay, onShowTransit, on
                     routeItems.push(
                       <div
                         key={`transit-${idx}`}
-                        className="flex items-center gap-2 py-0.5 ml-6 cursor-pointer hover:bg-[#F5F7FA] rounded px-1.5 -mx-1 transition"
+                        className="flex items-center gap-2 py-0.5 ml-6 cursor-pointer hover:bg-[var(--bg-card)] rounded-lg px-2 -mx-1 transition"
                         onClick={onShowTransit ? (e) => { e.stopPropagation(); onShowTransit(transitData) } : undefined}
                       >
-                        <span className="text-[#DFE6E9] text-xs">└─</span>
-                        <span className="text-[10px] text-[#88D8B0]">{nextPoint.label}</span>
-                        <span className="text-[10px] text-[#A8E6CF] ml-auto">交通详情</span>
+                        <span className="text-[var(--mist)] text-xs">└─</span>
+                        <span className="text-[10px] text-[var(--stone)]">{nextPoint.label}</span>
+                        <span className="text-[10px] text-[var(--sakura-deep)] ml-auto font-medium">交通</span>
                       </div>
                     )
                   }
@@ -222,25 +219,27 @@ export function SidebarContent({ data, activeDay, onSelectDay, onShowTransit, on
                   type="button"
                   onClick={() => onSelectDay(index)}
                   className={[
-                    'day-card w-full text-left p-4 rounded-[16px] border transition-all cursor-pointer shadow-soft',
-                    'hover:border-[#DFE6E9] hover:shadow-soft-hover',
-                    activeDay === index ? 'border-[#A8E6CF] bg-[#DCFAED]' : 'border-gray-100 bg-white'
+                    'day-card w-full text-left p-4 rounded-2xl border transition-all cursor-pointer shadow-spring',
+                    'hover:border-[var(--sakura-pink)] hover:shadow-spring-lg',
+                    activeDay === index ? 'border-[var(--sakura-pink)] bg-[var(--sakura-pale)]' : 'border-[var(--border-spring)] bg-[var(--bg-card)]'
                   ].join(' ')}
                 >
-                  <div className="flex items-center justify-between mb-1.5">
-                    <h3 className="font-bold text-[#2D3436] text-[18px]">{formatDayTitle(day)}</h3>
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className={['font-display font-semibold text-[var(--ink)] text-lg tracking-tight', activeDay === index ? 'text-[var(--sakura-deep)]' : ''].join(' ')}>
+                      {formatDayTitle(day)}
+                    </h3>
                     {baseHotel && (
                       <span
-                        className="text-[10px] px-2 py-0.5 rounded-full text-white font-medium whitespace-nowrap shrink-0 ml-2"
+                        className="text-[10px] px-2.5 py-0.5 rounded-full text-white font-medium whitespace-nowrap shrink-0 ml-2"
                         style={{ backgroundColor: baseHotel.color }}
                       >
                         {baseHotel.name.replace('Aank Hotel ', '').replace('酒店', '').slice(0, 4)}
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-[#636E72] mb-3 leading-relaxed">{day.note}</p>
+                  <p className="text-xs text-[var(--stone)] mb-3 leading-relaxed">{day.note}</p>
                   {routeItems.length > 0 && (
-                    <div className="rounded-lg border border-[#DFE6E9] bg-[#F5F7FA] p-2.5 space-y-1">
+                    <div className="rounded-xl border border-[var(--border-spring)] bg-[var(--bg-main)] p-2.5 space-y-1">
                       {routeItems}
                     </div>
                   )}

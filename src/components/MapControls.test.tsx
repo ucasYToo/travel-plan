@@ -39,7 +39,7 @@ describe('MapControls', () => {
     const { container } = render(<MapControls {...defaultProps} viewMode="full" />)
     const mobileTop = container.querySelector('.sm\\:hidden.flex.flex-col.gap-2')
     const fullViewBtn = within(mobileTop as HTMLElement).getByText('全景')
-    expect(fullViewBtn.className).toContain('bg-[#A8E6CF]')
+    expect(fullViewBtn.className).toContain('bg-[var(--bud-green)]')
   })
 
   it('calls onResetView when reset view button is clicked', () => {

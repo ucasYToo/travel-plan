@@ -1,47 +1,195 @@
 :root {
-  --mint: #A8E6CF;
-  --mint-dark: #88D8B0;
-  --mint-light: #DCFAED;
-  --sakura: #FFB7B2;
-  --cream: #FFDAC1;
-  --page-bg: #F5F7FA;
-  --card-white: #FFFFFF;
-  --text-primary: #2D3436;
-  --text-secondary: #636E72;
-  --text-muted: #B2BEC3;
-  --border-color: #DFE6E9;
+  /* Sheer Sakura Spring Palette */
+  --sakura-pink: #F4A4B8;
+  --sakura-deep: #E07C96;
+  --sakura-pale: #FFF0F4;
+  --bud-green: #7AC4A0;
+  --bud-deep: #5AA882;
+  --bud-pale: #E8F6EF;
+  --spring-sky: #A8D8F0;
+  --spring-sky-pale: #EDF8FC;
+
+  --bg-main: #FFF8FA;
+  --bg-card: #FFFFFF;
+  --ink: #2A2A2A;
+  --ink-light: #3D3D3D;
+  --stone: #6B7280;
+  --stone-light: #9CA3AF;
+  --mist: #D1D5DB;
+  --border-spring: #FCE7EF;
+  --border-soft: #F3F4F6;
+
+  /* Typography */
+  --font-display: 'ZCOOL XiaoWei', 'Nunito', 'PingFang SC', sans-serif;
+  --font-body: 'Nunito', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(244, 164, 184, 0.08);
+  --shadow-md: 0 4px 14px rgba(244, 164, 184, 0.12);
+  --shadow-lg: 0 10px 30px rgba(244, 164, 184, 0.14);
 }
 
-.shadow-soft {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+* {
+  box-sizing: border-box;
 }
 
-.shadow-soft-hover {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+html, body, #root {
+  font-family: var(--font-body);
+  background-color: var(--bg-main);
+  color: var(--ink);
 }
 
+/* Soft ambient spring glow instead of grain */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(244, 164, 184, 0.12) 0%, transparent 35%),
+    radial-gradient(circle at 90% 80%, rgba(122, 196, 160, 0.10) 0%, transparent 35%),
+    radial-gradient(circle at 50% 50%, rgba(168, 216, 240, 0.08) 0%, transparent 45%);
+}
+
+/* Typography helpers */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Glass utilities */
 .glass {
-  background-color: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: rgba(255, 248, 250, 0.82);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
 }
 
-.glass-light {
-  background-color: rgba(255, 255, 255, 0.85);
+.glass-solid {
+  background-color: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
-/* Safe area padding for mobile bottom toolbar */
+/* Shadow utilities */
+.shadow-spring {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-spring-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Safe area padding for mobile */
 .safe-area-pb {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* Hide scrollbar utility */
+/* Scrollbars */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--border-spring);
+  border-radius: 3px;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--sakura-pink);
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease both;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Stagger delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+
+/* Leaflet tweaks */
+.leaflet-control-attribution {
+  font-size: 9px !important;
+  opacity: 0.7;
+}
+
+.custom-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.route-label {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--sakura-pale);
+  color: var(--sakura-deep);
 }

@@ -76,35 +76,35 @@ function isLocationGroup(loc: LocationOrGroup): loc is LocationGroup {
 function createCustomMarker(location: LocationOrGroup, badge?: string, showName = false): L.DivIcon {
   const isGroup = isLocationGroup(location)
   const isHotelGroup = location.type === 'hotel_group'
-  // Groups (商圈/酒店组): 40px, Spots (子地点): 24px
   const size = isGroup ? 40 : 24
   const svgColor = location.color
 
-  const orderBadge = badge
-    ? `<div style="position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;background:#2D3436;color:#fff;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);z-index:10">${badge}</div>`
-    : ''
+  const paperColor = '#FFF8FA'
 
-  // Spring-themed markers: hotel = house, group = flower/leaf, spot = dot with badge
-  const svg = isHotelGroup
-    ? `<div style="width:40px;height:40px;background:${svgColor};border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;font-size:18px">🏠</div><div style="position:absolute;top:-4px;right:-4px;width:14px;height:14px;background:#FFB7B2;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;border:1px solid #fff;box-shadow:0 1px 2px rgba(0,0,0,0.15)">❤️</div>`
+  const orderBadge = '';
+
+  // const orderBadge = badge
+    // ? `<div style="position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;background:#2A2A2A;color:#fff;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;border:2px solid ${paperColor};box-shadow:0 1px 3px rgba(0,0,0,0.12);z-index:10">${badge}</div>`
+    // : ''
+
+  const markerBody = isHotelGroup
+    ? `<div style="width:40px;height:40px;background:${svgColor};border-radius:50%;border:3px solid ${paperColor};box-shadow:0 3px 10px rgba(244,164,184,0.35);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff">住</div>`
     : isGroup
-      ? `<div style="width:40px;height:40px;background:${svgColor};border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;font-size:18px">🌸</div>`
-      : `<div style="width:24px;height:24px;background:${svgColor};border-radius:50%;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:bold;">${badge || '•'}</div>`
+      ? `<div style="width:40px;height:40px;background:${svgColor};border-radius:50%;border:3px solid ${paperColor};box-shadow:0 3px 10px rgba(244,164,184,0.35);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff">${badge || '●'}</div>`
+      : `<div style="width:24px;height:24px;background:${svgColor};border-radius:50%;border:2px solid ${paperColor};box-shadow:0 3px 10px rgba(244,164,184,0.30);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600;">${badge || '•'}</div>`
 
   const nameLabel = showName
-    ? `<div style="margin-top:4px;padding:2px 8px;background:rgba(255,255,255,0.9);border:1px solid #A8E6CF;border-radius:9999px;font-size:10px;font-weight:600;color:#2D3436;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.06)">${location.name}</div>`
+    ? `<div style="margin-top:4px;padding:2px 10px;background:rgba(255,248,250,0.95);border:1px solid #FCE7EF;border-radius:9999px;font-size:10px;font-weight:600;color:#2A2A2A;white-space:nowrap;box-shadow:0 1px 4px rgba(244,164,184,0.10)">${location.name}</div>`
     : ''
 
   const iconHtml = `
     <div style="display:flex;flex-direction:column;align-items:center">
-      <div class="marker-pulse" style="color: ${svgColor}; position:relative; display:inline-block">${svg}${orderBadge}</div>
+      <div style="color: ${svgColor}; position:relative; display:inline-block">${markerBody}${orderBadge}</div>
       ${nameLabel}
     </div>
   `
 
-  // Spots get a slight offset to avoid fully overlapping their parent group
   const anchorShift = !isGroup && badge ? 8 : 0
-  // When showing name, anchor needs to account for label height (~20px)
   const labelHeight = showName ? 20 : 0
 
   return L.divIcon({
@@ -118,7 +118,7 @@ function createCustomMarker(location: LocationOrGroup, badge?: string, showName 
 
 function createRouteLabelIcon(text: string): L.DivIcon {
   return L.divIcon({
-    html: `<div style="max-width:180px;padding:4px 10px;background:rgba(255,255,255,0.95);border:1px solid #A8E6CF;border-radius:9999px;font-size:11px;font-weight:600;color:#2D3436;box-shadow:0 1px 4px rgba(0,0,0,0.06);white-space:normal;word-break:break-word;text-align:center;line-height:1.3">${text}</div>`,
+    html: `<div style="max-width:180px;padding:4px 10px;background:rgba(255,248,250,0.95);border:1px solid #FCE7EF;border-radius:9999px;font-size:11px;font-weight:600;color:#2A2A2A;box-shadow:0 1px 4px rgba(244,164,184,0.10);white-space:normal;word-break:break-word;text-align:center;line-height:1.3">${text}</div>`,
     className: 'route-label',
     iconSize: [180, 40],
     iconAnchor: [90, 20]
@@ -157,7 +157,6 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
             if (!spotMap[loc.id]) {
               spotMap[loc.id] = String(spotIdx++)
             }
-            // Assign letter badge to parent district if it's a group
             if (loc.parentId) {
               const parent = data.locations[loc.parentId]
               if (parent && parent.type === 'group' && !districtMap[parent.id]) {
@@ -177,7 +176,6 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
     return data.days[activeDay]?.path || null
   }, [activeDay, data])
 
-  // Get path points with location data for rendering
   const routePoints = useMemo(() => {
     if (!activePath) return []
     return activePath
@@ -199,10 +197,8 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
       <SmartTileLayer />
       <MapController activeDay={activeDay} resetView={resetView} data={data} onZoomChange={onZoomChange} />
 
-      {/* Render markers for active day path */}
       {(() => {
         if (activeDay === null) {
-          // Show all locations when no day is selected
           return Object.values(data.locations).map((location) => (
             <Marker
               key={`${location.id}-all`}
@@ -221,7 +217,6 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
         const day = data.days[activeDay]
         if (!day) return null
 
-        // Collect path items
         const spotsInPath: { point: typeof day.path[0]; location: Location }[] = []
         const hotelsInPath: { point: typeof day.path[0]; location: LocationGroup }[] = []
         const districtsInPath = new Map<string, LocationGroup>()
@@ -244,7 +239,6 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
 
         const markers: JSX.Element[] = []
 
-        // Render district markers first (behind spots)
         for (const location of districtsInPath.values()) {
           const badge = districtOrder[location.id] || ''
           markers.push(
@@ -262,7 +256,6 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
           )
         }
 
-        // Render hotel markers
         for (const { point, location } of hotelsInPath) {
           markers.push(
             <Marker
@@ -279,7 +272,6 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
           )
         }
 
-        // Also show base hotel if not already in path
         if (!hotelsInPath.some(h => h.location.id === day.baseHotelId)) {
           const baseHotel = data.locations[day.baseHotelId]
           if (baseHotel && baseHotel.type === 'hotel_group') {
@@ -299,7 +291,6 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
           }
         }
 
-        // Render spot markers
         for (const { point, location } of spotsInPath) {
           const badge = spotOrder[location.id] || ''
           markers.push(
@@ -319,7 +310,6 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
         return markers
       })()}
 
-      {/* Render route polylines */}
       {routePoints.length > 1 &&
         Array.from({ length: routePoints.length - 1 }).map((_, i) => {
           const p1 = routePoints[i]
@@ -335,15 +325,14 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
               pathOptions={{
                 color,
                 weight: 3,
-                opacity: 0.7,
-                dashArray: '8, 8',
+                opacity: 0.75,
+                dashArray: '6, 6',
                 lineCap: 'round'
               }}
             />
           )
         })}
 
-      {/* Render route labels */}
       {showTransitLabels &&
         routePoints.length > 1 &&
         Array.from({ length: routePoints.length - 1 }).map((_, i) => {
@@ -352,7 +341,6 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
           if (!p2.point.label) return null
           const midLat = (p1.location.lat + p2.location.lat) / 2
           const midLng = (p1.location.lng + p2.location.lng) / 2
-          // Transit data is stored on the starting point (p1), not the ending point (p2)
           const transitData = p1.point.transit
           return (
             <Marker

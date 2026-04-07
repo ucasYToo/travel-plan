@@ -148,7 +148,7 @@ export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, sh
 
   const containerStyle: CSSProperties = {
     height: `${height}px`,
-    transition: isDragging ? 'none' : 'height 0.4s cubic-bezier(0.25, 1, 0.5, 1)',
+    transition: isDragging ? 'none' : 'height 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
     touchAction: 'none',
   }
 
@@ -162,7 +162,7 @@ export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, sh
     <div className="sm:hidden">
       {showBackdrop && (
         <div
-          className="fixed inset-0 bg-black/30 z-40"
+          className="fixed inset-0 bg-[#2A2A2A]/15 z-40"
           style={backdropStyle}
           onClick={() => animateToSnap(0)}
           aria-hidden="true"
@@ -171,7 +171,7 @@ export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, sh
 
       <div
         ref={containerRef}
-        className="fixed bottom-0 left-0 right-0 z-50 bg-[#F5F7FA] rounded-t-2xl shadow-[0_-4px_24px_rgba(0,0,0,0.14)] overflow-hidden will-change-transform"
+        className="fixed bottom-0 left-0 right-0 z-50 bg-[var(--bg-main)] rounded-t-2xl shadow-[0_-6px_30px_rgba(244,164,184,0.18)] overflow-hidden will-change-transform border-t border-[var(--border-spring)]"
         style={containerStyle}
       >
         <div
@@ -181,7 +181,7 @@ export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, sh
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerCancel}
         >
-          <div className="w-10 h-1 rounded-full bg-gray-400/60" />
+          <div className="w-10 h-1 rounded-full bg-[var(--mist)]/60" />
         </div>
 
         <div className="overflow-y-auto" style={{ height: `calc(100% - 40px)` }}>

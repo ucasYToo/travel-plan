@@ -117,7 +117,14 @@ function App() {
   }
 
   if (!cityData) {
-    return <div className="p-8 text-center">城市数据加载失败</div>
+    return (
+      <div className="h-full w-full flex items-center justify-center p-8 text-center">
+        <div className="max-w-md">
+          <p className="font-display text-2xl text-[var(--ink)] mb-2">城市数据加载失败</p>
+          <p className="text-sm text-[var(--stone)]">请检查网络连接或稍后再试</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -153,15 +160,15 @@ function App() {
 
       {/* Left Panel: fixed overlay (desktop only) */}
       {!leftPanelCollapsed && (
-        <aside className="hidden sm:flex fixed left-0 top-0 bottom-0 w-80 bg-white/95 backdrop-blur shadow-xl z-20 flex-col">
+        <aside className="hidden sm:flex fixed left-0 top-0 bottom-0 w-80 z-20 flex-col animate-slide-in-left border-r border-[var(--border-spring)] glass-solid shadow-spring-lg">
           {/* Collapse toggle */}
           <button
             type="button"
             onClick={() => setLeftPanelCollapsed(true)}
-            className="absolute top-4 -right-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 backdrop-blur-sm shadow-sm hover:bg-white transition"
+            className="absolute top-5 -right-5 w-8 h-8 flex items-center justify-center rounded-full bg-white border border-[var(--border-spring)] text-[var(--stone)] hover:text-[var(--ink)] hover:border-[var(--sakura-pink)] transition shadow-spring"
             aria-label="收起面板"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 18 9 12 15 6" />
             </svg>
           </button>
@@ -183,10 +190,10 @@ function App() {
         <button
           type="button"
           onClick={() => setLeftPanelCollapsed(false)}
-          className="fixed left-4 top-4 z-30 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full shadow-soft flex items-center justify-center text-[#2D3436] hover:bg-white transition border border-white/50"
+          className="fixed left-4 top-4 z-30 w-10 h-10 bg-white border border-[var(--border-spring)] rounded-full flex items-center justify-center text-[var(--ink)] hover:border-[var(--sakura-pink)] transition shadow-spring"
           aria-label="展开菜单"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="3" y1="12" x2="21" y2="12" />
             <line x1="3" y1="6" x2="21" y2="6" />
             <line x1="3" y1="18" x2="21" y2="18" />
@@ -196,7 +203,7 @@ function App() {
 
       {/* Right Panel: fixed overlay (desktop only) */}
       {!rightPanelCollapsed && detailViewMode !== 'none' && (
-        <aside className="hidden sm:flex fixed right-0 top-0 bottom-0 w-80 bg-[#F5F7FA] z-20 flex-col">
+        <aside className="hidden sm:flex fixed right-0 top-0 bottom-0 w-80 z-20 flex-col animate-slide-in-right border-l border-[var(--border-spring)] bg-[var(--bg-main)] shadow-spring-lg">
           {/* Collapse/close toggle */}
           <button
             type="button"
@@ -205,10 +212,10 @@ function App() {
               setSelectedTransit(null)
               setRightPanelCollapsed(true)
             }}
-            className="absolute top-4 -left-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 backdrop-blur-sm shadow-sm hover:bg-white transition"
+            className="absolute top-5 -left-5 w-8 h-8 flex items-center justify-center rounded-full bg-white border border-[var(--border-spring)] text-[var(--stone)] hover:text-[var(--ink)] hover:border-[var(--sakura-pink)] transition shadow-spring"
             aria-label="收起面板"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="rotate-180">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rotate-180">
               <polyline points="15 18 9 12 15 6" />
             </svg>
           </button>
