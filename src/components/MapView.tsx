@@ -1,5 +1,7 @@
 import { useMemo, useEffect } from 'react'
-import { MapContainer, TileLayer, Marker, Polyline, useMap } from 'react-leaflet'
+import { MapContainer, Marker, Polyline, useMap } from 'react-leaflet'
+import { SmartTileLayer } from './SmartTileLayer'
+import { ZoomIndicator } from './ZoomIndicator'
 import L from 'leaflet'
 import type { ItineraryData, TransitDetail, LocationOrGroup, LocationGroup, Location, NoteItem } from '../types'
 
@@ -168,12 +170,8 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
       zoom={12}
       zoomControl={false}
     >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-        subdomains="abcd"
-        maxZoom={19}
-      />
+      <SmartTileLayer />
+      <ZoomIndicator />
       <MapController activeDay={activeDay} resetView={resetView} data={data} />
 
       {/* Render markers for active day path */}

@@ -102,6 +102,20 @@ function App() {
     setResetView(v => v + 1)
   }
 
+  const handleDownloadJSON = () => {
+    const data = JSON.stringify(cityData, null, 2)
+    const blob = new Blob([data], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    const fileName = cityData.metadata.title || 'itinerary'
+    a.download = `${fileName}.json`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
   return (
     <div className="relative h-full w-full sm:grid sm:grid-rows-1 sm:grid-cols-[280px_1fr_360px]">
       <Sidebar
