@@ -11,9 +11,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Framework**: React 18 + TypeScript
 - **Build Tool**: Vite 5
 - **Map Library**: Leaflet + react-leaflet
-- **Styling**: Tailwind CSS (CDN)
-- **Testing**: Vitest + React Testing Library
-- **Single File Build**: vite-plugin-singlefile (生成独立 HTML 文件)
+- **Styling**: Tailwind CSS (CDN) + CSS Modules (`.module.css`)
+- **Testing**: Vitest + React Testing Library (jsdom)
+- **Screenshot Tool**: Playwright (`screenshot.mjs`)
+- **Single File Build**: `vite-plugin-singlefile` (生成独立 HTML 文件)
 
 ## Common Commands
 
@@ -21,17 +22,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 # 开发服务器
 npm run dev
 
-# 构建（输出到 dist/，生成独立 HTML）
+# 构建（输出到 dist/index.html，所有资源内联）
 npm run build
 
 # 预览构建产物
 npm run preview
 
-# 运行测试
+# 运行全部测试
 npm run test
+
+# 运行单个测试文件
+npx vitest run src/components/MapControls.test.tsx
 
 # 测试监听模式
 npm run test:watch
+
+# 生成截图（需先启动预览服务器在 5174 端口）
+node screenshot.mjs
 ```
 
 ## Architecture
@@ -56,28 +63,33 @@ src/data/index.ts            →  多城市数据入口
 - `TransitDetail`: 两点间交通方案（距离、时长、步骤）
 - `ItineraryData`: 完整行程数据，自描述可直接渲染
 
-### Component Structure
+### UI Architecture
 
-```
-src/components/
-├── MapView.tsx        # 地图渲染（Leaflet），显示标记和路线
-├── Sidebar.tsx        # 侧边栏：行程列表、酒店信息、路线详情
-└── TransportModal.tsx # 交通详情弹窗
-```
+`App.tsx` 管理全局状态（当前城市、选中日期、详情面板）。响应式布局：
+
+- **Desktop**: 左侧固定面板（行程概览）+ 右侧固定面板（地点/交通详情）
+- **Mobile**: 地图全屏 + `BottomSheet` 弹层（行程列表和详情分别在不同 BottomSheet 中）
+
+用户设置（如显示地点名称、显示交通标签）持久化在 `localStorage` 键 `travel-map-settings` 中。
 
 ### Key Patterns
 
 1. **数据自描述**: 所有显示信息（包括路径标签）都在数据文件中定义，组件直接渲染不计算
-2. **地点类型**: 
+2. **地点类型**:
    - `hotel_group`: 酒店组，显示"住"字标记
    - `group`: 商圈/景点组，使用字母编号 (A, B, C)
    - `spot`: 具体地点，使用数字编号 (1, 2, 3)
 3. **路径点**: `PathPoint` 包含 `label`（显示标签）和可选的 `transit`（交通详情）
 4. **多城市支持**: 数据层设计支持多个城市，目前只有首尔 (`seoul`)
 
+### Utility Scripts
+
+- `scripts/download-tiles.ts` - 下载离线地图瓦片，供 `SmartTileLayer` 本地回退使用
+
 ## Transit Data Sources
 
 交通时间数据来源：
+
 - 首尔地铁 API (via vercel-proxy-henna-eight.vercel.app)
 - 步行距离使用 Haversine 公式估算
 - 部分数据通过 WebSearch 验证
@@ -92,6 +104,7 @@ src/components/
 ## Build Output
 
 使用 `vite-plugin-singlefile` 生成独立 HTML 文件，所有资源内联：
+
 - 输出：`dist/index.html`
 - 可直接部署到任何静态托管服务
 
@@ -110,11 +123,13 @@ src/components/
 文件：`.claude/agents/travel-planner.md`
 
 完整 Agent 定义（Markdown + YAML frontmatter）：
+
 - **Tools**: Read, Write, Edit, WebSearch, WebFetch, Bash
 - **Ownership**: 拥有 `src/data/seoul/locations.ts` 和 `days.ts` 的修改权限
 - **Logic**: 核心算法（距离计算、日期评分、地铁 API 调用）内联在文档中
 
 #### Workflow
+
 1. Read 数据文件 → 了解现有行程
 2. WebSearch 搜索地点 → 获取名称/地址/坐标
 3. 计算距离 → 500米内分配到商圈
@@ -125,6 +140,7 @@ src/components/
 8. Bash 测试 → `npm run test && npm run build`
 
 #### Seoul Metro API
+
 ```
 https://vercel-proxy-henna-eight.vercel.app/api/seoul-metro?start={韩文起点}&end={韩文终点}
 
