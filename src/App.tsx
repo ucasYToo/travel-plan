@@ -8,7 +8,7 @@ import { getCityData, DEFAULT_CITY } from './data'
 import type { TransitDetail, NoteItem, LocationOrGroup } from './types'
 import styles from './App.module.css'
 
-const STORAGE_KEY = 'seoul-map-settings'
+const STORAGE_KEY = 'travel-map-settings'
 
 function getInitialSettings() {
   try {
@@ -249,9 +249,6 @@ function App() {
           onSelectDay={(idx) => {
             const nextDay = idx === activeDay ? null : idx
             setActiveDay(nextDay)
-            if (nextDay !== null) {
-              setItinerarySnap(0)
-            }
           }}
           onShowTransit={showTransit}
           onShowLocationDetail={showLocationDetail}

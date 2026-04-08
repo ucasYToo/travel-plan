@@ -1,0 +1,13 @@
+import { chromium } from 'playwright';
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+await page.goto('http://localhost:5174/', { waitUntil: 'networkidle' });
+await page.screenshot({ path: 'desktop-view.png', fullPage: false });
+await page.click('text=Day 2', { timeout: 5000 });
+await new Promise(r => setTimeout(r, 800));
+await page.screenshot({ path: 'day2-timeline.png', fullPage: false });
+await page.setViewportSize({ width: 390, height: 844 });
+await page.goto('http://localhost:5174/', { waitUntil: 'networkidle' });
+await page.screenshot({ path: 'mobile-view.png', fullPage: false });
+await browser.close();
+console.log('done');

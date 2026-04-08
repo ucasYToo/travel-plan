@@ -1,0 +1,1285 @@
+{
+  "metadata": {
+    "title": "首尔旅行攻略",
+    "subtitle": "麻浦格莱德2晚 + 梨泰院Aank3晚 · 6日往返",
+    "mapCenter": {
+      "lat": 37.545,
+      "lng": 126.96
+    },
+    "mapZoom": 12,
+    "cityLabel": "서울",
+    "seasonLabel": "SPRING"
+  },
+  "locations": {
+    "mapo_glad_group": {
+      "id": "mapo_glad_group",
+      "name": "麻浦格莱德酒店",
+      "lat": 37.5415,
+      "lng": 126.95,
+      "color": "#3b82f6",
+      "type": "hotel_group",
+      "description": "孔德站8号出口 · 机场铁路直达 · 住2晚",
+      "address": "서울 마포구 마포대로 92",
+      "children": [
+        "fritz",
+        "jinsook"
+      ]
+    },
+    "aank_itaewon_group": {
+      "id": "aank_itaewon_group",
+      "name": "Aank Hotel 梨泰院店",
+      "lat": 37.5345,
+      "lng": 126.9946,
+      "color": "#8b5cf6",
+      "type": "hotel_group",
+      "description": "梨泰院商圈步行范围 · 国际化街区 · 住3晚",
+      "address": "서울 용산구 우사단로14길 11",
+      "children": []
+    },
+    "hongdae": {
+      "id": "hongdae",
+      "name": "弘大商圈",
+      "lat": 37.5563,
+      "lng": 126.923,
+      "color": "#8b5cf6",
+      "type": "group",
+      "description": "年轻文化 · 夜生活 · 街头艺术",
+      "address": "서울 마포구 홍익로",
+      "children": [
+        "hongdae_main",
+        "hair_salon",
+        "boseung",
+        "oats"
+      ]
+    },
+    "yeouido": {
+      "id": "yeouido",
+      "name": "汝矣岛现代百货",
+      "lat": 37.526,
+      "lng": 126.928,
+      "color": "#ec4899",
+      "type": "group",
+      "description": "高端购物 · 网红打卡 · Starfield图书馆",
+      "address": "서울 영등포구 여의대로 108",
+      "children": [
+        "yeouido_hyundai"
+      ]
+    },
+    "hannam": {
+      "id": "hannam",
+      "name": "汉南洞商圈",
+      "lat": 37.537,
+      "lng": 127.001,
+      "color": "#f59e0b",
+      "type": "group",
+      "description": "小众设计师品牌 · 咖啡文化",
+      "address": "서울 용산구 한남동",
+      "children": [
+        "hannam_street"
+      ]
+    },
+    "hangang_hannam": {
+      "id": "hangang_hannam",
+      "name": "汉江公园(汉南段)",
+      "lat": 37.5235,
+      "lng": 127.0005,
+      "color": "#10b981",
+      "type": "group",
+      "description": "汉江边散步·骑行·野餐 · 距汉南洞约10分钟",
+      "address": "서울 용산구 이촌동 302-17",
+      "children": [
+        "hangang_hannam_park"
+      ]
+    },
+    "seongsu": {
+      "id": "seongsu",
+      "name": "圣水洞",
+      "lat": 37.5443,
+      "lng": 127.0557,
+      "color": "#10b981",
+      "type": "group",
+      "description": "文创园区 · 时尚概念店",
+      "address": "서울 성동구 성수동",
+      "children": [
+        "seongsu_entrance",
+        "gwonski",
+        "dukchim"
+      ]
+    },
+    "seochon": {
+      "id": "seochon",
+      "name": "西村",
+      "lat": 37.5803,
+      "lng": 126.9692,
+      "color": "#3b82f6",
+      "type": "group",
+      "description": "景福宫西侧 · 文创小店 · 韩屋咖啡",
+      "address": "서울 종로구 통의동",
+      "children": [
+        "papier_prost"
+      ]
+    },
+    "shilla": {
+      "id": "shilla",
+      "name": "新罗百货--烟弹返点",
+      "lat": 37.5561,
+      "lng": 127.0098,
+      "color": "#f97316",
+      "type": "group",
+      "description": "烟弹返点",
+      "address": "서울 중구 동호로 249",
+      "children": [
+        "shilla_dutyfree"
+      ]
+    },
+    "shinsegae": {
+      "id": "shinsegae",
+      "name": "新世界百货-keen返点",
+      "lat": 37.5598,
+      "lng": 126.9815,
+      "color": "#14b8a6",
+      "type": "group",
+      "description": "keen返点",
+      "address": "서울 중구 소공로 63",
+      "children": [
+        "shinsegae_main"
+      ]
+    },
+    "myeongdong": {
+      "id": "myeongdong",
+      "name": "明洞",
+      "lat": 37.5612,
+      "lng": 126.9879,
+      "color": "#f59e0b",
+      "type": "group",
+      "description": "购物天堂 · 美食聚集地",
+      "address": "서울 중구 명동",
+      "children": [
+        "myeongdong_street"
+      ]
+    },
+    "narita_airport": {
+      "id": "narita_airport",
+      "name": "仁川国际机场",
+      "lat": 37.458764,
+      "lng": 126.441961,
+      "color": "#6b7280",
+      "type": "group",
+      "description": "韩国主要国际机场",
+      "address": "인천 중구 공항로 272",
+      "children": [
+        "incheon_airport_t1"
+      ]
+    },
+    "fritz": {
+      "id": "fritz",
+      "name": "Fritz Coffee Company",
+      "type": "spot",
+      "lat": 37.5423,
+      "lng": 126.9493,
+      "color": "#78350f",
+      "description": "孔德店 · 复古韩屋风格 · 小海豹烘焙",
+      "address": "서울 마포구 새창로2길 17",
+      "parentId": "mapo_glad_group"
+    },
+    "jinsook": {
+      "id": "jinsook",
+      "name": "金熟成 麻浦站店",
+      "type": "spot",
+      "lat": 37.5395,
+      "lng": 126.9457,
+      "color": "#ef4444",
+      "description": "麻浦区本地人气烤肉店 · 桃花街14-1",
+      "address": "서울 마포구 도화길 14-1",
+      "parentId": "mapo_glad_group"
+    },
+    "hongdae_main": {
+      "id": "hongdae_main",
+      "name": "弘大主街",
+      "type": "spot",
+      "lat": 37.5563,
+      "lng": 126.923,
+      "color": "#8b5cf6",
+      "description": "弘大商圈核心街区 · 街头文化聚集地",
+      "address": "서울 마포구 홍익로",
+      "parentId": "hongdae"
+    },
+    "hair_salon": {
+      "id": "hair_salon",
+      "name": "理发段 홍대 미용실",
+      "type": "spot",
+      "lat": 37.5555,
+      "lng": 126.9235,
+      "color": "#f97316",
+      "description": "弘大理发店 · 양화로11길 14-10 1층 101호",
+      "address": "서울 마포구 양화로11길 14-10",
+      "parentId": "hongdae"
+    },
+    "boseung": {
+      "id": "boseung",
+      "name": "汤饭--保承会馆 보승회관",
+      "type": "spot",
+      "lat": 37.5575,
+      "lng": 126.9225,
+      "color": "#f97316",
+      "description": "弘大24小时汤饭店 · 猪肉汤饭·脊骨土豆汤·米肠汤",
+      "address": "서울 마포구 어울마당로 131",
+      "parentId": "hongdae"
+    },
+    "oats": {
+      "id": "oats",
+      "name": "Oats Coffee",
+      "type": "spot",
+      "lat": 37.5655,
+      "lng": 126.9265,
+      "color": "#78350f",
+      "description": "延南洞网红咖啡店 · 维也纳咖啡·云朵奶油",
+      "address": "서울 마포구 성미산로29길 29-8",
+      "parentId": "hongdae"
+    },
+    "yeouido_hyundai": {
+      "id": "yeouido_hyundai",
+      "name": "汝矣岛现代百货",
+      "type": "spot",
+      "lat": 37.526,
+      "lng": 126.928,
+      "color": "#ec4899",
+      "description": "The Hyundai Seoul · Starfield图书馆",
+      "address": "서울 영등포구 여의대로 108",
+      "parentId": "yeouido"
+    },
+    "hannam_street": {
+      "id": "hannam_street",
+      "name": "汉南洞主街",
+      "type": "spot",
+      "lat": 37.537,
+      "lng": 127.001,
+      "color": "#f59e0b",
+      "description": "汉南洞设计师品牌街区 · 汉江镇站3号出口",
+      "address": "서울 용산구 한남동",
+      "parentId": "hannam"
+    },
+    "hangang_hannam_park": {
+      "id": "hangang_hannam_park",
+      "name": "汉江公园(汉南段)",
+      "type": "spot",
+      "lat": 37.5235,
+      "lng": 127.0005,
+      "color": "#10b981",
+      "description": "汉南大桥北侧 · 散步骑行野餐",
+      "address": "서울 용산구 이촌동 302-17",
+      "parentId": "hangang_hannam"
+    },
+    "seongsu_entrance": {
+      "id": "seongsu_entrance",
+      "name": "圣水洞主街",
+      "type": "spot",
+      "lat": 37.5443,
+      "lng": 127.0557,
+      "color": "#10b981",
+      "description": "圣水洞商圈入口 · 圣水站4号出口",
+      "address": "서울 성동구 성수동",
+      "parentId": "seongsu"
+    },
+    "gwonski": {
+      "id": "gwonski",
+      "name": "권식족발 (Gwonski猪蹄)",
+      "type": "spot",
+      "lat": 37.544,
+      "lng": 127.055,
+      "color": "#ef4444",
+      "description": "圣水洞人气猪蹄店 · 峨嵋山路7街4号",
+      "address": "서울 성동구 아차산로7길 4",
+      "parentId": "seongsu"
+    },
+    "dukchim": {
+      "id": "dukchim",
+      "name": "두찜(辣炖鸡) 圣水店",
+      "type": "spot",
+      "lat": 37.5432,
+      "lng": 127.0553,
+      "color": "#ef4444",
+      "description": "圣水洞辣炖鸡/炖鸡专门店 · 圣水一路8街5号1楼",
+      "address": "서울 성동구 성수이로8길 5",
+      "parentId": "seongsu"
+    },
+    "papier_prost": {
+      "id": "papier_prost",
+      "name": "手账店 파피어프로스트 (Papier Prost)",
+      "type": "spot",
+      "lat": 37.5803,
+      "lng": 126.9692,
+      "color": "#3b82f6",
+      "description": "西村文创文具店 · 手帐·贴纸·生活杂货",
+      "address": "서울 종로구 자하문로7길 68-4 1층",
+      "parentId": "seochon"
+    },
+    "shilla_dutyfree": {
+      "id": "shilla_dutyfree",
+      "name": "新罗免税店",
+      "type": "spot",
+      "lat": 37.5561,
+      "lng": 127.0098,
+      "color": "#f97316",
+      "description": "新罗免税购物天堂 · 高端品牌云集",
+      "address": "서울 중구 동호로 249",
+      "parentId": "shilla"
+    },
+    "shinsegae_main": {
+      "id": "shinsegae_main",
+      "name": "新世界百货本店",
+      "type": "spot",
+      "lat": 37.5598,
+      "lng": 126.9815,
+      "color": "#14b8a6",
+      "description": "明洞新世界百货本店 · 百年奢华购物地标",
+      "address": "서울 중구 소공로 63",
+      "parentId": "shinsegae"
+    },
+    "myeongdong_street": {
+      "id": "myeongdong_street",
+      "name": "明洞主街",
+      "type": "spot",
+      "lat": 37.5612,
+      "lng": 126.9879,
+      "color": "#f59e0b",
+      "description": "明洞购物美食主街",
+      "address": "서울 중구 명동",
+      "parentId": "myeongdong"
+    },
+    "incheon_airport_t1": {
+      "id": "incheon_airport_t1",
+      "name": "仁川国际机场T1航站楼",
+      "type": "spot",
+      "lat": 37.458764,
+      "lng": 126.441961,
+      "color": "#6b7280",
+      "description": "韩国主要国际机场 · T1航站楼",
+      "address": "인천 중구 공항로 272",
+      "parentId": "narita_airport"
+    }
+  },
+  "days": [
+    {
+      "day": 1,
+      "date": "2026-04-29",
+      "title": "抵达首尔",
+      "note": "大韩航空 KE108 杭州萧山→首尔仁川（约14:40出发/18:05到达 KST）。机场铁路直达孔德站，入住麻浦格莱德酒店。",
+      "baseHotelId": "mapo_glad_group",
+      "path": [
+        {
+          "locationId": "incheon_airport_t1",
+          "label": "仁川国际机场",
+          "transit": {
+            "distance": "约45公里",
+            "duration": "约60分钟",
+            "startName": "仁川国际机场",
+            "endName": "麻浦格莱德酒店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "仁川国际机场T1/T2",
+                "to": "机场铁路入口",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "跟随机场铁路 (AREX) 指示牌前往地下1层乘车口"
+              },
+              {
+                "mode": "train",
+                "line": "机场铁路 (AREX) 普通/一般列车",
+                "from": "仁川国际机场",
+                "to": "孔德站",
+                "duration": "约50分钟",
+                "distance": "约45公里",
+                "instruction": "乘坐机场铁路普通列车（蓝色标志），直达列车不停靠孔德站，孔德站下车"
+              },
+              {
+                "mode": "walk",
+                "from": "孔德站8号出口",
+                "to": "麻浦格莱德酒店",
+                "duration": "约5分钟",
+                "distance": "约150米",
+                "instruction": "8号出口出站后步行约1分钟即达酒店正门"
+              }
+            ]
+          },
+          "notes": [
+            {
+              "category": "tips",
+              "content": "抵达后先更换手机卡，机场有SK/KT/LG运营商柜台，推荐提前淘宝购买流量卡"
+            }
+          ]
+        },
+        {
+          "locationId": "mapo_glad_group",
+          "label": "机场铁路一般列车 · 约60分钟",
+          "isHotel": true
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "2026-04-30",
+      "title": "西线双城记",
+      "note": "早餐后先去酒店隔壁的Fritz Coffee买一杯咖啡+可颂，上午弘大潮流游+理发店(양화로11길 14-10)+保承会馆汤饭+Oats Coffee，傍晚汝矣岛日落+灯光秀+Starfield图书馆，晚上回酒店附近吃金熟成烤肉",
+      "baseHotelId": "mapo_glad_group",
+      "path": [
+        {
+          "locationId": "mapo_glad_group",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "fritz",
+          "label": "步行 · 约5分钟",
+          "transit": {
+            "distance": "约300米",
+            "duration": "约5分钟",
+            "startName": "麻浦格莱德酒店",
+            "endName": "Fritz Coffee Company",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "麻浦格莱德酒店",
+                "to": "Fritz Coffee Company",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "出酒店右转，沿孔德站方向步行约2分钟即可到达"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "hongdae_main",
+          "label": "机场铁路/京义线 · 约8分钟",
+          "transit": {
+            "distance": "约2.5公里",
+            "duration": "约8分钟",
+            "startName": "Fritz Coffee Company/孔德站",
+            "endName": "弘大主街",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "Fritz Coffee Company",
+                "to": "孔德站",
+                "duration": "约3分钟",
+                "distance": "约150米",
+                "instruction": "返回孔德站"
+              },
+              {
+                "mode": "subway",
+                "line": "机场铁路/京义线",
+                "from": "孔德站",
+                "to": "弘益大学站",
+                "duration": "约3分钟",
+                "distance": "约2.3公里",
+                "instruction": "乘坐机场铁路或京义线至弘益大学站下车"
+              },
+              {
+                "mode": "walk",
+                "from": "弘益大学站9号出口",
+                "to": "弘大主街",
+                "duration": "约2分钟",
+                "distance": "约100米",
+                "instruction": "9号出口出站即进入弘大商圈主街"
+              }
+            ]
+          },
+          "notes": [
+            {
+              "category": "food",
+              "content": "在延南洞吃朝鲜火炉烤肉（돈주는남자），招牌是厚切五花肉"
+            },
+            {
+              "category": "shopping",
+              "content": "thisisneverthat 韩国潮牌，价格亲民设计好，弘大店常有折扣"
+            },
+            {
+              "category": "shopping",
+              "content": "LMC (Lifework) 街头风格，T恤和卫衣很受欢迎"
+            },
+            {
+              "category": "tips",
+              "content": "弘大主街人很多，建议往延南洞小巷走，更有氛围"
+            }
+          ]
+        },
+        {
+          "locationId": "hair_salon",
+          "label": "步行 · 约7分钟",
+          "transit": {
+            "distance": "约500米",
+            "duration": "约7分钟",
+            "startName": "弘大主街",
+            "endName": "홍대 미용실",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "弘大主街",
+                "to": "양화로11길 14-10",
+                "duration": "约7分钟",
+                "distance": "约500米",
+                "instruction": "从弘大主街步行至양화로11길 14-10 1층 101호"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "boseung",
+          "label": "步行 · 约12分钟",
+          "transit": {
+            "distance": "约900米",
+            "duration": "约12分钟",
+            "startName": "理发店 홍대 미용실",
+            "endName": "保承会馆 보승회관",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "홍대 미용실",
+                "to": "弘益大学站",
+                "duration": "约5分钟",
+                "distance": "约400米",
+                "instruction": "从理发店步行返回弘益大学站"
+              },
+              {
+                "mode": "walk",
+                "from": "弘益大学站8号出口",
+                "to": "保承会馆",
+                "duration": "约7分钟",
+                "distance": "约500米",
+                "instruction": "从弘大入口站8号出口步行至어울마당로 131（2楼）"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "oats",
+          "label": "步行 · 约12分钟",
+          "transit": {
+            "distance": "约900米",
+            "duration": "约12分钟",
+            "startName": "保承会馆 보승회관",
+            "endName": "Oats Coffee 延南店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "保承会馆",
+                "to": "弘益大学站2号出口方向",
+                "duration": "约5分钟",
+                "distance": "约400米",
+                "instruction": "从保承会馆步行至弘大入口站2号出口方向"
+              },
+              {
+                "mode": "walk",
+                "from": "弘大入口站2号出口",
+                "to": "Oats Coffee",
+                "duration": "约7分钟",
+                "distance": "约500米",
+                "instruction": "穿过延南洞步行至성미산로29길 29-8"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "yeouido_hyundai",
+          "label": "京义线→5号线 · 约25分钟",
+          "transit": {
+            "distance": "约6.5公里",
+            "duration": "约25分钟",
+            "startName": "Oats Coffee 延南店",
+            "endName": "汝矣岛现代百货",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "Oats Coffee",
+                "to": "加佐站",
+                "duration": "约8分钟",
+                "distance": "约600米",
+                "instruction": "从Oats Coffee步行至加佐站"
+              },
+              {
+                "mode": "subway",
+                "line": "京义线",
+                "from": "加佐站",
+                "to": "孔德站",
+                "duration": "约5分钟",
+                "distance": "约2.7公里",
+                "instruction": "乘坐京义线至孔德站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁5号线",
+                "from": "孔德站",
+                "to": "汝矣渡口站",
+                "duration": "约7分钟",
+                "distance": "约2.6公里",
+                "instruction": "换乘5号线至汝矣渡口站下车"
+              },
+              {
+                "mode": "walk",
+                "from": "汝矣渡口站3号出口",
+                "to": "汝矣岛现代百货",
+                "duration": "约5分钟",
+                "distance": "约400米",
+                "instruction": "经地下通道连接现代百货B2层，或从地面步行至正门"
+              }
+            ]
+          },
+          "notes": [
+            {
+              "category": "food",
+              "content": "现代百货B1层有很多美食，推荐尝试"
+            },
+            {
+              "category": "shopping",
+              "content": "Starfield图书馆在现代百货5-6层，拍照打卡很美"
+            },
+            {
+              "category": "tips",
+              "content": "傍晚去汉江公园看日落，然后回来看夜景灯光秀"
+            }
+          ]
+        },
+        {
+          "locationId": "jinsook",
+          "label": "地铁5号线+步行 · 约8分钟",
+          "transit": {
+            "distance": "约1.5公里",
+            "duration": "约8分钟",
+            "startName": "汝矣岛现代百货",
+            "endName": "金熟成 麻浦站店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "汝矣岛现代百货",
+                "to": "汝矣渡口站",
+                "duration": "约3分钟",
+                "distance": "约400米",
+                "instruction": "返回汝矣渡口站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁5号线",
+                "from": "汝矣渡口站",
+                "to": "麻浦站",
+                "duration": "约2分钟",
+                "distance": "约1.3公里",
+                "instruction": "乘坐5号线坐1站至麻浦站下车（比孔德站更近）"
+              },
+              {
+                "mode": "walk",
+                "from": "麻浦站3号出口",
+                "to": "金熟成 麻浦站店",
+                "duration": "约3分钟",
+                "distance": "约200米",
+                "instruction": "从麻浦站3号出口步行至桃花街14-1，金熟成烤肉店"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "mapo_glad_group",
+          "label": "返回酒店 · 约10分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约700米",
+            "duration": "约10分钟",
+            "startName": "金熟成烤肉",
+            "endName": "麻浦格莱德酒店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "金熟成烤肉",
+                "to": "麻浦格莱德酒店",
+                "duration": "约10分钟",
+                "distance": "约700米",
+                "instruction": "从金熟成烤肉步行返回酒店"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "date": "2026-05-01",
+      "title": "搬家日·新罗免税+汉南洞+汉江公园",
+      "note": "早上从麻浦格莱德退房，前往梨泰院Aank酒店办理入住放行李，上午新罗免税店采购，下午汉南洞设计师品牌、咖啡漫游，傍晚汉江公园散步吹风。",
+      "baseHotelId": "aank_itaewon_group",
+      "path": [
+        {
+          "locationId": "mapo_glad_group",
+          "label": "起点（退房日）",
+          "isHotel": true
+        },
+        {
+          "locationId": "aank_itaewon_group",
+          "label": "地铁6号线 · 约15分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约4.0公里",
+            "duration": "约15分钟",
+            "startName": "麻浦格莱德酒店",
+            "endName": "Aank Hotel 梨泰院店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "麻浦格莱德酒店",
+                "to": "孔德站",
+                "duration": "约3分钟",
+                "distance": "约100米",
+                "instruction": "携带行李步行至孔德站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁6号线",
+                "from": "孔德站",
+                "to": "梨泰院站",
+                "duration": "约7分钟",
+                "distance": "约4.0公里",
+                "instruction": "乘坐6号线直达梨泰院站，无需换乘"
+              },
+              {
+                "mode": "walk",
+                "from": "梨泰院站",
+                "to": "Aank Hotel 梨泰院店",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "从梨泰院站步行至酒店办理入住，放下行李"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "shilla_dutyfree",
+          "label": "地铁6→3号线 · 约18分钟",
+          "transit": {
+            "distance": "约3.5公里",
+            "duration": "约18分钟",
+            "startName": "梨泰院Aank酒店",
+            "endName": "新罗免税店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "Aank Hotel 梨泰院店",
+                "to": "梨泰院站",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "步行至梨泰院地铁站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁6号线",
+                "from": "梨泰院站",
+                "to": "药水站",
+                "duration": "约8分钟",
+                "distance": "约2.5公里",
+                "instruction": "乘坐6号线至药水站下车"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁3号线",
+                "from": "药水站",
+                "to": "东国大学站",
+                "duration": "约2分钟",
+                "distance": "约1.0公里",
+                "instruction": "换乘3号线至东国大学站下车"
+              },
+              {
+                "mode": "walk",
+                "from": "东国大学站5号出口",
+                "to": "新罗免税店",
+                "duration": "约5分钟",
+                "distance": "约400米",
+                "instruction": "5号出口出站后沿南山公园方向上坡步行至新罗免税店"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "hannam_street",
+          "label": "地铁3→6号线+步行 · 约15分钟",
+          "transit": {
+            "distance": "约3.0公里",
+            "duration": "约15分钟",
+            "startName": "新罗免税店",
+            "endName": "汉南洞主街",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "新罗免税店",
+                "to": "东国大学站",
+                "duration": "约5分钟",
+                "distance": "约400米",
+                "instruction": "步行返回东国大学站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁3号线",
+                "from": "东国大学站",
+                "to": "药水站",
+                "duration": "约2分钟",
+                "distance": "约1.0公里",
+                "instruction": "乘坐3号线至药水站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁6号线",
+                "from": "药水站",
+                "to": "汉江镇站",
+                "duration": "约3分钟",
+                "distance": "约1.5公里",
+                "instruction": "换乘6号线至汉江镇站（比梨泰院站更靠近汉南核心区）"
+              },
+              {
+                "mode": "walk",
+                "from": "汉江镇站3号出口",
+                "to": "汉南洞主街",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "从汉江镇站3号出口出站即进入汉南洞设计师品牌聚集区"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "hangang_hannam_park",
+          "label": "步行下坡 · 约18分钟",
+          "transit": {
+            "distance": "约1.5公里",
+            "duration": "约18分钟",
+            "startName": "汉南洞主街",
+            "endName": "汉江公园(汉南段)",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "汉南洞主街",
+                "to": "汉江公园入口",
+                "duration": "约18分钟",
+                "distance": "约1.5公里",
+                "instruction": "沿梨泰院路向南山方向步行下坡，经过汉南大桥北侧即可到达汉江公园"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "aank_itaewon_group",
+          "label": "步行返回 · 约19分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约1.3公里",
+            "duration": "约19分钟",
+            "startName": "汉江公园(汉南段)",
+            "endName": "Aank Hotel 梨泰院店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "汉江公园",
+                "to": "汉南洞主街",
+                "duration": "约11分钟",
+                "distance": "约900米",
+                "instruction": "沿汉南大桥北侧步行上坡返回汉南洞街区"
+              },
+              {
+                "mode": "walk",
+                "from": "汉南洞主街",
+                "to": "Aank Hotel 梨泰院店",
+                "duration": "约8分钟",
+                "distance": "约400米",
+                "instruction": "沿梨泰院路下坡步行返回酒店"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "date": "2026-05-02",
+      "title": "圣水洞文创+美食日",
+      "note": "东线。梨泰院乘6号线转2号线到圣水约30分钟。白天逛文创园区+咖啡，晚上在圣水洞吃Gwonski猪蹄或두찜辣炖鸡（两家步行2分钟）",
+      "baseHotelId": "aank_itaewon_group",
+      "path": [
+        {
+          "locationId": "aank_itaewon_group",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "seongsu_entrance",
+          "label": "地铁6号线→2号线 · 约30分钟",
+          "transit": {
+            "distance": "约9.0公里",
+            "duration": "约30分钟",
+            "startName": "梨泰院Aank酒店",
+            "endName": "圣水洞主街",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "Aank Hotel 梨泰院店",
+                "to": "梨泰院站",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "从酒店步行至梨泰院地铁站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁6号线",
+                "from": "梨泰院站",
+                "to": "新堂站",
+                "duration": "约20分钟",
+                "distance": "约8.0公里",
+                "instruction": "乘坐6号线至新堂站下车"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁2号线",
+                "from": "新堂站",
+                "to": "圣水站",
+                "duration": "约2分钟",
+                "distance": "约1.0公里",
+                "instruction": "换乘2号线至圣水站下车"
+              },
+              {
+                "mode": "walk",
+                "from": "圣水站4号出口",
+                "to": "圣水洞主街",
+                "duration": "约3分钟",
+                "distance": "约200米",
+                "instruction": "4号出口出站后沿圣水一路进入主街区"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "gwonski",
+          "label": "步行 · 约7分钟",
+          "transit": {
+            "distance": "约400米",
+            "duration": "约7分钟",
+            "startName": "圣水站/主街区",
+            "endName": "권식족발 (Gwonski猪蹄)",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "圣水站4号出口",
+                "to": "Gwonski猪蹄",
+                "duration": "约7分钟",
+                "distance": "约400米",
+                "instruction": "从圣水站步行至峨嵋山路7街4号 Gwonski猪蹄"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "dukchim",
+          "label": "步行 · 约3分钟",
+          "transit": {
+            "distance": "约200米",
+            "duration": "约3分钟",
+            "startName": "Gwonski猪蹄",
+            "endName": "두찜(辣炖鸡) 圣水店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "Gwonski猪蹄",
+                "to": "두찜圣水店",
+                "duration": "约3分钟",
+                "distance": "约200米",
+                "instruction": "两家店铺位于圣水洞同一条小巷内，步行约2-3分钟"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "aank_itaewon_group",
+          "label": "地铁2号线→6号线 · 约30分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约9.0公里",
+            "duration": "约30分钟",
+            "startName": "圣水洞主街",
+            "endName": "Aank Hotel 梨泰院店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "圣水洞主街/Gwonski猪蹄/두찜",
+                "to": "圣水站",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "步行返回圣水站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁2号线",
+                "from": "圣水站",
+                "to": "新堂站",
+                "duration": "约2分钟",
+                "distance": "约1.0公里",
+                "instruction": "乘坐2号线至新堂站下车"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁6号线",
+                "from": "新堂站",
+                "to": "梨泰院站",
+                "duration": "约20分钟",
+                "distance": "约8.0公里",
+                "instruction": "换乘6号线至梨泰院站"
+              },
+              {
+                "mode": "walk",
+                "from": "梨泰院站",
+                "to": "Aank Hotel 梨泰院店",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "从梨泰院站步行返回酒店"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "date": "2026-05-03",
+      "title": "市中区购物+西村文创",
+      "note": "上午新世界百货购物，中午明洞地下美食街，下午西村手账店，傍晚最后补货",
+      "baseHotelId": "aank_itaewon_group",
+      "path": [
+        {
+          "locationId": "aank_itaewon_group",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "shinsegae_main",
+          "label": "地铁6号线→4号线 · 约20分钟",
+          "transit": {
+            "distance": "约5.5公里",
+            "duration": "约20分钟",
+            "startName": "梨泰院Aank酒店",
+            "endName": "新世界百货本店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "Aank Hotel 梨泰院店",
+                "to": "梨泰院站",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "步行至梨泰院地铁站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁6号线",
+                "from": "梨泰院站",
+                "to": "三角地站",
+                "duration": "约4分钟",
+                "distance": "约2.0公里",
+                "instruction": "乘坐6号线至三角地站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁4号线",
+                "from": "三角地站",
+                "to": "会贤站",
+                "duration": "约6分钟",
+                "distance": "约3.5公里",
+                "instruction": "换乘4号线至会贤站下车"
+              },
+              {
+                "mode": "walk",
+                "from": "会贤站7号出口",
+                "to": "新世界百货本店",
+                "duration": "约2分钟",
+                "distance": "约100米",
+                "instruction": "7号出口出站即达新世界百货"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "myeongdong_street",
+          "label": "免费穿梭巴士/步行 · 约5分钟",
+          "transit": {
+            "distance": "约800米",
+            "duration": "约5分钟",
+            "startName": "新世界百货本店",
+            "endName": "明洞主街",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "新世界百货本店",
+                "to": "新世界免费巴士站",
+                "duration": "约2分钟",
+                "distance": "约100米",
+                "instruction": "步行至新世界百货免费巴士站"
+              },
+              {
+                "mode": "bus",
+                "line": "新世界免费穿梭巴士",
+                "from": "新世界百货",
+                "to": "明洞主街",
+                "duration": "约3分钟",
+                "distance": "约700米",
+                "instruction": "乘坐新世界免费巴士至明洞主街下车（或步行约10分钟）"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "papier_prost",
+          "label": "地铁3号线+步行 · 约25分钟",
+          "transit": {
+            "distance": "约3.8公里",
+            "duration": "约25分钟",
+            "startName": "明洞主街",
+            "endName": "파피어프로스트",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "明洞主街",
+                "to": "乙支路3街站",
+                "duration": "约8分钟",
+                "distance": "约500米",
+                "instruction": "步行至乙支路3街站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁3号线",
+                "from": "乙支路3街站",
+                "to": "景福宫站",
+                "duration": "约12分钟",
+                "distance": "约2.5公里",
+                "instruction": "乘坐3号线至景福宫站下车"
+              },
+              {
+                "mode": "walk",
+                "from": "景福宫站3号出口",
+                "to": "파피어프로스트",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "3号出口出站后沿孝子路步行至西村，자하문로7길 68-4"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "aank_itaewon_group",
+          "label": "地铁3→6号线 · 约30分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约8.0公里",
+            "duration": "约30分钟",
+            "startName": "파피어프로스트",
+            "endName": "Aank Hotel 梨泰院店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "파피어프로스트",
+                "to": "景福宫站",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "步行返回景福宫站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁3号线",
+                "from": "景福宫站",
+                "to": "药水站",
+                "duration": "约13分钟",
+                "distance": "约5.0公里",
+                "instruction": "乘坐3号线至药水站下车"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁6号线",
+                "from": "药水站",
+                "to": "梨泰院站",
+                "duration": "约7分钟",
+                "distance": "约2.7公里",
+                "instruction": "换乘6号线至梨泰院站"
+              },
+              {
+                "mode": "walk",
+                "from": "梨泰院站",
+                "to": "Aank Hotel 梨泰院店",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "从梨泰院站步行返回酒店"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "date": "2026-05-04",
+      "title": "返航杭州",
+      "note": "大韩航空 KE107 首尔仁川→杭州萧山（约12:15起飞/13:20到达 CST）。建议提前3小时从酒店出发。",
+      "baseHotelId": "aank_itaewon_group",
+      "path": [
+        {
+          "locationId": "aank_itaewon_group",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "incheon_airport_t1",
+          "label": "地铁6号线→机场铁路 · 约80分钟",
+          "transit": {
+            "distance": "约55公里",
+            "duration": "约80分钟",
+            "startName": "梨泰院Aank酒店",
+            "endName": "仁川国际机场T1航站楼",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "Aank Hotel 梨泰院店",
+                "to": "梨泰院站",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "携带行李步行至梨泰院站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁6号线",
+                "from": "梨泰院站",
+                "to": "孔德站",
+                "duration": "约7分钟",
+                "distance": "约4.0公里",
+                "instruction": "乘坐6号线至孔德站下车"
+              },
+              {
+                "mode": "walk",
+                "from": "孔德站",
+                "to": "机场铁路换乘通道",
+                "duration": "约3分钟",
+                "distance": "约100米",
+                "instruction": "站内换乘至机场铁路 (AREX)"
+              },
+              {
+                "mode": "train",
+                "line": "机场铁路 (AREX) 普通/一般列车",
+                "from": "孔德站",
+                "to": "仁川国际机场",
+                "duration": "约60分钟",
+                "distance": "约50公里",
+                "instruction": "乘坐机场铁路普通列车（蓝色标志）前往仁川国际机场T1/T2航站楼"
+              },
+              {
+                "mode": "walk",
+                "from": "机场铁路下车口",
+                "to": "出发大厅",
+                "duration": "约5分钟",
+                "distance": "约200米",
+                "instruction": "跟随出发大厅指示牌办理值机和出境手续"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -145,10 +145,14 @@ export function DetailContent({
   }
 
   // Empty state
+  const emptyTitle = data?.metadata.title
+    ? `探索${data.metadata.title.replace(/(?:旅行|攻略|之旅).*$/, '')}`
+    : '探索城市'
+
   return (
     <div className={styles.emptyState}>
       <div className={styles.emptyContent}>
-        <p className={styles.emptyTitle}>探索首尔</p>
+        <p className={styles.emptyTitle}>{emptyTitle}</p>
         <p className={styles.emptyHint}>点击地图标记或行程卡片，查看每处风景的故事与细节</p>
       </div>
     </div>

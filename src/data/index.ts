@@ -1,8 +1,8 @@
-import { seoulTrip } from './seoul'
+import seoulJson from './cities/seoul.json'
 import type { ItineraryData, CityOption } from '../types'
 
 export const CITIES: Record<string, ItineraryData> = {
-  seoul: seoulTrip,
+  seoul: seoulJson as ItineraryData,
 }
 
 export const CITY_OPTIONS: CityOption[] = [
@@ -19,6 +19,3 @@ export function getCityName(cityId: string): string {
 }
 
 export const DEFAULT_CITY = 'seoul'
-
-// Re-export city data for convenience
-export { seoulTrip } from './seoul'

@@ -20,7 +20,7 @@
   --border-soft: #F3F4F6;
 
   /* Typography */
-  --font-display: 'ZCOOL XiaoWei', 'Nunito', 'PingFang SC', sans-serif;
+  --font-display: 'Nunito', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   --font-body: 'Nunito', 'PingFang SC', 'Microsoft YaHei', sans-serif;
 
   /* Elevation */
@@ -189,6 +189,28 @@ body::before {
 .custom-marker {
   background: transparent !important;
   border: none !important;
+}
+
+/* Marker styling (no entrance animation to avoid zoom flicker) */
+.marker-wrap {
+  will-change: transform;
+}
+
+.marker-pop {
+  will-change: transform;
+}
+
+/* Route line draw animation */
+.leaflet-interactive.route-draw {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: drawRoute 1.2s ease-out forwards;
+}
+
+@keyframes drawRoute {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .route-label {

@@ -64,6 +64,12 @@
   flex: 1;
   overflow-y: auto;
   padding: 16px 20px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
 }
 
 .content > * + * {
@@ -188,6 +194,12 @@
   flex: 1;
   overflow-y: auto;
   padding: 20px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollable::-webkit-scrollbar {
+  display: none;
 }
 
 .emptyState {

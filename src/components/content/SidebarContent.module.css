@@ -1,66 +1,141 @@
+/* ═══════════════════════════════════════════
+   HEADER — Magazine-style
+   ═══════════════════════════════════════════ */
+
 .header {
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--border-spring);
+  padding: 24px 24px 16px;
   flex-shrink: 0;
+  position: relative;
+  background:
+    linear-gradient(180deg, var(--sakura-pale) 0%, transparent 100%);
+}
+
+/* Decorative cherry blossom petals */
+.headerDecoTop {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  display: flex;
+  gap: 2px;
+}
+
+.headerPetal {
+  animation: petalSway 4s ease-in-out infinite;
+}
+.headerPetalR { animation-delay: -1.5s; }
+.headerPetalS { animation-delay: -3s; }
+
+@keyframes petalSway {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-2px) rotate(8deg); }
+}
+
+.headerDecoLine {
+  margin-top: 12px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--sakura-pink) 0%, var(--spring-sky) 50%, var(--bud-green) 100%);
+  opacity: 0.4;
+}
+
+.headerBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.titleKr {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--sakura-deep);
+  line-height: 1;
+  margin: 0;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
 }
 
 .title {
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--ink);
+  margin: 0;
+}
+
+.seasonBadge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #fff;
+  background: var(--bud-green);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  text-transform: uppercase;
 }
 
 .subtitle {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--stone);
-  margin-top: 6px;
+  margin-top: 4px;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
+
+/* ═══════════════════════════════════════════
+   SCROLLABLE AREA
+   ═══════════════════════════════════════════ */
 
 .scrollable {
   flex: 1;
   overflow-y: auto;
   padding: 20px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollable::-webkit-scrollbar {
+  display: none;
 }
 
 .scrollable > * + * {
-  margin-top: 24px;
+  margin-top: 20px;
 }
 
-.hotelGrid {
-  display: grid;
-  gap: 12px;
+/* ═══════════════════════════════════════════
+   HOTELS — compact chip row
+   ═══════════════════════════════════════════ */
+
+.hotelRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.hotelGrid2Cols {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.hotelCard {
-  padding: 12px;
-  border-radius: 16px;
+.hotelChip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px 6px 6px;
+  border-radius: 9999px;
   border: 1px solid var(--border-spring);
   background-color: var(--bg-card);
   transition: box-shadow 0.2s ease;
 }
 
-.hotelCard:hover {
+.hotelChip:hover {
   box-shadow: var(--shadow-md);
 }
 
-.hotelHeader {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-
-.hotelIcon {
-  width: 28px;
-  height: 28px;
+.hotelChipIcon {
+  width: 24px;
+  height: 24px;
   border-radius: 9999px;
   display: flex;
   align-items: center;
@@ -70,43 +145,337 @@
   font-weight: 600;
 }
 
-.hotelName {
+.hotelChipName {
+  font-size: 10px;
   font-weight: 600;
   color: var(--ink);
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════
+   SECTION TITLE
+   ═══════════════════════════════════════════ */
+
+.sectionTitle {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--stone);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sectionIndicator {
+  width: 3px;
+  height: 14px;
+  background-color: var(--sakura-pink);
+  border-radius: 9999px;
+}
+
+/* ═══════════════════════════════════════════
+   DAY PILLS — horizontal scrolling
+   ═══════════════════════════════════════════ */
+
+.dayPillBar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--sakura-pink) var(--sakura-pale);
+}
+
+.dayPillBar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.dayPillBar::-webkit-scrollbar-track {
+  background: var(--sakura-pale);
+  border-radius: 9999px;
+  box-shadow: inset 0 1px 2px rgba(224, 124, 150, 0.08);
+}
+
+.dayPillBar::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, var(--sakura-pink) 0%, var(--spring-sky) 50%, var(--bud-green) 100%);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.dayPillBar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, var(--sakura-deep) 0%, var(--spring-sky) 50%, var(--bud-deep) 100%);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.dayPill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  height: 48px;
+  padding: 4px 14px;
+  border-radius: 24px;
+  border: 1.5px solid var(--border-spring);
+  background-color: var(--bg-card);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.dayPill:hover {
+  border-color: var(--sakura-pink);
+  box-shadow: var(--shadow-md);
+  transform: scale(1.04);
+}
+
+.dayPillActive {
+  background-color: var(--bud-green);
+  border-color: var(--bud-green);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(122, 196, 160, 0.35);
+  transform: scale(1.04);
+}
+
+.dayPillDay {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.dayPillActive .dayPillDay {
+  color: #fff;
+}
+
+.dayPillDate {
+  font-size: 9px;
+  color: var(--stone);
+  margin-top: 2px;
+  line-height: 1;
+}
+
+.dayPillActive .dayPillDate {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ═══════════════════════════════════════════
+   TIMELINE (active day detail)
+   ═══════════════════════════════════════════ */
+
+.timelineContainer {
+  animation: fadeInUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 20px;
+}
+
+/* Vertical axis line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-image: linear-gradient(to bottom, var(--border-spring) 50%, transparent 50%);
+  background-size: 2px 12px;
+}
+
+/* Node wrapper */
+.tlNodeWrap {
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.tlTransitSeg {
+  position: relative;
+  margin-bottom: 4px;
+}
+
+/* ═══════════════════════════════════════════
+   TIMELINE NODES
+   ═══════════════════════════════════════════ */
+
+.tlNode {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 8px 10px;
+  border-radius: 8px;
+  transition: background-color 0.15s ease;
+}
+
+.tlClickable {
+  cursor: pointer;
+}
+
+.tlClickable:hover {
+  background-color: var(--sakura-pale);
+}
+
+/* Node type: district */
+.tlDistrict {
+  padding: 8px 6px 10px;
+}
+
+.tlBadge {
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  position: relative;
+}
+
+/* Axis dot — colored circle on the timeline axis for district nodes */
+.tlBadge::before {
+  content: '';
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: inherit;
+  border: 2px solid #fff;
+  box-shadow: 0 0 4px rgba(0,0,0,0.08);
+  z-index: 1;
+}
+
+/* Node type: spot */
+.tlSpot {
+  padding: 6px 6px 8px;
+}
+
+.tlDot {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 600;
+  position: relative;
+}
+
+/* Axis dot for spot nodes */
+.tlDot::before {
+  content: '';
+  position: absolute;
+  left: -11px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: inherit;
+  border: 1.5px solid #fff;
+  box-shadow: 0 0 3px rgba(0,0,0,0.06);
+  z-index: 1;
+}
+
+/* Node type: hotel */
+.tlHotel {
+  padding: 8px 6px 10px;
+}
+
+/* Node name */
+.tlName {
+  flex: 1;
   font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.hotelDesc {
-  font-size: 10px;
-  color: var(--stone);
-  line-height: 1.6;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+.tlDistrict .tlName {
+  font-weight: 600;
+  font-size: 13px;
 }
 
-.sectionTitle {
-  font-size: 12px;
+.tlHotel .tlName {
   font-weight: 600;
-  color: var(--stone);
-  margin-bottom: 16px;
+  font-size: 12px;
+}
+
+/* Node action */
+.tlAction {
+  font-size: 9px;
+  color: var(--sakura-deep);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════
+   TIMELINE TRANSIT SEGMENT
+   ═══════════════════════════════════════════ */
+
+.tlTransit {
   display: flex;
   align-items: center;
-  gap: 8px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  gap: 6px;
+  padding: 8px 8px;
+  margin-left: 4px;
+  margin-right: -4px;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
 }
 
-.sectionIndicator {
-  width: 4px;
-  height: 16px;
-  background-color: var(--sakura-pink);
-  border-radius: 9999px;
+.tlTransitClickable {
+  cursor: pointer;
 }
+
+.tlTransitClickable:hover {
+  background-color: var(--spring-sky-pale);
+}
+
+.tlTransitIcon {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.tlTransitLabel {
+  font-size: 10px;
+  color: var(--stone);
+  line-height: 1.3;
+  flex: 1;
+  min-width: 0;
+}
+
+.tlTransitAction {
+  font-size: 9px;
+  color: var(--spring-sky);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════
+   DAY CARDS (fallback when no day selected)
+   ═══════════════════════════════════════════ */
 
 .dayList > * + * {
   margin-top: 12px;
@@ -146,7 +515,7 @@
   font-family: var(--font-display);
   font-weight: 600;
   color: var(--ink);
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: -0.01em;
 }
 
@@ -155,18 +524,18 @@
 }
 
 .dayNote {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--stone);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   line-height: 1.6;
 }
 
 .badgePill {
-  font-size: 10px;
-  padding: 2px 10px;
+  font-size: 9px;
+  padding: 2px 8px;
   border-radius: 9999px;
   color: #fff;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
   flex-shrink: 0;
   margin-left: 8px;
@@ -176,127 +545,5 @@
   border-radius: 12px;
   border: 1px solid var(--border-spring);
   background-color: var(--bg-main);
-  padding: 10px;
-}
-
-.routeBox > * + * {
-  margin-top: 4px;
-}
-
-.districtRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border-radius: 8px;
-  padding: 6px 8px;
-  margin-left: -4px;
-  margin-right: -4px;
-  font-size: 12px;
-  color: var(--ink);
-  font-weight: 500;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-spring);
-}
-
-.districtRowHover:hover {
-  border-color: var(--sakura-pink);
-}
-
-.spotRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border-radius: 8px;
-  padding: 4px 8px;
-  margin-left: 1rem;
-  margin-left: 1rem;
-  margin-left: calc(1rem - 4px);
-  margin-right: -4px;
-  font-size: 10px;
-  color: var(--stone);
-  transition: background-color 0.2s ease;
-}
-
-.spotRowHover:hover {
-  background-color: var(--bg-card);
-}
-
-.transitRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  margin-left: 1.5rem;
-  margin-left: calc(1.5rem - 4px);
-  margin-right: -4px;
-  cursor: pointer;
-  border-radius: 8px;
-  padding-left: 8px;
-  padding-right: 8px;
-  transition: background-color 0.2s ease;
-}
-
-.transitRow:hover {
-  background-color: var(--bg-card);
-}
-
-.rowIcon {
-  width: 20px;
-  height: 20px;
-  border-radius: 9999px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 600;
-}
-
-.rowIconSmall {
-  width: 16px;
-  height: 16px;
-  border-radius: 9999px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 8px;
-  font-weight: 600;
-}
-
-.rowName {
-  flex: 1;
-  min-width: 0;
-}
-
-.rowAction {
-  margin-left: auto;
-  font-size: 10px;
-  color: var(--sakura-deep);
-  flex-shrink: 0;
-  font-weight: 500;
-}
-
-.transitPrefix {
-  color: var(--mist);
-  font-size: 12px;
-}
-
-.transitLabel {
-  font-size: 10px;
-  color: var(--stone);
-}
-
-.transitAction {
-  font-size: 10px;
-  color: var(--sakura-deep);
-  margin-left: auto;
-  font-weight: 500;
-}
-
-.cursorPointer {
-  cursor: pointer;
+  padding: 8px;
 }

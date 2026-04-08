@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react'
+import { useMemo, useEffect, Fragment } from 'react'
 import { MapContainer, Marker, Polyline, useMap } from 'react-leaflet'
 import { SmartTileLayer } from './SmartTileLayer'
 import L from 'leaflet'
@@ -9,10 +9,12 @@ interface MapControllerProps {
   activeDay: number | null
   resetView: number
   data: ItineraryData
+  defaultCenter: [number, number]
+  defaultZoom: number
   onZoomChange?: (zoom: number) => void
 }
 
-function MapController({ activeDay, resetView, data, onZoomChange }: MapControllerProps) {
+function MapController({ activeDay, resetView, data, defaultCenter, defaultZoom, onZoomChange }: MapControllerProps) {
   const map = useMap()
 
   useEffect(() => {
@@ -61,10 +63,10 @@ function MapController({ activeDay, resetView, data, onZoomChange }: MapControll
       if (hasValidPoint) {
         map.fitBounds(bounds, { padding: [40, 40], maxZoom: 14, duration: 1 })
       } else {
-        map.flyTo([37.545, 126.96], 12, { duration: 1 })
+        map.flyTo(defaultCenter, defaultZoom, { duration: 1 })
       }
     }
-  }, [map, activeDay, resetView, data])
+  }, [map, activeDay, resetView, data, defaultCenter, defaultZoom])
 
   return null
 }
@@ -99,8 +101,8 @@ function createCustomMarker(location: LocationOrGroup, badge?: string, showName 
     : ''
 
   const iconHtml = `
-    <div style="display:flex;flex-direction:column;align-items:center">
-      <div style="color: ${svgColor}; position:relative; display:inline-block">${markerBody}${orderBadge}</div>
+    <div style="display:flex;flex-direction:column;align-items:center" class="marker-wrap">
+      <div style="color: ${svgColor}; position:relative; display:inline-block" class="marker-pop">${markerBody}${orderBadge}</div>
       ${nameLabel}
     </div>
   `
@@ -140,6 +142,21 @@ export interface MapViewProps {
 const DISTRICT_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocationDetail, showLocationNames = false, showTransitLabels = false, onZoomChange }: MapViewProps): JSX.Element {
+  const defaultCenter = useMemo<[number, number]>(() => {
+    if (data.metadata.mapCenter) {
+      return [data.metadata.mapCenter.lat, data.metadata.mapCenter.lng]
+    }
+    const locs = Object.values(data.locations)
+    if (locs.length > 0) {
+      const lat = locs.reduce((sum, l) => sum + l.lat, 0) / locs.length
+      const lng = locs.reduce((sum, l) => sum + l.lng, 0) / locs.length
+      return [lat, lng]
+    }
+    return [0, 0]
+  }, [data])
+
+  const defaultZoom = data.metadata.mapZoom ?? 12
+
   const { districtOrder, spotOrder } = useMemo(() => {
     const districtMap: Record<string, string> = {}
     const spotMap: Record<string, string> = {}
@@ -191,12 +208,12 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
     <MapContainer
       className={styles.mapContainer}
       style={{ height: '100%', width: '100%' }}
-      center={[37.545, 126.96]}
-      zoom={12}
+      center={defaultCenter}
+      zoom={defaultZoom}
       zoomControl={false}
     >
       <SmartTileLayer />
-      <MapController activeDay={activeDay} resetView={resetView} data={data} onZoomChange={onZoomChange} />
+      <MapController activeDay={activeDay} resetView={resetView} data={data} defaultCenter={defaultCenter} defaultZoom={defaultZoom} onZoomChange={onZoomChange} />
 
       {(() => {
         if (activeDay === null) {
@@ -328,21 +345,36 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
           const p1 = routePoints[i]
           const p2 = routePoints[i + 1]
           const color = p2.location.color
+          const positions = [
+            [p1.location.lat, p1.location.lng],
+            [p2.location.lat, p2.location.lng]
+          ] as [number, number][]
           return (
-            <Polyline
-              key={`route-${i}`}
-              positions={[
-                [p1.location.lat, p1.location.lng],
-                [p2.location.lat, p2.location.lng]
-              ]}
-              pathOptions={{
-                color,
-                weight: 3,
-                opacity: 0.75,
-                dashArray: '6, 6',
-                lineCap: 'round'
-              }}
-            />
+            <Fragment key={`route-${i}`}>
+              {/* Glow halo */}
+              <Polyline
+                positions={positions}
+                pathOptions={{
+                  color,
+                  weight: 9,
+                  opacity: 0.18,
+                  lineCap: 'round',
+                  lineJoin: 'round'
+                }}
+              />
+              {/* Core line */}
+              <Polyline
+                positions={positions}
+                pathOptions={{
+                  color,
+                  weight: 3,
+                  opacity: 0.8,
+                  dashArray: '6, 6',
+                  lineCap: 'round',
+                  className: 'route-draw'
+                }}
+              />
+            </Fragment>
           )
         })}
 

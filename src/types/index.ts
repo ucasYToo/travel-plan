@@ -107,11 +107,20 @@ export interface DayPlan {
 /**
  * 行程元数据
  */
+export interface MapCenter {
+  lat: number
+  lng: number
+}
+
 export interface ItineraryMetadata {
   title: string          // 主标题 (如 "首尔旅行攻略")
   subtitle: string       // 副标题 (如 "麻浦2晚 + 梨泰院3晚 · 6日往返")
   startDate?: string     // 开始日期 (可选)
   endDate?: string       // 结束日期 (可选)
+  mapCenter?: MapCenter  // 地图默认中心
+  mapZoom?: number       // 地图默认缩放级别
+  cityLabel?: string     // 城市本地名称 (如 "서울")
+  seasonLabel?: string   // 季节标签 (如 "SPRING")
 }
 
 /**
