@@ -1,0 +1,1113 @@
+{
+  "metadata": {
+    "title": "东京五日游",
+    "subtitle": "新宿4晚 · 5日美食深度漫游",
+    "mapCenter": { "lat": 35.69, "lng": 139.71 },
+    "mapZoom": 12,
+    "cityLabel": "东京",
+    "seasonLabel": "SPRING",
+    "flag": "🇯🇵",
+    "country": "JP"
+  },
+  "locations": {
+    "shinjuku_hotel": {
+      "id": "shinjuku_hotel",
+      "name": "新宿格兰贝尔酒店",
+      "lat": 35.6877,
+      "lng": 139.6993,
+      "color": "#3b82f6",
+      "type": "hotel_group",
+      "description": "新宿核心区 · 步行至歌舞伎町5分钟 · 住4晚",
+      "address": "东京都新宿区歌舞伎町2-14-5",
+      "children": []
+    },
+    "haneda_airport": {
+      "id": "haneda_airport",
+      "name": "羽田机场",
+      "type": "spot",
+      "lat": 35.553333,
+      "lng": 139.781113,
+      "color": "#6b7280",
+      "description": "东京主要国际机场 · 距离市区22公里",
+      "address": "东京都大田区羽田空港3-3-2",
+      "parentId": "shinjuku_hotel"
+    },
+    "shibuya_crossing": {
+      "id": "shibuya_crossing",
+      "name": "涩谷十字路口",
+      "type": "spot",
+      "lat": 35.6595,
+      "lng": 139.7004,
+      "color": "#ec4899",
+      "description": "世界最繁忙十字路口 · 忠犬八公像",
+      "address": "东京都涩谷区涩谷2-1",
+      "parentId": "shinjuku_hotel"
+    },
+    "sensoji": {
+      "id": "sensoji",
+      "name": "浅草寺",
+      "type": "spot",
+      "lat": 35.714661,
+      "lng": 139.796783,
+      "color": "#f59e0b",
+      "description": "东京最古老的寺庙 · 雷门大灯笼",
+      "address": "东京都台东区浅草2-3-1",
+      "parentId": "shinjuku_hotel"
+    },
+    "ueno_park": {
+      "id": "ueno_park",
+      "name": "上野公园",
+      "type": "spot",
+      "lat": 35.712223,
+      "lng": 139.771118,
+      "color": "#10b981",
+      "description": "东京最佳赏樱地 · 国立博物馆",
+      "address": "东京都台东区上野公园5-20",
+      "parentId": "shinjuku_hotel"
+    },
+    "skytree": {
+      "id": "skytree",
+      "name": "东京晴空塔",
+      "type": "spot",
+      "lat": 35.710064,
+      "lng": 139.810699,
+      "color": "#8b5cf6",
+      "description": "634米高 · 东京最高建筑 · 360度观景",
+      "address": "东京都墨田区押上1-1-2",
+      "parentId": "shinjuku_hotel"
+    },
+    "tsukiji_market": {
+      "id": "tsukiji_market",
+      "name": "筑地场外市场",
+      "type": "spot",
+      "lat": 35.665,
+      "lng": 139.77,
+      "color": "#f97316",
+      "description": "东京厨房 · 新鲜寿司 · 传统市场",
+      "address": "东京都中央区筑地4-16-2",
+      "parentId": "shinjuku_hotel"
+    },
+    "ginza": {
+      "id": "ginza",
+      "name": "银座",
+      "type": "spot",
+      "lat": 35.6719,
+      "lng": 139.7642,
+      "color": "#eab308",
+      "description": "世界三大繁华街 · 高级购物天堂",
+      "address": "东京都中央区银座",
+      "parentId": "shinjuku_hotel"
+    },
+    "tokyo_tower": {
+      "id": "tokyo_tower",
+      "name": "东京塔",
+      "type": "spot",
+      "lat": 35.658581,
+      "lng": 139.745438,
+      "color": "#ef4444",
+      "description": "东京地标 · 333米高 · 红白铁塔",
+      "address": "东京都港区芝公园4-2-8",
+      "parentId": "shinjuku_hotel"
+    },
+    "roppongi": {
+      "id": "roppongi",
+      "name": "六本木新城",
+      "type": "spot",
+      "lat": 35.660238,
+      "lng": 139.730077,
+      "color": "#14b8a6",
+      "description": "艺术与夜生活 · 森美术馆 · 东京塔夜景",
+      "address": "东京都港区六本木6-10-1",
+      "parentId": "shinjuku_hotel"
+    },
+    "meiji_shrine": {
+      "id": "meiji_shrine",
+      "name": "明治神宫",
+      "type": "spot",
+      "lat": 35.675526,
+      "lng": 139.698578,
+      "color": "#22c55e",
+      "description": "都市绿洲 · 日本最大木制鸟居 · 传统婚礼",
+      "address": "东京都涩谷区代代木神园町1-1",
+      "parentId": "shinjuku_hotel"
+    },
+    "harajuku": {
+      "id": "harajuku",
+      "name": "原宿竹下通",
+      "type": "spot",
+      "lat": 35.670167,
+      "lng": 139.702694,
+      "color": "#d946ef",
+      "description": "卡哇伊文化发源地 · 年轻人时尚圣地",
+      "address": "东京都涩谷区神宫前1丁目",
+      "parentId": "shinjuku_hotel"
+    },
+    "shinjuku_gyoen": {
+      "id": "shinjuku_gyoen",
+      "name": "新宿御苑",
+      "type": "spot",
+      "lat": 35.685272,
+      "lng": 139.709442,
+      "color": "#84cc16",
+      "description": "皇家园林 · 法式日式英式庭园 · 赏樱名所",
+      "address": "东京都新宿区内藤町11",
+      "parentId": "shinjuku_hotel"
+    },
+    "kabukicho": {
+      "id": "kabukicho",
+      "name": "歌舞伎町",
+      "type": "spot",
+      "lat": 35.69416,
+      "lng": 139.70253,
+      "color": "#f43f5e",
+      "description": "日本第一欢乐街 · 不夜城 · 美食娱乐",
+      "address": "东京都新宿区歌舞伎町1-2丁目",
+      "parentId": "shinjuku_hotel"
+    },
+    "akihabara": {
+      "id": "akihabara",
+      "name": "秋叶原",
+      "type": "spot",
+      "lat": 35.6984,
+      "lng": 139.773,
+      "color": "#06b6d4",
+      "description": "二次元圣地 · 电器街 · 动漫游戏天堂",
+      "address": "东京都千代田区外神田1-5丁目",
+      "parentId": "shinjuku_hotel"
+    },
+    "tsukiji_sushidai": {
+      "id": "tsukiji_sushidai",
+      "name": "筑地寿司大",
+      "type": "spot",
+      "lat": 35.6647,
+      "lng": 139.7695,
+      "color": "#ef4444",
+      "description": "筑地场外市场排队名店 · 清晨5点开排 · 金枪鱼大腹必吃",
+      "address": "东京都中央区筑地4-14-16",
+      "parentId": "tsukiji_market"
+    },
+    "ginza_tenkuni": {
+      "id": "ginza_tenkuni",
+      "name": "银座天国",
+      "type": "spot",
+      "lat": 35.6715,
+      "lng": 139.7645,
+      "color": "#f59e0b",
+      "description": "1885年创业 · 天妇罗百年老店 · 午餐定食1100日元起",
+      "address": "东京都中央区银座8-11-3",
+      "parentId": "ginza"
+    },
+    "asakusa_daikokuya": {
+      "id": "asakusa_daikokuya",
+      "name": "大黑家天妇罗",
+      "type": "spot",
+      "lat": 35.7148,
+      "lng": 139.7965,
+      "color": "#f97316",
+      "description": "1887年创业 · 纯芝麻油炸制 · 粗虾天妇罗 · 海老天丼招牌",
+      "address": "东京都台东区浅草1-38-10",
+      "parentId": "sensoji"
+    },
+    "asakusa_kimura": {
+      "id": "asakusa_kimura",
+      "name": "木村家人形烧",
+      "type": "spot",
+      "lat": 35.7145,
+      "lng": 139.796,
+      "color": "#8b5cf6",
+      "description": "浅草最老人形烧店 · 雷门/五重塔造型 · 红豆馅传统点心",
+      "address": "东京都台东区浅草2-3-1",
+      "parentId": "sensoji"
+    },
+    "harajuku_afuri": {
+      "id": "harajuku_afuri",
+      "name": "AFURI阿夫利拉面",
+      "type": "spot",
+      "lat": 35.6705,
+      "lng": 139.7025,
+      "color": "#22c55e",
+      "description": "柚子盐味拉面 · 清爽汤底 · 原宿站步行3分钟 · 16席吧台",
+      "address": "东京都涩谷区千駄ヶ谷3-63-1",
+      "parentId": "harajuku"
+    },
+    "roppongi_jojoen": {
+      "id": "roppongi_jojoen",
+      "name": "叙叙苑烧肉",
+      "type": "spot",
+      "lat": 35.6605,
+      "lng": 139.7305,
+      "color": "#dc2626",
+      "description": "高端烧肉 · A5和牛 · 六本木夜景 · 午间套餐性价比高",
+      "address": "东京都港区六本木7-14-4",
+      "parentId": "roppongi"
+    },
+    "shinjuku_omoide": {
+      "id": "shinjuku_omoide",
+      "name": "思い出横丁",
+      "type": "spot",
+      "lat": 35.6931,
+      "lng": 139.6995,
+      "color": "#f43f5e",
+      "description": "新宿西口昭和怀旧横丁 · 80家串烧居酒屋 · 红灯笼街景",
+      "address": "东京都新宿区西新宿1-2",
+      "parentId": "shinjuku_hotel"
+    },
+    "shinjuku_ichiran": {
+      "id": "shinjuku_ichiran",
+      "name": "一兰拉面",
+      "type": "spot",
+      "lat": 35.6902,
+      "lng": 139.7008,
+      "color": "#dc2626",
+      "description": "24小时营业 · 独自隔间 · 浓郁豚骨汤底 · 配料自选",
+      "address": "东京都新宿区新宿3-34-11",
+      "parentId": "shinjuku_hotel"
+    },
+    "shinjuku_torikizoku": {
+      "id": "shinjuku_torikizoku",
+      "name": "鸟贵族",
+      "type": "spot",
+      "lat": 35.6912,
+      "lng": 139.7038,
+      "color": "#f97316",
+      "description": "全场360日元均一价 · 炭火烤串 · 24小时营业 · 啤酒放题",
+      "address": "东京都新宿区新宿3-6-7",
+      "parentId": "shinjuku_hotel"
+    },
+    "akihabara_maidreamin": {
+      "id": "akihabara_maidreamin",
+      "name": "Maidreamin女仆咖啡厅",
+      "type": "spot",
+      "lat": 35.6982,
+      "lng": 139.7728,
+      "color": "#ec4899",
+      "description": "秋叶原本店 · 二次元文化体验 · 魔法阵蛋包饭 · 禁止拍摄",
+      "address": "东京都千代田区外神田3-16-17",
+      "parentId": "akihabara"
+    }
+  },
+  "days": [
+    {
+      "day": 1,
+      "date": "2026-05-01",
+      "title": "抵达东京 · 初探涩谷",
+      "note": "上午飞抵羽田机场，搭乘京急线直达品川转JR山手线至新宿，入住新宿酒店。下午前往涩谷十字路口感受世界最繁忙的人潮，朝圣忠犬八公像。晚餐在鸟贵族体验平价烧鸟文化，全场360日元均一价，炭火烤串配啤酒。深夜可在思い出横丁体验昭和怀旧风情的串烧居酒屋街。",
+      "baseHotelId": "shinjuku_hotel",
+      "path": [
+        {
+          "locationId": "haneda_airport",
+          "label": "羽田机场",
+          "transit": {
+            "distance": "约22公里",
+            "duration": "约50分钟",
+            "startName": "羽田机场",
+            "endName": "新宿格兰贝尔酒店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "羽田机场国际线航站楼",
+                "to": "京急线羽田机场站",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "跟随指示牌前往京急线"
+              },
+              {
+                "mode": "train",
+                "line": "京急机场线特急",
+                "from": "羽田机场",
+                "to": "品川站",
+                "duration": "约15分钟",
+                "distance": "约18公里",
+                "instruction": "搭乘京急线特急列车至品川站"
+              },
+              {
+                "mode": "train",
+                "line": "JR山手线",
+                "from": "品川站",
+                "to": "新宿站",
+                "duration": "约25分钟",
+                "distance": "约10公里",
+                "instruction": "换乘JR山手线（外环）至新宿站"
+              },
+              {
+                "mode": "walk",
+                "from": "新宿站东口",
+                "to": "新宿格兰贝尔酒店",
+                "duration": "约8分钟",
+                "distance": "约600米",
+                "instruction": "步行至歌舞伎町区域酒店"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "shinjuku_hotel",
+          "label": "京急线+JR · 约50分钟",
+          "isHotel": true
+        },
+        {
+          "locationId": "shibuya_crossing",
+          "label": "JR山手线 · 约5分钟",
+          "transit": {
+            "distance": "约3公里",
+            "duration": "约5分钟",
+            "startName": "新宿站",
+            "endName": "涩谷站",
+            "steps": [
+              {
+                "mode": "train",
+                "line": "JR山手线",
+                "from": "新宿站",
+                "to": "涩谷站",
+                "duration": "约5分钟",
+                "distance": "约3公里",
+                "instruction": "搭乘JR山手线（外环）至涩谷站"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "shinjuku_torikizoku",
+          "label": "步行+地铁 · 约15分钟",
+          "transit": {
+            "distance": "约3公里",
+            "duration": "约15分钟",
+            "startName": "涩谷站",
+            "endName": "鸟贵族新宿3丁目店",
+            "steps": [
+              {
+                "mode": "train",
+                "line": "JR山手线",
+                "from": "涩谷站",
+                "to": "新宿站",
+                "duration": "约5分钟",
+                "distance": "约3公里",
+                "instruction": "返回新宿站"
+              },
+              {
+                "mode": "walk",
+                "from": "新宿站",
+                "to": "鸟贵族新宿3丁目店",
+                "duration": "约8分钟",
+                "distance": "约600米",
+                "instruction": "步行至新宿3丁目店（3F）"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "shinjuku_omoide",
+          "label": "步行 · 约5分钟",
+          "transit": {
+            "distance": "约400米",
+            "duration": "约5分钟",
+            "startName": "鸟贵族",
+            "endName": "思い出横丁",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "新宿3丁目",
+                "to": "思い出横丁",
+                "duration": "约5分钟",
+                "distance": "约400米",
+                "instruction": "步行至西新宿昭和怀旧横丁"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "shinjuku_hotel",
+          "label": "步行返回 · 约8分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约600米",
+            "duration": "约8分钟",
+            "startName": "思い出横丁",
+            "endName": "新宿酒店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "思い出横丁",
+                "to": "新宿酒店",
+                "duration": "约8分钟",
+                "distance": "约600米",
+                "instruction": "步行返回酒店"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "2026-05-02",
+      "title": "东京古韵 · 浅草寻味",
+      "note": "上午前往浅草寺参拜，逛仲见世通品尝木村家人形烧（百年老店，雷门造型红豆饼）。午餐在大黑家天妇罗享用1887年创业的纯芝麻油炸虾天丼。午后漫步上野公园，傍晚登东京晴空塔。晚餐可在晴空塔周边享用江户风情美食。",
+      "baseHotelId": "shinjuku_hotel",
+      "path": [
+        {
+          "locationId": "shinjuku_hotel",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "asakusa_kimura",
+          "label": "地铁约40分钟",
+          "transit": {
+            "distance": "约15公里",
+            "duration": "约40分钟",
+            "startName": "新宿站",
+            "endName": "木村家人形烧",
+            "steps": [
+              {
+                "mode": "train",
+                "line": "JR山手线",
+                "from": "新宿站",
+                "to": "上野站",
+                "duration": "约25分钟",
+                "distance": "约10公里",
+                "instruction": "搭乘JR山手线至上野站"
+              },
+              {
+                "mode": "train",
+                "line": "东京Metro银座线",
+                "from": "上野站",
+                "to": "浅草站",
+                "duration": "约10分钟",
+                "distance": "约3公里",
+                "instruction": "换乘银座线至浅草站，从1号口出"
+              },
+              {
+                "mode": "walk",
+                "from": "浅草站",
+                "to": "仲见世通",
+                "duration": "约5分钟",
+                "distance": "约400米",
+                "instruction": "步行至仲见世通购买人形烧"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "sensoji",
+          "label": "步行 · 约3分钟",
+          "transit": {
+            "distance": "约200米",
+            "duration": "约3分钟",
+            "startName": "仲见世通",
+            "endName": "浅草寺",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "仲见世通",
+                "to": "浅草寺雷门",
+                "duration": "约3分钟",
+                "distance": "约200米",
+                "instruction": "穿过仲见世通至宝蔵门"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "asakusa_daikokuya",
+          "label": "步行 · 约5分钟",
+          "transit": {
+            "distance": "约300米",
+            "duration": "约5分钟",
+            "startName": "浅草寺",
+            "endName": "大黑家天妇罗",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "浅草寺",
+                "to": "传法院通",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "步行至传法院通上大黑家本店"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "ueno_park",
+          "label": "银座线 · 约5分钟",
+          "transit": {
+            "distance": "约3公里",
+            "duration": "约5分钟",
+            "startName": "浅草站",
+            "endName": "上野站",
+            "steps": [
+              {
+                "mode": "train",
+                "line": "东京Metro银座线",
+                "from": "浅草站",
+                "to": "上野站",
+                "duration": "约5分钟",
+                "distance": "约3公里",
+                "instruction": "搭乘银座线返回至上野站"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "skytree",
+          "label": "银座线+徒步 · 约15分钟",
+          "transit": {
+            "distance": "约3公里",
+            "duration": "约15分钟",
+            "startName": "上野站",
+            "endName": "东京晴空塔",
+            "steps": [
+              {
+                "mode": "train",
+                "line": "东京Metro银座线",
+                "from": "上野站",
+                "to": "浅草站",
+                "duration": "约5分钟",
+                "distance": "约3公里",
+                "instruction": "搭乘银座线至浅草站"
+              },
+              {
+                "mode": "walk",
+                "from": "浅草站",
+                "to": "东京晴空塔",
+                "duration": "约10分钟",
+                "distance": "约1.2公里",
+                "instruction": "步行穿过隅田川至晴空塔"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "shinjuku_hotel",
+          "label": "半藏门线+山手线 · 约35分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约12公里",
+            "duration": "约35分钟",
+            "startName": "押上站",
+            "endName": "新宿站",
+            "steps": [
+              {
+                "mode": "train",
+                "line": "东京Metro半藏门线",
+                "from": "押上站",
+                "to": "涩谷站",
+                "duration": "约30分钟",
+                "distance": "约12公里",
+                "instruction": "搭乘半藏门线直达涩谷站"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "date": "2026-05-03",
+      "title": "筑地美食 · 银座奢华 · 东京塔夜景",
+      "note": "清晨前往筑地场外市场寿司大排队（建议5-6点抵达），品尝最新鲜的金枪鱼大腹寿司。上午在银座天国享用1885年创业的天妇罗午餐（定食1100日元起），随后在银座三越、和光百货购物。傍晚登东京塔，晚餐在六本木叙叙苑享用A5和牛烧肉配东京塔夜景（午间套餐性价比高）。",
+      "baseHotelId": "shinjuku_hotel",
+      "path": [
+        {
+          "locationId": "shinjuku_hotel",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "tsukiji_sushidai",
+          "label": "都营大江户线 · 约25分钟",
+          "transit": {
+            "distance": "约8公里",
+            "duration": "约25分钟",
+            "startName": "新宿站",
+            "endName": "筑地寿司大",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "新宿酒店",
+                "to": "都厅前站",
+                "duration": "约8分钟",
+                "distance": "约600米",
+                "instruction": "步行至都营大江户线都厅前站"
+              },
+              {
+                "mode": "subway",
+                "line": "都营大江户线",
+                "from": "都厅前站",
+                "to": "筑地市场站",
+                "duration": "约15分钟",
+                "distance": "约7公里",
+                "instruction": "搭乘都营大江户线至筑地市场站"
+              },
+              {
+                "mode": "walk",
+                "from": "筑地市场站",
+                "to": "筑地场外市场",
+                "duration": "约3分钟",
+                "distance": "约200米",
+                "instruction": "从A1出口步行至寿司大（6点左右抵达为佳）"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "ginza_tenkuni",
+          "label": "步行 · 约10分钟",
+          "transit": {
+            "distance": "约800米",
+            "duration": "约10分钟",
+            "startName": "筑地市场",
+            "endName": "银座天国",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "筑地场外市场",
+                "to": "银座八丁目",
+                "duration": "约10分钟",
+                "distance": "约800米",
+                "instruction": "步行沿晴海通前往银座天国"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "ginza",
+          "label": "步行 · 约5分钟",
+          "transit": {
+            "distance": "约500米",
+            "duration": "约5分钟",
+            "startName": "银座天国",
+            "endName": "银座四丁目",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "银座八丁目",
+                "to": "银座购物区",
+                "duration": "约5分钟",
+                "distance": "约500米",
+                "instruction": "步行至三越、和光百货"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "tokyo_tower",
+          "label": "地铁日比谷线 · 约15分钟",
+          "transit": {
+            "distance": "约3公里",
+            "duration": "约15分钟",
+            "startName": "银座",
+            "endName": "东京塔",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "银座",
+                "to": "银座站",
+                "duration": "约3分钟",
+                "distance": "约200米",
+                "instruction": "步行至东京Metro银座站"
+              },
+              {
+                "mode": "subway",
+                "line": "日比谷线",
+                "from": "银座站",
+                "to": "神谷町站",
+                "duration": "约8分钟",
+                "distance": "约2.5公里",
+                "instruction": "搭乘日比谷线至神谷町站"
+              },
+              {
+                "mode": "walk",
+                "from": "神谷町站",
+                "to": "东京塔",
+                "duration": "约5分钟",
+                "distance": "约500米",
+                "instruction": "步行至东京塔"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "roppongi_jojoen",
+          "label": "都营大江户线 · 约12分钟",
+          "transit": {
+            "distance": "约2公里",
+            "duration": "约12分钟",
+            "startName": "赤羽桥站",
+            "endName": "叙叙苑六本木店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "东京塔",
+                "to": "赤羽桥站",
+                "duration": "约5分钟",
+                "distance": "约400米",
+                "instruction": "步行至都营大江户线赤羽桥站"
+              },
+              {
+                "mode": "subway",
+                "line": "都营大江户线",
+                "from": "赤羽桥站",
+                "to": "六本木站",
+                "duration": "约5分钟",
+                "distance": "约1.5公里",
+                "instruction": "搭乘都营大江户线至六本木站"
+              },
+              {
+                "mode": "walk",
+                "from": "六本木站",
+                "to": "叙叙苑",
+                "duration": "约2分钟",
+                "distance": "约200米",
+                "instruction": "Remm六本木大厦2F"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "shinjuku_hotel",
+          "label": "都营大江户线 · 约15分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约6公里",
+            "duration": "约15分钟",
+            "startName": "六本木站",
+            "endName": "新宿站",
+            "steps": [
+              {
+                "mode": "subway",
+                "line": "都营大江户线",
+                "from": "六本木站",
+                "to": "新宿站",
+                "duration": "约15分钟",
+                "distance": "约6公里",
+                "instruction": "搭乘都营大江户线直达新宿站"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "date": "2026-05-04",
+      "title": "明治神宫 · 原宿潮流 · 新宿御苑",
+      "note": "上午参拜明治神宫，随后前往原宿竹下通，在Afuri阿夫利享用柚子盐味拉面（清爽汤底，距原宿站3分钟）。午后在新宿御苑漫步，欣赏皇家园林。晚餐在思い出横丁体验昭和风情居酒屋，品尝串烧和关东煮。深夜可去一兰拉面（24小时营业）独享隔间拉面。",
+      "baseHotelId": "shinjuku_hotel",
+      "path": [
+        {
+          "locationId": "shinjuku_hotel",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "meiji_shrine",
+          "label": "JR山手线 · 约8分钟",
+          "transit": {
+            "distance": "约3公里",
+            "duration": "约8分钟",
+            "startName": "新宿站",
+            "endName": "明治神宫",
+            "steps": [
+              {
+                "mode": "train",
+                "line": "JR山手线",
+                "from": "新宿站",
+                "to": "原宿站",
+                "duration": "约5分钟",
+                "distance": "约3公里",
+                "instruction": "搭乘JR山手线至原宿站"
+              },
+              {
+                "mode": "walk",
+                "from": "原宿站",
+                "to": "明治神宫",
+                "duration": "约3分钟",
+                "distance": "约200米",
+                "instruction": "步行至明治神宫表参道入口"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "harajuku_afuri",
+          "label": "步行 · 约8分钟",
+          "transit": {
+            "distance": "约600米",
+            "duration": "约8分钟",
+            "startName": "明治神宫",
+            "endName": "AFURI阿夫利拉面",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "明治神宫",
+                "to": "原宿站",
+                "duration": "约3分钟",
+                "distance": "约200米",
+                "instruction": "返回原宿站"
+              },
+              {
+                "mode": "walk",
+                "from": "原宿站",
+                "to": "阿夫利拉面",
+                "duration": "约5分钟",
+                "distance": "约400米",
+                "instruction": "步行至千駄ヶ谷3-63-1（Grand Foresta 1F）"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "harajuku",
+          "label": "步行 · 约3分钟",
+          "transit": {
+            "distance": "约200米",
+            "duration": "约3分钟",
+            "startName": "阿夫利拉面",
+            "endName": "竹下通",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "阿夫利拉面",
+                "to": "竹下通",
+                "duration": "约3分钟",
+                "distance": "约200米",
+                "instruction": "步行至竹下通商店街"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "shinjuku_gyoen",
+          "label": "千代田线 · 约15分钟",
+          "transit": {
+            "distance": "约5公里",
+            "duration": "约15分钟",
+            "startName": "原宿站",
+            "endName": "新宿御苑",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "原宿",
+                "to": "明治神宫前站",
+                "duration": "约3分钟",
+                "distance": "约300米",
+                "instruction": "步行至千代田线明治神宫前站"
+              },
+              {
+                "mode": "subway",
+                "line": "千代田线",
+                "from": "明治神宫前站",
+                "to": "新宿三丁目站",
+                "duration": "约5分钟",
+                "distance": "约2公里",
+                "instruction": "搭乘千代田线至新宿三丁目站"
+              },
+              {
+                "mode": "walk",
+                "from": "新宿三丁目站",
+                "to": "新宿御苑",
+                "duration": "约3分钟",
+                "distance": "约300米",
+                "instruction": "步行至新宿御苑"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "shinjuku_omoide",
+          "label": "步行 · 约10分钟",
+          "transit": {
+            "distance": "约1公里",
+            "duration": "约10分钟",
+            "startName": "新宿御苑",
+            "endName": "思い出横丁",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "新宿御苑",
+                "to": "新宿西口",
+                "duration": "约10分钟",
+                "distance": "约1公里",
+                "instruction": "步行穿过新宿站西侧至思い出横丁"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "shinjuku_ichiran",
+          "label": "步行 · 约8分钟",
+          "transit": {
+            "distance": "约600米",
+            "duration": "约8分钟",
+            "startName": "思い出横丁",
+            "endName": "一兰拉面",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "思い出横丁",
+                "to": "一兰拉面新宿店",
+                "duration": "约8分钟",
+                "distance": "约600米",
+                "instruction": "步行至新宿3-34-11（Peace大厦B1F）"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "shinjuku_hotel",
+          "label": "步行返回 · 约5分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约400米",
+            "duration": "约5分钟",
+            "startName": "一兰拉面",
+            "endName": "新宿酒店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "一兰拉面",
+                "to": "新宿酒店",
+                "duration": "约5分钟",
+                "distance": "约400米",
+                "instruction": "步行返回酒店"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "date": "2026-05-05",
+      "title": "秋叶原朝圣 · 女仆咖啡 · 返程",
+      "note": "上午前往秋叶原电器街，在Maidreamin女仆咖啡厅体验二次元文化（魔法阵蛋包饭，禁止拍摄）。中午在友都八喜8楼拉面激战区或享用500日元大肉包。下午返回酒店取行李，前往羽田机场办理离境手续。",
+      "baseHotelId": "shinjuku_hotel",
+      "path": [
+        {
+          "locationId": "shinjuku_hotel",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "akihabara_maidreamin",
+          "label": "JR山手线+京滨东北线 · 约20分钟",
+          "transit": {
+            "distance": "约8公里",
+            "duration": "约20分钟",
+            "startName": "新宿站",
+            "endName": "Maidreamin秋叶原本店",
+            "steps": [
+              {
+                "mode": "train",
+                "line": "JR山手线",
+                "from": "新宿站",
+                "to": "上野站",
+                "duration": "约12分钟",
+                "distance": "约6公里",
+                "instruction": "搭乘JR山手线至上野站"
+              },
+              {
+                "mode": "train",
+                "line": "JR京滨东北线",
+                "from": "上野站",
+                "to": "秋叶原站",
+                "duration": "约5分钟",
+                "distance": "约2公里",
+                "instruction": "换乘京滨东北线至秋叶原站"
+              },
+              {
+                "mode": "walk",
+                "from": "秋叶原站",
+                "to": "Maidreamin",
+                "duration": "约5分钟",
+                "distance": "约400米",
+                "instruction": "从电气街口出，步行至外神田3-16-17（6F）"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "akihabara",
+          "label": "步行 · 约3分钟",
+          "transit": {
+            "distance": "约200米",
+            "duration": "约3分钟",
+            "startName": "女仆咖啡厅",
+            "endName": "电器街",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "Maidreamin",
+                "to": "秋叶原电器街",
+                "duration": "约3分钟",
+                "distance": "约200米",
+                "instruction": "步行至Animate、Super Potato等店铺"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "shinjuku_hotel",
+          "label": "地铁返回 · 约25分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约9公里",
+            "duration": "约25分钟",
+            "startName": "秋叶原站",
+            "endName": "新宿酒店",
+            "steps": [
+              {
+                "mode": "subway",
+                "line": "都营大江户线",
+                "from": "秋叶原站",
+                "to": "新宿站",
+                "duration": "约20分钟",
+                "distance": "约9公里",
+                "instruction": "搭乘都营大江户线直达新宿站"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "haneda_airport",
+          "label": "京急线 · 约50分钟",
+          "transit": {
+            "distance": "约22公里",
+            "duration": "约50分钟",
+            "startName": "新宿站",
+            "endName": "羽田机场",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "新宿酒店",
+                "to": "品川站",
+                "duration": "约15分钟",
+                "distance": "约2公里",
+                "instruction": "步行或搭乘JR山手线至品川站"
+              },
+              {
+                "mode": "train",
+                "line": "京急机场线特急",
+                "from": "品川站",
+                "to": "羽田机场",
+                "duration": "约15分钟",
+                "distance": "约18公里",
+                "instruction": "搭乘京急线特急至羽田机场"
+              },
+              {
+                "mode": "walk",
+                "from": "羽田机场站",
+                "to": "出发大厅",
+                "duration": "约5分钟",
+                "distance": "约400米",
+                "instruction": "跟随指示牌前往国际出发大厅"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

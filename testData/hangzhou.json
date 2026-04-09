@@ -1,0 +1,239 @@
+{
+  "metadata": {
+    "title": "杭州西湖三日游",
+    "subtitle": "西湖边2晚 · 3日漫游",
+    "mapCenter": { "lat": 30.25, "lng": 120.15 },
+    "mapZoom": 13,
+    "cityLabel": "杭州",
+    "seasonLabel": "SPRING",
+    "flag": "🇨🇳",
+    "country": "CN"
+  },
+  "locations": {
+    "xihu_hotel": {
+      "id": "xihu_hotel",
+      "name": "杭州君悦酒店",
+      "lat": 30.256,
+      "lng": 120.155,
+      "color": "#3b82f6",
+      "type": "hotel_group",
+      "description": "西湖湖滨商圈 · 步行至断桥约10分钟 · 住2晚",
+      "address": "杭州市上城区湖滨路28号",
+      "children": []
+    },
+    "duanqiao": {
+      "id": "duanqiao",
+      "name": "断桥残雪",
+      "type": "spot",
+      "lat": 30.259,
+      "lng": 120.147,
+      "color": "#10b981",
+      "description": "西湖十景之一 · 白堤起点",
+      "address": "杭州市西湖区北山街",
+      "parentId": "xihu_hotel"
+    },
+    "leifengta": {
+      "id": "leifengta",
+      "name": "雷峰塔",
+      "type": "spot",
+      "lat": 30.231,
+      "lng": 120.142,
+      "color": "#f59e0b",
+      "description": "西湖标志性建筑 · 俯瞰西湖全景",
+      "address": "杭州市西湖区南山路15号",
+      "parentId": "xihu_hotel"
+    },
+    "lingyinsi": {
+      "id": "lingyinsi",
+      "name": "灵隐寺",
+      "type": "spot",
+      "lat": 30.241,
+      "lng": 120.098,
+      "color": "#8b5cf6",
+      "description": "千年古刹 · 飞来峰造像",
+      "address": "杭州市西湖区灵隐路法云弄1号",
+      "parentId": "xihu_hotel"
+    },
+    "longjing": {
+      "id": "longjing",
+      "name": "龙井村",
+      "type": "spot",
+      "lat": 30.219,
+      "lng": 120.109,
+      "color": "#10b981",
+      "description": "西湖龙井茶原产地 · 茶香古道",
+      "address": "杭州市西湖区龙井村",
+      "parentId": "xihu_hotel"
+    },
+    "hefangjie": {
+      "id": "hefangjie",
+      "name": "河坊街",
+      "type": "spot",
+      "lat": 30.243,
+      "lng": 120.168,
+      "color": "#ec4899",
+      "description": "南宋御街 · 老字号小吃聚集地",
+      "address": "杭州市上城区河坊街",
+      "parentId": "xihu_hotel"
+    },
+    "hangzhou_east_station": {
+      "id": "hangzhou_east_station",
+      "name": "杭州东站",
+      "type": "spot",
+      "lat": 30.293,
+      "lng": 120.211,
+      "color": "#6b7280",
+      "description": "高铁枢纽",
+      "address": "杭州市上城区全福桥路2号",
+      "parentId": "xihu_hotel"
+    }
+  },
+  "days": [
+    {
+      "day": 1,
+      "date": "2026-05-01",
+      "title": "抵达西湖",
+      "note": "上午高铁抵达杭州东站，地铁1号线直达龙翔桥，入住西湖边酒店，下午漫步断桥白堤，傍晚登雷峰塔看日落。",
+      "baseHotelId": "xihu_hotel",
+      "path": [
+        {
+          "locationId": "hangzhou_east_station",
+          "label": "杭州东站",
+          "transit": {
+            "distance": "约12公里",
+            "duration": "约35分钟",
+            "startName": "杭州东站",
+            "endName": "杭州君悦酒店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "杭州东站",
+                "to": "地铁站",
+                "duration": "约5分钟",
+                "distance": "约200米",
+                "instruction": "跟随指示牌前往地铁站"
+              },
+              {
+                "mode": "subway",
+                "line": "地铁1号线",
+                "from": "火车东站",
+                "to": "龙翔桥站",
+                "duration": "约20分钟",
+                "distance": "约10公里",
+                "instruction": "乘坐地铁1号线往湘湖方向至龙翔桥站"
+              },
+              {
+                "mode": "walk",
+                "from": "龙翔桥站B口",
+                "to": "杭州君悦酒店",
+                "duration": "约10分钟",
+                "distance": "约800米",
+                "instruction": "沿湖滨路步行至酒店"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "xihu_hotel",
+          "label": "地铁1号线 · 约35分钟",
+          "isHotel": true
+        },
+        {
+          "locationId": "duanqiao",
+          "label": "步行 · 约10分钟"
+        },
+        {
+          "locationId": "leifengta",
+          "label": "沿白堤/苏堤步行 · 约40分钟"
+        },
+        {
+          "locationId": "xihu_hotel",
+          "label": "打车返回 · 约15分钟",
+          "isHotel": true
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "2026-05-02",
+      "title": "灵隐寻禅·龙井问茶",
+      "note": "上午探访灵隐寺与飞来峰石窟造像，午后沿龙井路前往龙井村品茶，傍晚回湖滨商圈。",
+      "baseHotelId": "xihu_hotel",
+      "path": [
+        {
+          "locationId": "xihu_hotel",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "lingyinsi",
+          "label": "公交7路/打车 · 约25分钟"
+        },
+        {
+          "locationId": "longjing",
+          "label": "公交/打车 · 约15分钟"
+        },
+        {
+          "locationId": "xihu_hotel",
+          "label": "公交27路 · 约35分钟",
+          "isHotel": true
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "date": "2026-05-03",
+      "title": "河坊寻味·返程",
+      "note": "睡个懒觉，上午逛河坊街和南宋御街，吃知味观小笼包，下午前往杭州东站返程。",
+      "baseHotelId": "xihu_hotel",
+      "path": [
+        {
+          "locationId": "xihu_hotel",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "hefangjie",
+          "label": "步行 · 约15分钟"
+        },
+        {
+          "locationId": "hangzhou_east_station",
+          "label": "地铁1号线 · 约30分钟",
+          "transit": {
+            "distance": "约11公里",
+            "duration": "约30分钟",
+            "startName": "河坊街/龙翔桥",
+            "endName": "杭州东站",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "河坊街",
+                "to": "龙翔桥站",
+                "duration": "约8分钟",
+                "distance": "约600米",
+                "instruction": "步行至龙翔桥地铁站"
+              },
+              {
+                "mode": "subway",
+                "line": "地铁1号线",
+                "from": "龙翔桥站",
+                "to": "火车东站",
+                "duration": "约20分钟",
+                "distance": "约10公里",
+                "instruction": "乘坐地铁1号线往萧山国际机场方向至火车东站"
+              },
+              {
+                "mode": "walk",
+                "from": "火车东站地铁站",
+                "to": "杭州东站出发层",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "跟随指示牌前往出发大厅"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

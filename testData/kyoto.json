@@ -1,0 +1,303 @@
+{
+  "metadata": {
+    "title": "京都古刹四日游",
+    "subtitle": "京都站附近3晚 · 4日慢游",
+    "mapCenter": { "lat": 35.0116, "lng": 135.7681 },
+    "mapZoom": 13,
+    "cityLabel": "京都",
+    "seasonLabel": "AUTUMN",
+    "flag": "🇯🇵",
+    "country": "JP"
+  },
+  "locations": {
+    "kyoto_station_hotel": {
+      "id": "kyoto_station_hotel",
+      "name": "京都格兰比亚大酒店",
+      "lat": 34.985,
+      "lng": 135.758,
+      "color": "#3b82f6",
+      "type": "hotel_group",
+      "description": "JR京都站上盖 · 交通便利 · 住3晚",
+      "address": "京都府京都市下京区烏丸通塩小路下ル東塩小路町901",
+      "children": []
+    },
+    "kyoto_tower": {
+      "id": "kyoto_tower",
+      "name": "京都塔",
+      "type": "spot",
+      "lat": 34.9875,
+      "lng": 135.7593,
+      "color": "#f59e0b",
+      "description": "京都地标 · 俯瞰古都夜景",
+      "address": "京都府京都市下京区烏丸通七条下ル",
+      "parentId": "kyoto_station_hotel"
+    },
+    "kamogawa": {
+      "id": "kamogawa",
+      "name": "鸭川",
+      "type": "spot",
+      "lat": 35.0,
+      "lng": 135.77,
+      "color": "#10b981",
+      "description": "京都母亲河 · 纳凉床 · 散步胜地",
+      "address": "京都府京都市中京区〜东山区",
+      "parentId": "kyoto_station_hotel"
+    },
+    "kiyomizudera": {
+      "id": "kiyomizudera",
+      "name": "清水寺",
+      "type": "spot",
+      "lat": 34.9949,
+      "lng": 135.785,
+      "color": "#ef4444",
+      "description": "世界遗产 · 清水舞台 · 赏枫名所",
+      "address": "京都府京都市东山区清水1-294",
+      "parentId": "kyoto_station_hotel"
+    },
+    "sannenzaka": {
+      "id": "sannenzaka",
+      "name": "二年坂三年坂",
+      "type": "spot",
+      "lat": 34.9975,
+      "lng": 135.781,
+      "color": "#8b5cf6",
+      "description": "京都风情石板路 · 传统町屋",
+      "address": "京都府京都市东山区清水2-204",
+      "parentId": "kyoto_station_hotel"
+    },
+    "yasaka_shrine": {
+      "id": "yasaka_shrine",
+      "name": "八坂神社",
+      "type": "spot",
+      "lat": 35.0037,
+      "lng": 135.7785,
+      "color": "#f97316",
+      "description": "祇园镇守 · 千本鸟居 ·  night view",
+      "address": "京都府京都市东山区祇园町北侧625",
+      "parentId": "kyoto_station_hotel"
+    },
+    "fushimi_inari": {
+      "id": "fushimi_inari",
+      "name": "伏见稻荷大社",
+      "type": "spot",
+      "lat": 34.9671,
+      "lng": 135.7727,
+      "color": "#ef4444",
+      "description": "千本鸟居 · 稻荷神总本宫 · 登山步道",
+      "address": "京都府京都市伏见区深草薮之内町68",
+      "parentId": "kyoto_station_hotel"
+    },
+    "kinkakuji": {
+      "id": "kinkakuji",
+      "name": "金阁寺",
+      "type": "spot",
+      "lat": 35.0394,
+      "lng": 135.7292,
+      "color": "#f59e0b",
+      "description": "鹿苑寺金阁 · 室町时代名园",
+      "address": "京都府京都市北区金阁寺町1",
+      "parentId": "kyoto_station_hotel"
+    },
+    "arashiyama": {
+      "id": "arashiyama",
+      "name": "岚山",
+      "type": "spot",
+      "lat": 35.0094,
+      "lng": 135.667,
+      "color": "#10b981",
+      "description": "竹林小径 · 渡月桥 · 嵯峨野观光铁道",
+      "address": "京都府京都市右京区嵯峨天龙寺芒ノ马场町",
+      "parentId": "kyoto_station_hotel"
+    },
+    "kansai_airport": {
+      "id": "kansai_airport",
+      "name": "关西国际机场",
+      "type": "spot",
+      "lat": 34.432,
+      "lng": 135.2304,
+      "color": "#6b7280",
+      "description": "关西主要国际机场",
+      "address": "大阪府泉佐野市南羽仓广博上场1",
+      "parentId": "kyoto_station_hotel"
+    }
+  },
+  "days": [
+    {
+      "day": 1,
+      "date": "2026-11-15",
+      "title": "抵达京都",
+      "note": "中午航班抵达关西机场，乘坐Haruka特急约75分钟直达京都站，入住京都格兰比亚大酒店，傍晚京都塔看夜景，鸭川边散步。",
+      "baseHotelId": "kyoto_station_hotel",
+      "path": [
+        {
+          "locationId": "kansai_airport",
+          "label": "关西国际机场",
+          "transit": {
+            "distance": "约100公里",
+            "duration": "约75分钟",
+            "startName": "关西国际机场",
+            "endName": "京都格兰比亚大酒店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "关西机场T1",
+                "to": "JR关西机场站",
+                "duration": "约5分钟",
+                "distance": "约200米",
+                "instruction": "跟随JR指示牌前往车站"
+              },
+              {
+                "mode": "train",
+                "line": "JR Haruka特急",
+                "from": "关西机场站",
+                "to": "京都站",
+                "duration": "约75分钟",
+                "distance": "约100公里",
+                "instruction": "乘坐Haruka特急直达京都站"
+              },
+              {
+                "mode": "walk",
+                "from": "京都站中央口",
+                "to": "京都格兰比亚大酒店",
+                "duration": "约3分钟",
+                "distance": "约100米",
+                "instruction": "酒店位于京都站上盖，中央口出站即达"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "kyoto_station_hotel",
+          "label": "Haruka特急 · 约75分钟",
+          "isHotel": true
+        },
+        {
+          "locationId": "kyoto_tower",
+          "label": "步行 · 约3分钟"
+        },
+        {
+          "locationId": "kamogawa",
+          "label": "步行/地铁 · 约15分钟"
+        },
+        {
+          "locationId": "kyoto_station_hotel",
+          "label": "步行返回 · 约15分钟",
+          "isHotel": true
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "2026-11-16",
+      "title": "东山古刹巡礼",
+      "note": "上午清水寺参拜与二年坂三年坂漫步，午后前往祇园八坂神社，傍晚在鸭川边用晚餐。",
+      "baseHotelId": "kyoto_station_hotel",
+      "path": [
+        {
+          "locationId": "kyoto_station_hotel",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "kiyomizudera",
+          "label": "公交206路 · 约20分钟"
+        },
+        {
+          "locationId": "sannenzaka",
+          "label": "步行 · 约5分钟"
+        },
+        {
+          "locationId": "yasaka_shrine",
+          "label": "步行 · 约15分钟"
+        },
+        {
+          "locationId": "kyoto_station_hotel",
+          "label": "地铁/公交 · 约15分钟",
+          "isHotel": true
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "date": "2026-11-17",
+      "title": "伏见稻荷与金阁寺",
+      "note": "一早前往伏见稻荷大社穿越千本鸟居，午后乘JR嵯峨野线再转公交前往金阁寺，傍晚回京都站商圈购物。",
+      "baseHotelId": "kyoto_station_hotel",
+      "path": [
+        {
+          "locationId": "kyoto_station_hotel",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "fushimi_inari",
+          "label": "JR奈良线 · 约5分钟"
+        },
+        {
+          "locationId": "kinkakuji",
+          "label": "JR嵯峨野线+公交205 · 约45分钟"
+        },
+        {
+          "locationId": "kyoto_station_hotel",
+          "label": "公交205 · 约35分钟",
+          "isHotel": true
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "date": "2026-11-18",
+      "title": "岚山赏枫·返航",
+      "note": "上午岚山竹林小径与渡月桥，乘坐嵯峨野观光小火车，午后返回酒店取行李，Haruka特急前往关西机场返航。",
+      "baseHotelId": "kyoto_station_hotel",
+      "path": [
+        {
+          "locationId": "kyoto_station_hotel",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "arashiyama",
+          "label": "JR嵯峨野线 · 约15分钟"
+        },
+        {
+          "locationId": "kansai_airport",
+          "label": "JR Haruka特急 · 约75分钟",
+          "transit": {
+            "distance": "约100公里",
+            "duration": "约75分钟",
+            "startName": "京都格兰比亚大酒店",
+            "endName": "关西国际机场",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "京都格兰比亚大酒店",
+                "to": "京都站",
+                "duration": "约3分钟",
+                "distance": "约100米",
+                "instruction": "携带行李步行至京都站"
+              },
+              {
+                "mode": "train",
+                "line": "JR Haruka特急",
+                "from": "京都站",
+                "to": "关西机场站",
+                "duration": "约75分钟",
+                "distance": "约100公里",
+                "instruction": "乘坐Haruka特急直达关西机场"
+              },
+              {
+                "mode": "walk",
+                "from": "关西机场站",
+                "to": "T1出发大厅",
+                "duration": "约5分钟",
+                "distance": "约200米",
+                "instruction": "跟随出发大厅指示牌办理值机"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
