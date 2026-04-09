@@ -2,6 +2,19 @@
 import { Command } from 'commander'
 import { buildCommand } from './commands/build.js'
 import { validateCommand } from './commands/validate.js'
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { dirname, resolve } from 'node:path'
+
+function getVersion(): string {
+  try {
+    const rootDir = dirname(fileURLToPath(import.meta.url))
+    const pkg = JSON.parse(readFileSync(resolve(rootDir, '../../../package.json'), 'utf-8'))
+    return pkg.version ?? '0.0.0'
+  } catch {
+    return '0.0.0'
+  }
+}
 
 function collect(value: string, previous: string[]): string[] {
   return previous.concat([value])
@@ -9,7 +22,7 @@ function collect(value: string, previous: string[]): string[] {
 
 const program = new Command('trip-packer')
   .description('Build standalone travel map HTML from JSON itinerary data')
-  .version('1.0.0', '-v, --version')
+  .version(getVersion(), '-v, --version')
   .configureHelp({ sortSubcommands: true })
 
 program
