@@ -82,7 +82,7 @@ export function DetailContent({
           <div className={styles.timeline}>
             {transitDetail.steps.map((step, idx) => (
               <div key={idx} className={styles.timelineStep}>
-                <div className={styles.timelineDot}>
+                <div className={styles.timelineDot} style={{'--idx': idx} as React.CSSProperties}>
                   {MODE_ICON[step.mode] || '交'}
                 </div>
                 <div className={styles.stepBody}>

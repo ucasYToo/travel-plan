@@ -27,6 +27,11 @@
   --shadow-sm: 0 1px 2px rgba(244, 164, 184, 0.08);
   --shadow-md: 0 4px 14px rgba(244, 164, 184, 0.12);
   --shadow-lg: 0 10px 30px rgba(244, 164, 184, 0.14);
+
+  /* Motion */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-sine: cubic-bezier(0.37, 0, 0.63, 1);
 }
 
 * {
@@ -119,11 +124,14 @@ body::before {
   scrollbar-width: none;
 }
 
-/* Animations */
+/* ═══════════════════════════════════════════
+   KEYFRAMES
+   ═══════════════════════════════════════════ */
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -139,39 +147,142 @@ body::before {
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateX(-28px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
   }
 }
 
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateX(28px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
   }
 }
 
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bloom {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes markerDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-18px) scale(0.7);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(4px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes markerPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.6;
+  }
+}
+
+@keyframes floatY {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes drawRoute {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Animation utilities */
 .animate-fade-in-up {
-  animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fadeInUp 0.5s var(--ease-out-expo) both;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.4s ease both;
+  animation: fadeIn 0.4s var(--ease-out-expo) both;
 }
 
 .animate-slide-in-left {
-  animation: slideInLeft 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: slideInLeft 0.5s var(--ease-out-expo) both;
 }
 
 .animate-slide-in-right {
-  animation: slideInRight 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: slideInRight 0.5s var(--ease-out-expo) both;
 }
 
 /* Stagger delays */
@@ -191,7 +302,7 @@ body::before {
   border: none !important;
 }
 
-/* Marker styling (no entrance animation to avoid zoom flicker) */
+/* Marker styles — no entrance animation to avoid zoom flicker */
 .marker-wrap {
   will-change: transform;
 }
@@ -204,18 +315,13 @@ body::before {
 .leaflet-interactive.route-draw {
   stroke-dasharray: 2000;
   stroke-dashoffset: 2000;
-  animation: drawRoute 1.2s ease-out forwards;
-}
-
-@keyframes drawRoute {
-  to {
-    stroke-dashoffset: 0;
-  }
+  animation: drawRoute 1.2s var(--ease-out-expo) forwards;
 }
 
 .route-label {
   background: transparent !important;
   border: none !important;
+  animation: fadeInUp 0.4s var(--ease-out-expo) both;
 }
 
 /* Selection color */

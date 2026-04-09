@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import clsx from 'clsx'
 import { CITY_OPTIONS } from '../data'
 import styles from './MapControls.module.css'
@@ -36,6 +36,16 @@ export function MapControls({
   zoom
 }: MapControlsProps): JSX.Element {
   const [daysExpanded, setDaysExpanded] = useState(true)
+  const dayBtnRefs = useRef<(HTMLButtonElement | null)[]>([])
+
+  useEffect(() => {
+    if (activeDay !== null && daysExpanded) {
+      const el = dayBtnRefs.current[activeDay]
+      if (el && typeof el.scrollIntoView === 'function') {
+        el.scrollIntoView({ inline: 'center', behavior: 'smooth' })
+      }
+    }
+  }, [activeDay, daysExpanded])
 
   const firstRow = (
     <div className={styles.firstRow}>
@@ -113,11 +123,13 @@ export function MapControls({
               <button
                 key={i}
                 type="button"
+                ref={(el) => { dayBtnRefs.current[i] = el }}
                 onClick={() => onSelectDay(i)}
                 className={clsx(styles.dayButton, {
                   [styles.dayButtonActive]: activeDay === i,
                   [styles.dayButtonInactive]: activeDay !== i,
                 })}
+                style={activeDay === i ? { animation: 'bloom 0.35s var(--ease-spring) both' } : undefined}
               >
                 {label}
               </button>

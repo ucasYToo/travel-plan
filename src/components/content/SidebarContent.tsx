@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react'
 import type { ItineraryData, TransitDetail, DayPlan, LocationOrGroup, NoteItem } from '../../types'
 import clsx from 'clsx'
 import styles from './SidebarContent.module.css'
@@ -159,6 +160,16 @@ function buildRouteItems(
 
 export function SidebarContent({ data, activeDay, onSelectDay, onShowTransit, onShowLocationDetail }: SidebarContentProps) {
   const hotels = getHotels(data.locations)
+  const pillRefs = useRef<(HTMLButtonElement | null)[]>([])
+
+  useEffect(() => {
+    if (activeDay !== null) {
+      const el = pillRefs.current[activeDay]
+      if (el && typeof el.scrollIntoView === 'function') {
+        el.scrollIntoView({ inline: 'center', behavior: 'smooth' })
+      }
+    }
+  }, [activeDay])
 
   return (
     <>
@@ -227,9 +238,11 @@ export function SidebarContent({ data, activeDay, onSelectDay, onShowTransit, on
                 <button
                   key={day.day}
                   type="button"
+                  ref={(el) => { pillRefs.current[index] = el }}
                   onClick={() => onSelectDay(index)}
                   className={clsx(styles.dayPill, isActive && styles.dayPillActive)}
                   aria-selected={isActive}
+                  style={isActive ? { animation: 'bloom 0.4s var(--ease-spring) both' } : undefined}
                 >
                   <span className={styles.dayPillDay}>Day {day.day}</span>
                   <span className={styles.dayPillDate}>{dateLabel}</span>
@@ -240,7 +253,7 @@ export function SidebarContent({ data, activeDay, onSelectDay, onShowTransit, on
 
           {/* Route Timeline for active day */}
           {activeDay !== null && (
-            <div className={styles.timelineContainer}>
+            <div className={styles.timelineContainer} key={activeDay}>
               {(() => {
                 const day = data.days[activeDay]
                 if (!day) return null
@@ -250,7 +263,11 @@ export function SidebarContent({ data, activeDay, onSelectDay, onShowTransit, on
                     {items.map((item, i) => {
                       const isTransit = item.key?.toString().startsWith('transit-')
                       return (
-                        <div key={item.key ?? i} className={clsx(isTransit ? styles.tlTransitSeg : styles.tlNodeWrap)}>
+                        <div
+                          key={item.key ?? i}
+                          className={clsx(isTransit ? styles.tlTransitSeg : styles.tlNodeWrap)}
+                          style={{ '--stagger': i } as React.CSSProperties}
+                        >
                           {item}
                         </div>
                       )

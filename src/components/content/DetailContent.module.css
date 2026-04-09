@@ -3,6 +3,7 @@
   flex-direction: column;
   height: 100%;
   background-color: var(--bg-main);
+  animation: fadeInUp 0.45s var(--ease-out-expo) both;
 }
 
 .header {
@@ -24,12 +25,14 @@
   border-radius: 9999px;
   border: 1px solid var(--border-spring);
   color: var(--stone);
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s var(--ease-spring);
+  cursor: pointer;
 }
 
 .backButton:hover {
   color: var(--ink);
   border-color: var(--sakura-pink);
+  transform: translateX(-3px);
 }
 
 .title {
@@ -113,6 +116,9 @@
   font-size: 10px;
   font-weight: 600;
   color: var(--stone);
+  opacity: 0;
+  animation: popIn 0.45s var(--ease-spring) forwards;
+  animation-delay: calc(var(--idx, 0) * 70ms);
 }
 
 .stepBody {
@@ -159,6 +165,7 @@
   border-bottom: 1px solid var(--border-spring);
   background-color: var(--bg-card);
   flex-shrink: 0;
+  animation: fadeInUp 0.45s var(--ease-out-expo) both;
 }
 
 .locationTitleRow {
@@ -213,6 +220,7 @@
 
 .emptyContent {
   max-width: 20rem;
+  animation: floatY 5s ease-in-out infinite;
 }
 
 .emptyTitle {
@@ -226,4 +234,21 @@
   color: var(--stone);
   font-size: 14px;
   line-height: 1.6;
+}
+
+/* Local keyframes for CSS Module scoped animation references */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.5); }
+  70% { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }

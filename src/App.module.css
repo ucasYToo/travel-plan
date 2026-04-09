@@ -20,7 +20,7 @@
   width: 320px;
   z-index: 20;
   flex-direction: column;
-  animation: slideInLeft 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: slideInLeft 0.55s var(--ease-out-expo) both;
   border-right: 1px solid var(--border-spring);
   background-color: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(10px);
@@ -46,7 +46,7 @@
   background-color: #fff;
   border: 1px solid var(--border-spring);
   color: var(--stone);
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s var(--ease-spring);
   box-shadow: var(--shadow-md);
   cursor: pointer;
 }
@@ -54,6 +54,7 @@
 .leftToggle:hover {
   color: var(--ink);
   border-color: var(--sakura-pink);
+  transform: scale(1.08);
 }
 
 .collapsedButton {
@@ -70,13 +71,16 @@
   align-items: center;
   justify-content: center;
   color: var(--ink);
-  transition: border-color 0.2s ease;
+  transition: border-color 0.25s ease, transform 0.3s var(--ease-spring), box-shadow 0.25s ease;
   box-shadow: var(--shadow-md);
   cursor: pointer;
+  animation: popIn 0.4s var(--ease-spring) both;
 }
 
 .collapsedButton:hover {
   border-color: var(--sakura-pink);
+  transform: scale(1.08);
+  box-shadow: var(--shadow-lg);
 }
 
 .rightPanel {
@@ -88,7 +92,7 @@
   width: 320px;
   z-index: 20;
   flex-direction: column;
-  animation: slideInRight 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: slideInRight 0.55s var(--ease-out-expo) both;
   border-left: 1px solid var(--border-spring);
   background-color: var(--bg-main);
   box-shadow: var(--shadow-lg);
@@ -113,7 +117,7 @@
   background-color: #fff;
   border: 1px solid var(--border-spring);
   color: var(--stone);
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s var(--ease-spring);
   box-shadow: var(--shadow-md);
   cursor: pointer;
 }
@@ -121,6 +125,7 @@
 .rightToggle:hover {
   color: var(--ink);
   border-color: var(--sakura-pink);
+  transform: scale(1.08);
 }
 
 .errorPage {
@@ -147,4 +152,42 @@
 .errorHint {
   font-size: 14px;
   color: var(--stone);
+}
+
+/* Local keyframes for CSS Module scoped animation references */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-28px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(28px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

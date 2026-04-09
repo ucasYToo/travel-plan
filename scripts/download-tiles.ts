@@ -1,9 +1,8 @@
 /**
- * 下载首尔区域 z10-z13 的高德瓦片并转换为 base64 内联数据
+ * 下载首尔及仁川机场区域 z8-z13 的 CARTO 瓦片并转换为 base64 内联数据
  * 生成 src/data/tiles/bundledTiles.ts
  *
- * 使用高德瓦片源因为 CARTO CDN 在国内无法访问。
- * 高德瓦片使用 Web Mercator 投影，瓦片坐标与 OSM/CARTO 一致。
+ * CARTO light_all 瓦片使用 Web Mercator 投影，瓦片坐标与 OSM 一致。
  */
 
 import * as fs from 'fs'
@@ -13,7 +12,7 @@ const SEOUL_BBOX = {
   north: 37.70,
   south: 37.39,
   east: 127.18,
-  west: 126.70,
+  west: 126.30,
 }
 
 function lngToTileX(lng: number, z: number): number {
@@ -61,14 +60,14 @@ async function main() {
   let totalBytes = 0
 
   // Count total tiles
-  for (let z = 10; z <= 13; z++) {
+  for (let z = 8; z <= 13; z++) {
     const { xMin, xMax, yMin, yMax } = getTileRange(z)
     total += (xMax - xMin + 1) * (yMax - yMin + 1)
   }
 
-  console.log(`Downloading ${total} tiles for Seoul (z10-z13)...`)
+  console.log(`Downloading ${total} tiles for Seoul + Incheon Airport (z8-z13)...`)
 
-  for (let z = 10; z <= 13; z++) {
+  for (let z = 8; z <= 13; z++) {
     const { xMin, xMax, yMin, yMax } = getTileRange(z)
     const count = (xMax - xMin + 1) * (yMax - yMin + 1)
     console.log(`  z${z}: x(${xMin}-${xMax}), y(${yMin}-${yMax}), ${count} tiles`)

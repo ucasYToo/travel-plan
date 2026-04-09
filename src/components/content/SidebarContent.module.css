@@ -88,6 +88,18 @@
   letter-spacing: 0.01em;
 }
 
+/* Header entrance stagger */
+.titleKr,
+.titleRow,
+.subtitle {
+  opacity: 0;
+  animation: fadeInUp 0.6s var(--ease-out-expo) forwards;
+}
+
+.titleKr { animation-delay: 0.05s; }
+.titleRow { animation-delay: 0.15s; }
+.subtitle { animation-delay: 0.25s; }
+
 /* ═══════════════════════════════════════════
    SCROLLABLE AREA
    ═══════════════════════════════════════════ */
@@ -126,12 +138,24 @@
   border-radius: 9999px;
   border: 1px solid var(--border-spring);
   background-color: var(--bg-card);
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.25s ease, transform 0.25s var(--ease-spring);
+  opacity: 0;
+  animation: popIn 0.45s var(--ease-spring) forwards;
 }
 
 .hotelChip:hover {
   box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
+
+.hotelChip:nth-child(1) { animation-delay: 0.08s; }
+.hotelChip:nth-child(2) { animation-delay: 0.14s; }
+.hotelChip:nth-child(3) { animation-delay: 0.20s; }
+.hotelChip:nth-child(4) { animation-delay: 0.26s; }
+.hotelChip:nth-child(5) { animation-delay: 0.32s; }
+.hotelChip:nth-child(6) { animation-delay: 0.38s; }
+.hotelChip:nth-child(7) { animation-delay: 0.44s; }
+.hotelChip:nth-child(8) { animation-delay: 0.50s; }
 
 .hotelChipIcon {
   width: 24px;
@@ -192,7 +216,7 @@
 }
 
 .dayPillBar::-webkit-scrollbar {
-  height: 6px;
+  height: 8px;
 }
 
 .dayPillBar::-webkit-scrollbar-track {
@@ -204,13 +228,13 @@
 .dayPillBar::-webkit-scrollbar-thumb {
   background: linear-gradient(90deg, var(--sakura-pink) 0%, var(--spring-sky) 50%, var(--bud-green) 100%);
   border-radius: 9999px;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   background-clip: content-box;
 }
 
 .dayPillBar::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(90deg, var(--sakura-deep) 0%, var(--spring-sky) 50%, var(--bud-deep) 100%);
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   background-clip: content-box;
 }
 
@@ -226,24 +250,39 @@
   border: 1.5px solid var(--border-spring);
   background-color: var(--bg-card);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s var(--ease-spring);
   box-shadow: var(--shadow-sm);
   flex-shrink: 0;
+  opacity: 0;
+  animation: scaleIn 0.45s var(--ease-spring) forwards;
 }
 
 .dayPill:hover {
   border-color: var(--sakura-pink);
   box-shadow: var(--shadow-md);
-  transform: scale(1.04);
+  transform: scale(1.06);
 }
 
 .dayPillActive {
   background-color: var(--bud-green);
   border-color: var(--bud-green);
   color: #fff;
-  box-shadow: 0 2px 8px rgba(122, 196, 160, 0.35);
-  transform: scale(1.04);
+  box-shadow: 0 3px 12px rgba(122, 196, 160, 0.45);
+  transform: scale(1.06);
 }
+
+.dayPill:nth-child(1) { animation-delay: 0.03s; }
+.dayPill:nth-child(2) { animation-delay: 0.07s; }
+.dayPill:nth-child(3) { animation-delay: 0.11s; }
+.dayPill:nth-child(4) { animation-delay: 0.15s; }
+.dayPill:nth-child(5) { animation-delay: 0.19s; }
+.dayPill:nth-child(6) { animation-delay: 0.23s; }
+.dayPill:nth-child(7) { animation-delay: 0.27s; }
+.dayPill:nth-child(8) { animation-delay: 0.31s; }
+.dayPill:nth-child(9) { animation-delay: 0.35s; }
+.dayPill:nth-child(10) { animation-delay: 0.39s; }
+.dayPill:nth-child(11) { animation-delay: 0.43s; }
+.dayPill:nth-child(12) { animation-delay: 0.47s; }
 
 .dayPillDay {
   font-size: 11px;
@@ -272,7 +311,15 @@
    ═══════════════════════════════════════════ */
 
 .timelineContainer {
-  animation: fadeInUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fadeInUp 0.45s var(--ease-out-expo) both;
+}
+
+/* Timeline item stagger entrance */
+.tlNodeWrap,
+.tlTransitSeg {
+  opacity: 0;
+  animation: slideUpFade 0.45s var(--ease-out-expo) forwards;
+  animation-delay: calc(var(--stagger, 0) * 55ms);
 }
 
 .timeline {
@@ -487,14 +534,26 @@
   padding: 16px;
   border-radius: 16px;
   border: 1px solid transparent;
-  transition: all 0.2s ease;
+  transition: all 0.35s var(--ease-out-expo);
   cursor: pointer;
   box-shadow: var(--shadow-md);
   background-color: var(--bg-card);
   border-color: var(--border-spring);
+  opacity: 0;
+  animation: fadeInUp 0.55s var(--ease-out-expo) forwards;
 }
 
+.dayCard:nth-child(1) { animation-delay: 0.08s; }
+.dayCard:nth-child(2) { animation-delay: 0.16s; }
+.dayCard:nth-child(3) { animation-delay: 0.24s; }
+.dayCard:nth-child(4) { animation-delay: 0.32s; }
+.dayCard:nth-child(5) { animation-delay: 0.40s; }
+.dayCard:nth-child(6) { animation-delay: 0.48s; }
+.dayCard:nth-child(7) { animation-delay: 0.56s; }
+.dayCard:nth-child(8) { animation-delay: 0.64s; }
+
 .dayCard:hover {
+  transform: translateY(-3px);
   border-color: var(--sakura-pink);
   box-shadow: var(--shadow-lg);
 }
@@ -546,4 +605,26 @@
   border: 1px solid var(--border-spring);
   background-color: var(--bg-main);
   padding: 8px;
+}
+
+/* Local keyframes for CSS Module scoped animation references */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.5); }
+  70% { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }

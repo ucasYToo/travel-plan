@@ -350,7 +350,7 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
             [p2.location.lat, p2.location.lng]
           ] as [number, number][]
           return (
-            <Fragment key={`route-${i}`}>
+            <Fragment key={`route-${activeDay ?? 'all'}-${i}`}>
               {/* Glow halo */}
               <Polyline
                 positions={positions}
