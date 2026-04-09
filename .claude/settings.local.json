@@ -23,7 +23,11 @@
       "Write(*)",
       "Bash(pkill -f \"vite preview\")",
       "Bash(pkill -f \"vite\")",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)",
+      "mcp__ide__executeCode"
     ]
   }
 }
