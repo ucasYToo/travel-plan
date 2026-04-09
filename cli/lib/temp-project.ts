@@ -85,6 +85,16 @@ export function createTempProject(
   const dataIndexPath = path.join(projectDir, 'src', 'data', 'index.ts')
   fs.writeFileSync(dataIndexPath, generateDataIndexTs(cities, defaultCity), 'utf-8')
 
+  // Stub out bundled tiles so CLI builds do not inline heavy base64 tiles;
+  // they will fallback to CDN directly.
+  const tilesDir = path.join(projectDir, 'src', 'data', 'tiles')
+  fs.mkdirSync(tilesDir, { recursive: true })
+  fs.writeFileSync(
+    path.join(tilesDir, 'bundledTiles.ts'),
+    `export const bundledTiles: Record<string, string> = {}\n`,
+    'utf-8'
+  )
+
   return {
     projectDir,
     cleanup: () => {

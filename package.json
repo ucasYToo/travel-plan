@@ -1,15 +1,16 @@
 {
   "name": "trip-packer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Build standalone travel map HTML from JSON itinerary data",
   "type": "module",
   "bin": {
-    "trip-packer": "./bin/trip-packer.js"
+    "trip-packer": "bin/trip-packer.js"
   },
   "files": [
     "bin",
-    "dist",
+    "dist/cli",
     "src",
+    "scripts",
     "css",
     "index.html",
     "vite.config.ts",
@@ -24,7 +25,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepublishOnly": "npm run build:cli"
+    "prepublishOnly": "rm -f dist/index.html && npm run build:cli"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.2.1",
