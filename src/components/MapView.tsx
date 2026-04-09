@@ -212,7 +212,7 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
       zoom={defaultZoom}
       zoomControl={false}
     >
-      <SmartTileLayer />
+      <SmartTileLayer country={data.metadata.country} />
       <MapController activeDay={activeDay} resetView={resetView} data={data} defaultCenter={defaultCenter} defaultZoom={defaultZoom} onZoomChange={onZoomChange} />
 
       {(() => {

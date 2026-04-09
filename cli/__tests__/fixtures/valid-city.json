@@ -6,7 +6,8 @@
     "mapZoom": 12,
     "cityLabel": "東京",
     "seasonLabel": "SPRING",
-    "flag": "🇯🇵"
+    "flag": "🇯🇵",
+    "country": "JP"
   },
   "locations": {
     "shinjuku_hotel": {

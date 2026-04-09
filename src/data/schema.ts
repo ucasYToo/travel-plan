@@ -82,6 +82,7 @@ export const itineraryMetadataSchema = z.object({
   cityLabel: z.string().optional(),
   seasonLabel: z.string().optional(),
   flag: z.string().optional(),
+  country: z.string().optional(),
 })
 
 export const itinerarySchema = z.object({

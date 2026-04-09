@@ -8,7 +8,8 @@
     },
     "mapZoom": 12,
     "cityLabel": "서울",
-    "seasonLabel": "SPRING"
+    "seasonLabel": "SPRING",
+    "country": "KR"
   },
   "locations": {
     "mapo_glad_group": {
