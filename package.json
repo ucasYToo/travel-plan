@@ -1,21 +1,42 @@
 {
-  "name": "seoul-travel-map",
-  "private": true,
+  "name": "trip-packer",
   "version": "1.0.0",
+  "description": "Build standalone travel map HTML from JSON itinerary data",
   "type": "module",
+  "bin": {
+    "trip-packer": "./bin/trip-packer.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "src",
+    "css",
+    "index.html",
+    "vite.config.ts",
+    "tsconfig.json",
+    "tsconfig.node.json",
+    "package.json"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:cli": "tsc -p tsconfig.cli.json",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build:cli"
   },
   "dependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
     "clsx": "^2.1.1",
+    "commander": "^12.1.0",
     "leaflet": "^1.9.4",
+    "picocolors": "^1.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
+    "vite": "^5.1.4",
+    "vite-plugin-singlefile": "^2.0.1",
     "zod": "^4.3.6"
   },
   "devDependencies": {
@@ -23,16 +44,14 @@
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@types/leaflet": "^1.9.8",
+    "@types/node": "^20.19.39",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
-    "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-v8": "^1.6.0",
     "jsdom": "^24.0.0",
     "playwright-core": "^1.59.1",
     "tsx": "^4.21.0",
     "typescript": "^5.3.3",
-    "vite": "^5.1.4",
-    "vite-plugin-singlefile": "^2.0.1",
     "vitest": "^1.3.1"
   }
 }

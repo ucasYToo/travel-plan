@@ -1,0 +1,74 @@
+{
+  "metadata": {
+    "title": "东京旅行攻略",
+    "subtitle": "新宿3晚 · 5日往返",
+    "mapCenter": { "lat": 35.6895, "lng": 139.6917 },
+    "mapZoom": 12,
+    "cityLabel": "東京",
+    "seasonLabel": "SPRING",
+    "flag": "🇯🇵"
+  },
+  "locations": {
+    "shinjuku_hotel": {
+      "id": "shinjuku_hotel",
+      "name": "新宿格兰贝尔酒店",
+      "lat": 35.6938,
+      "lng": 139.7034,
+      "color": "#3b82f6",
+      "type": "hotel_group",
+      "description": "东京歌舞伎町核心地带",
+      "address": "東京都新宿区歌舞伎町2-14-5",
+      "children": ["shinjuku_gyoen"]
+    },
+    "shinjuku_gyoen": {
+      "id": "shinjuku_gyoen",
+      "name": "新宿御苑",
+      "type": "spot",
+      "lat": 35.6852,
+      "lng": 139.71,
+      "color": "#10b981",
+      "description": "东京著名赏樱胜地",
+      "address": "東京都新宿区内藤町11",
+      "parentId": "shinjuku_hotel"
+    }
+  },
+  "days": [
+    {
+      "day": 1,
+      "date": "2026-04-01",
+      "title": "抵达东京",
+      "note": "入住新宿酒店，闲逛歌舞伎町",
+      "baseHotelId": "shinjuku_hotel",
+      "path": [
+        {
+          "locationId": "shinjuku_hotel",
+          "label": "入住",
+          "isHotel": true
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "2026-04-02",
+      "title": "赏樱日",
+      "note": "上午新宿御苑赏樱",
+      "baseHotelId": "shinjuku_hotel",
+      "path": [
+        {
+          "locationId": "shinjuku_hotel",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "shinjuku_gyoen",
+          "label": "步行 · 约15分钟"
+        },
+        {
+          "locationId": "shinjuku_hotel",
+          "label": "返回酒店 · 约15分钟",
+          "isHotel": true
+        }
+      ]
+    }
+  ]
+}

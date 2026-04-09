@@ -51,6 +51,13 @@ function App() {
 
   const cityData = getCityData(currentCity)
 
+  // Update document title based on current city metadata
+  useEffect(() => {
+    if (cityData?.metadata?.title) {
+      document.title = cityData.metadata.title
+    }
+  }, [cityData])
+
   // Auto-select first non-hotel location when active day changes
   useEffect(() => {
     if (activeDay !== null && cityData) {

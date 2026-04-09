@@ -81,6 +81,7 @@ export const itineraryMetadataSchema = z.object({
   mapZoom: z.number().optional(),
   cityLabel: z.string().optional(),
   seasonLabel: z.string().optional(),
+  flag: z.string().optional(),
 })
 
 export const itinerarySchema = z.object({

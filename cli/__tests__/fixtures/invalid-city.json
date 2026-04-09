@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "title": "无效城市"
+  },
+  "locations": {
+    "bad_loc": {
+      "id": "bad_loc",
+      "name": "坏地点",
+      "lat": 0,
+      "lng": 0,
+      "color": "#000000",
+      "type": "unknown_type"
+    }
+  },
+  "days": []
+}

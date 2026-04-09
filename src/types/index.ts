@@ -121,6 +121,7 @@ export interface ItineraryMetadata {
   mapZoom?: number       // 地图默认缩放级别
   cityLabel?: string     // 城市本地名称 (如 "서울")
   seasonLabel?: string   // 季节标签 (如 "SPRING")
+  flag?: string          // 城市 emoji 标识 (可选，如 "🇰🇷")
 }
 
 /**
