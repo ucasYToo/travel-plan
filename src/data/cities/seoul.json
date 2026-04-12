@@ -358,6 +358,54 @@
       "description": "韩国主要国际机场 · T1航站楼",
       "address": "인천 중구 공항로 272",
       "parentId": "narita_airport"
+    },
+    "sinsa": {
+      "id": "sinsa",
+      "name": "新沙洞",
+      "lat": 37.51506,
+      "lng": 127.0158,
+      "color": "#ec4899",
+      "type": "group",
+      "description": "江南林荫道 · 设计师品牌 · 网红咖啡",
+      "address": "서울 강남구 신사동",
+      "children": [
+        "sinsa_garosu"
+      ]
+    },
+    "sinsa_garosu": {
+      "id": "sinsa_garosu",
+      "name": "新沙洞林荫道",
+      "type": "spot",
+      "lat": 37.51506,
+      "lng": 127.0158,
+      "color": "#ec4899",
+      "description": "江南时尚街区 · 潮牌买手店 · 咖啡美食聚集地",
+      "address": "서울 강남구 가로수길",
+      "parentId": "sinsa"
+    },
+    "dongdaemun": {
+      "id": "dongdaemun",
+      "name": "东大门",
+      "lat": 37.5665,
+      "lng": 127.009,
+      "color": "#f97316",
+      "type": "group",
+      "description": "韩国潮流购物天堂 · DDP设计广场 · 夜市文化",
+      "address": "서울 중구 을지로6가",
+      "children": [
+        "dongdaemun_ddp"
+      ]
+    },
+    "dongdaemun_ddp": {
+      "id": "dongdaemun_ddp",
+      "name": "东大门设计广场 DDP",
+      "type": "spot",
+      "lat": 37.5665,
+      "lng": 127.009,
+      "color": "#f97316",
+      "description": "扎哈·哈迪德设计的文化地标 · 周边购物中心林立",
+      "address": "서울 중구 을지로 281",
+      "parentId": "dongdaemun"
     }
   },
   "days": [
@@ -897,8 +945,8 @@
     {
       "day": 4,
       "date": "2026-05-02",
-      "title": "圣水洞文创+美食日",
-      "note": "东线。梨泰院乘6号线转2号线到圣水约30分钟。白天逛文创园区+咖啡，晚上在圣水洞吃Gwonski猪蹄或두찜辣炖鸡（两家步行2分钟）",
+      "title": "新沙洞+圣水洞·东线巡礼",
+      "note": "上午先去江南新沙洞林荫道逛设计师品牌和网红咖啡，中午转战圣水洞文创园区，晚上在圣水洞吃Gwonski猪蹄或두찜辣炖鸡。",
       "baseHotelId": "aank_itaewon_group",
       "path": [
         {
@@ -907,13 +955,13 @@
           "isHotel": true
         },
         {
-          "locationId": "seongsu_entrance",
-          "label": "地铁6号线→2号线 · 约30分钟",
+          "locationId": "sinsa_garosu",
+          "label": "地铁6号线→3号线 · 约20分钟",
           "transit": {
-            "distance": "约9.0公里",
-            "duration": "约30分钟",
+            "distance": "约5.0公里",
+            "duration": "约20分钟",
             "startName": "梨泰院Aank酒店",
-            "endName": "圣水洞主街",
+            "endName": "新沙洞林荫道",
             "steps": [
               {
                 "mode": "walk",
@@ -927,18 +975,74 @@
                 "mode": "subway",
                 "line": "首尔地铁6号线",
                 "from": "梨泰院站",
-                "to": "新堂站",
-                "duration": "约20分钟",
-                "distance": "约8.0公里",
-                "instruction": "乘坐6号线至新堂站下车"
+                "to": "药水站",
+                "duration": "约8分钟",
+                "distance": "约2.5公里",
+                "instruction": "乘坐6号线至药水站下车"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁3号线",
+                "from": "药水站",
+                "to": "新沙站",
+                "duration": "约7分钟",
+                "distance": "约2.0公里",
+                "instruction": "换乘3号线至新沙站下车"
+              },
+              {
+                "mode": "walk",
+                "from": "新沙站8号出口",
+                "to": "新沙洞林荫道",
+                "duration": "约5分钟",
+                "distance": "约400米",
+                "instruction": "从新沙站8号出口出站，沿林荫道方向步行"
+              }
+            ]
+          },
+          "notes": [
+            {
+              "category": "shopping",
+              "content": "林荫道两侧遍布设计师买手店和潮牌，适合慢慢逛"
+            },
+            {
+              "category": "food",
+              "content": "新沙洞有很多网红咖啡厅，推荐尝试维也纳咖啡"
+            }
+          ]
+        },
+        {
+          "locationId": "seongsu_entrance",
+          "label": "地铁3号线→2号线 · 约25分钟",
+          "transit": {
+            "distance": "约8.0公里",
+            "duration": "约25分钟",
+            "startName": "新沙洞林荫道",
+            "endName": "圣水洞主街",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "新沙洞林荫道",
+                "to": "新沙站",
+                "duration": "约5分钟",
+                "distance": "约400米",
+                "instruction": "步行返回新沙站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁3号线",
+                "from": "新沙站",
+                "to": "乙支路3街站",
+                "duration": "约15分钟",
+                "distance": "约5.5公里",
+                "instruction": "乘坐3号线至乙支路3街站下车"
               },
               {
                 "mode": "subway",
                 "line": "首尔地铁2号线",
-                "from": "新堂站",
+                "from": "乙支路3街站",
                 "to": "圣水站",
-                "duration": "约2分钟",
-                "distance": "约1.0公里",
+                "duration": "约5分钟",
+                "distance": "约2.0公里",
                 "instruction": "换乘2号线至圣水站下车"
               },
               {
@@ -1044,8 +1148,8 @@
     {
       "day": 5,
       "date": "2026-05-03",
-      "title": "市中区购物+西村文创",
-      "note": "上午新世界百货购物，中午明洞地下美食街，下午西村手账店，傍晚最后补货",
+      "title": "西村文创+东大门+市中区购物",
+      "note": "上午先去西村手账店Papier Prost，中午东大门DDP和购物城，下午明洞地下美食街+新世界百货keen返点，傍晚最后补货。",
       "baseHotelId": "aank_itaewon_group",
       "path": [
         {
@@ -1054,13 +1158,13 @@
           "isHotel": true
         },
         {
-          "locationId": "shinsegae_main",
-          "label": "地铁6号线→4号线 · 约20分钟",
+          "locationId": "papier_prost",
+          "label": "地铁6号线→3号线 · 约20分钟",
           "transit": {
-            "distance": "约5.5公里",
+            "distance": "约5.0公里",
             "duration": "约20分钟",
             "startName": "梨泰院Aank酒店",
-            "endName": "新世界百货本店",
+            "endName": "파피어프로스트",
             "steps": [
               {
                 "mode": "walk",
@@ -1074,43 +1178,139 @@
                 "mode": "subway",
                 "line": "首尔地铁6号线",
                 "from": "梨泰院站",
-                "to": "三角地站",
-                "duration": "约4分钟",
-                "distance": "约2.0公里",
-                "instruction": "乘坐6号线至三角地站"
+                "to": "药水站",
+                "duration": "约8分钟",
+                "distance": "约2.5公里",
+                "instruction": "乘坐6号线至药水站下车"
               },
               {
                 "mode": "subway",
-                "line": "首尔地铁4号线",
-                "from": "三角地站",
-                "to": "会贤站",
-                "duration": "约6分钟",
-                "distance": "约3.5公里",
-                "instruction": "换乘4号线至会贤站下车"
+                "line": "首尔地铁3号线",
+                "from": "药水站",
+                "to": "景福宫站",
+                "duration": "约7分钟",
+                "distance": "约2.5公里",
+                "instruction": "换乘3号线至景福宫站下车"
               },
               {
                 "mode": "walk",
-                "from": "会贤站7号出口",
-                "to": "新世界百货本店",
-                "duration": "约2分钟",
-                "distance": "约100米",
-                "instruction": "7号出口出站即达新世界百货"
+                "from": "景福宫站3号出口",
+                "to": "파피어프로스트",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "3号出口出站后沿孝子路步行至西村，자하문로7길 68-4"
               }
             ]
-          }
+          },
+          "notes": [
+            {
+              "category": "shopping",
+              "content": "Papier Prost有很多限定款手帐贴纸和文创小物"
+            }
+          ]
+        },
+        {
+          "locationId": "dongdaemun_ddp",
+          "label": "地铁3号线 · 约15分钟",
+          "transit": {
+            "distance": "约3.5公里",
+            "duration": "约15分钟",
+            "startName": "파피어프로스트",
+            "endName": "东大门设计广场 DDP",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "파피어프로스트",
+                "to": "景福宫站",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "步行返回景福宫站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁3号线",
+                "from": "景福宫站",
+                "to": "东大门站",
+                "duration": "约10分钟",
+                "distance": "约3.0公里",
+                "instruction": "乘坐3号线至东大门站下车"
+              },
+              {
+                "mode": "walk",
+                "from": "东大门站5/6号出口",
+                "to": "东大门设计广场 DDP",
+                "duration": "约5分钟",
+                "distance": "约400米",
+                "instruction": "出站后步行至DDP及东大门购物中心区域"
+              }
+            ]
+          },
+          "notes": [
+            {
+              "category": "shopping",
+              "content": "东大门是韩国潮流服饰批发聚集地，DDP设计广场值得打卡"
+            },
+            {
+              "category": "food",
+              "content": "东大门周边有很多24小时营业的炖排骨和部队锅"
+            }
+          ]
         },
         {
           "locationId": "myeongdong_street",
-          "label": "免费穿梭巴士/步行 · 约5分钟",
+          "label": "地铁4号线 · 约8分钟",
           "transit": {
-            "distance": "约800米",
-            "duration": "约5分钟",
-            "startName": "新世界百货本店",
+            "distance": "约1.5公里",
+            "duration": "约8分钟",
+            "startName": "东大门设计广场 DDP",
             "endName": "明洞主街",
             "steps": [
               {
                 "mode": "walk",
-                "from": "新世界百货本店",
+                "from": "DDP",
+                "to": "东大门历史文化公园站",
+                "duration": "约3分钟",
+                "distance": "约200米",
+                "instruction": "步行至东大门历史文化公园站"
+              },
+              {
+                "mode": "subway",
+                "line": "首尔地铁4号线",
+                "from": "东大门历史文化公园站",
+                "to": "明洞站",
+                "duration": "约3分钟",
+                "distance": "约1.0公里",
+                "instruction": "乘坐4号线至明洞站下车"
+              },
+              {
+                "mode": "walk",
+                "from": "明洞站6号出口",
+                "to": "明洞主街",
+                "duration": "约2分钟",
+                "distance": "约300米",
+                "instruction": "6号出口出站即进入明洞主街"
+              }
+            ]
+          },
+          "notes": [
+            {
+              "category": "food",
+              "content": "明洞地下美食街有很多小吃，推荐鲫鱼饼和辣炒年糕"
+            }
+          ]
+        },
+        {
+          "locationId": "shinsegae_main",
+          "label": "免费穿梭巴士/步行 · 约5分钟",
+          "transit": {
+            "distance": "约800米",
+            "duration": "约5分钟",
+            "startName": "明洞主街",
+            "endName": "新世界百货本店",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "明洞主街",
                 "to": "新世界免费巴士站",
                 "duration": "约2分钟",
                 "distance": "约100米",
@@ -1126,79 +1326,48 @@
                 "instruction": "乘坐新世界免费巴士至明洞主街下车（或步行约10分钟）"
               }
             ]
-          }
-        },
-        {
-          "locationId": "papier_prost",
-          "label": "地铁3号线+步行 · 约25分钟",
-          "transit": {
-            "distance": "约3.8公里",
-            "duration": "约25分钟",
-            "startName": "明洞主街",
-            "endName": "파피어프로스트",
-            "steps": [
-              {
-                "mode": "walk",
-                "from": "明洞主街",
-                "to": "乙支路3街站",
-                "duration": "约8分钟",
-                "distance": "约500米",
-                "instruction": "步行至乙支路3街站"
-              },
-              {
-                "mode": "subway",
-                "line": "首尔地铁3号线",
-                "from": "乙支路3街站",
-                "to": "景福宫站",
-                "duration": "约12分钟",
-                "distance": "约2.5公里",
-                "instruction": "乘坐3号线至景福宫站下车"
-              },
-              {
-                "mode": "walk",
-                "from": "景福宫站3号出口",
-                "to": "파피어프로스트",
-                "duration": "约5分钟",
-                "distance": "约300米",
-                "instruction": "3号出口出站后沿孝子路步行至西村，자하문로7길 68-4"
-              }
-            ]
-          }
+          },
+          "notes": [
+            {
+              "category": "shopping",
+              "content": "新世界百货本店keen返点，记得带好护照和机票"
+            }
+          ]
         },
         {
           "locationId": "aank_itaewon_group",
-          "label": "地铁3→6号线 · 约30分钟",
+          "label": "地铁4号线→6号线 · 约20分钟",
           "isHotel": true,
           "transit": {
-            "distance": "约8.0公里",
-            "duration": "约30分钟",
-            "startName": "파피어프로스트",
+            "distance": "约5.5公里",
+            "duration": "约20分钟",
+            "startName": "新世界百货本店",
             "endName": "Aank Hotel 梨泰院店",
             "steps": [
               {
                 "mode": "walk",
-                "from": "파피어프로스트",
-                "to": "景福宫站",
-                "duration": "约5分钟",
-                "distance": "约300米",
-                "instruction": "步行返回景福宫站"
+                "from": "新世界百货本店",
+                "to": "会贤站",
+                "duration": "约2分钟",
+                "distance": "约100米",
+                "instruction": "步行至会贤站"
               },
               {
                 "mode": "subway",
-                "line": "首尔地铁3号线",
-                "from": "景福宫站",
-                "to": "药水站",
-                "duration": "约13分钟",
-                "distance": "约5.0公里",
-                "instruction": "乘坐3号线至药水站下车"
+                "line": "首尔地铁4号线",
+                "from": "会贤站",
+                "to": "三角地站",
+                "duration": "约6分钟",
+                "distance": "约3.5公里",
+                "instruction": "乘坐4号线至三角地站"
               },
               {
                 "mode": "subway",
                 "line": "首尔地铁6号线",
-                "from": "药水站",
+                "from": "三角地站",
                 "to": "梨泰院站",
-                "duration": "约7分钟",
-                "distance": "约2.7公里",
+                "duration": "约4分钟",
+                "distance": "约2.0公里",
                 "instruction": "换乘6号线至梨泰院站"
               },
               {

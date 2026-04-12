@@ -27,7 +27,13 @@
       "Bash(git add:*)",
       "Bash(git commit -m ':*)",
       "Bash(git push:*)",
-      "mcp__ide__executeCode"
+      "mcp__ide__executeCode",
+      "WebSearch",
+      "Bash(curl -s \"https://vercel-proxy-henna-eight.vercel.app/api/seoul-metro?start=이태원&end=신사\")",
+      "Bash(curl -s \"https://vercel-proxy-henna-eight.vercel.app/api/seoul-metro?start=신사&end=성수\")",
+      "Bash(curl -s \"https://vercel-proxy-henna-eight.vercel.app/api/seoul-metro?start=이태원&end=경복궁\")",
+      "Bash(curl -s \"https://vercel-proxy-henna-eight.vercel.app/api/seoul-metro?start=경복궁&end=동대문\")",
+      "Bash(curl -s \"https://vercel-proxy-henna-eight.vercel.app/api/seoul-metro?start=동대문&end=명동\")"
     ]
   }
 }
