@@ -21,7 +21,7 @@ export function getTileSource(): TileSource {
 
 export function getChinaTileSource(): TileSource {
   return {
-    url: 'https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',
+    url: 'https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}',
     subdomains: '1234',
     attribution:
       '&copy; <a href="https://www.amap.com/">高德地图</a>',
