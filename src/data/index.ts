@@ -1,15 +1,15 @@
 import seoulJson from './cities/seoul.json'
-import hangzhouJson from './cities/hangzhou.json'
+import chengduJson from './cities/chengdu.json'
 import type { ItineraryData, CityOption } from '../types'
 
 export const CITIES: Record<string, ItineraryData> = {
   seoul: seoulJson as ItineraryData,
-  hangzhou: hangzhouJson as ItineraryData,
+  chengdu: chengduJson as ItineraryData,
 }
 
 export const CITY_OPTIONS: CityOption[] = [
   { id: 'seoul', name: '首尔', flag: '🇰🇷' },
-  { id: 'hangzhou', name: '杭州', flag: '🇨🇳' },
+  { id: 'chengdu', name: '成都', flag: '🇨🇳' },
 ]
 
 export function getCityData(cityId: string): ItineraryData | null {
