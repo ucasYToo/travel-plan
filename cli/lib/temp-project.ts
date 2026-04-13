@@ -69,7 +69,8 @@ function resolvePackageRoot(): string {
   try {
     return path.dirname(fileURLToPath(import.meta.resolve('trip-packer/package.json')))
   } catch {
-    return process.cwd()
+    // Fall back to repo root relative to this file (cli/lib/temp-project.ts -> ../..)
+    return path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..')
   }
 }
 

@@ -7,14 +7,14 @@ interface BrowserGlobal {
   __tripPackerHeadlessExport?: (modes: string[]) => Promise<Record<string, string>>
 }
 
-function createServer(rootDir: string): Promise<{ server: http.Server; port: number }> {
+function createServer(rootDir: string, indexFile: string): Promise<{ server: http.Server; port: number }> {
   return new Promise((resolve, reject) => {
     const server = http.createServer((req, res) => {
       const url = new URL(req.url || '/', `http://${req.headers.host}`)
       let filePath = path.join(rootDir, decodeURIComponent(url.pathname))
-      // Default to index.html for root path
+      // Default to the built HTML file for root path
       if (url.pathname === '/') {
-        filePath = path.join(rootDir, 'index.html')
+        filePath = path.join(rootDir, indexFile)
       }
 
       fs.readFile(filePath, (err, data) => {
@@ -58,7 +58,8 @@ export async function captureImages(
   modes: string[],
 ): Promise<Record<string, string>> {
   const rootDir = path.dirname(htmlPath)
-  const { server, port } = await createServer(rootDir)
+  const indexFile = path.basename(htmlPath)
+  const { server, port } = await createServer(rootDir, indexFile)
 
   const browser = await chromium.launch({ headless: true })
   const context = await browser.newContext({
@@ -73,6 +74,7 @@ export async function captureImages(
     // Wait for headless export API to be available
     await page.waitForFunction(
       () => typeof (globalThis as unknown as BrowserGlobal).__tripPackerHeadlessExport === 'function',
+      undefined,
       { timeout: 15000 },
     )
 
