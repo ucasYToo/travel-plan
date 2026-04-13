@@ -1,0 +1,688 @@
+{
+  "metadata": {
+    "title": "成都",
+    "subtitle": "天府广场华住4天3晚 · 地铁+打车慢游",
+    "startDate": "2026-06-15",
+    "endDate": "2026-06-18",
+    "mapCenter": { "lat": 30.68, "lng": 104.06 },
+    "mapZoom": 11,
+    "cityLabel": "成都",
+    "seasonLabel": "SUMMER",
+    "flag": "🇨🇳",
+    "country": "CN"
+  },
+  "locations": {
+    "tianfu_hotel": {
+      "id": "tianfu_hotel",
+      "name": "全季酒店(成都天府广场店)",
+      "lat": 30.657,
+      "lng": 104.066,
+      "color": "#3b82f6",
+      "type": "hotel_group",
+      "description": "华住旗下 · 地铁1/2号线天府广场站 · 市中心出行便利",
+      "address": "成都市青羊区人民南路一段",
+      "children": ["kuanzhai", "renmin_park", "jinli", "wuhouci", "panda_base", "taikoo_ifs", "jiuyanqiao", "dujiangyan", "guanxian", "nanqiao", "jinsha", "wenshu"]
+    },
+    "kuanzhai": {
+      "id": "kuanzhai",
+      "name": "宽窄巷子",
+      "type": "spot",
+      "lat": 30.663,
+      "lng": 104.055,
+      "color": "#ef4444",
+      "description": "老成都生活缩影 · 宽窄井三条巷子",
+      "address": "成都市青羊区金河路",
+      "parentId": "tianfu_hotel"
+    },
+    "renmin_park": {
+      "id": "renmin_park",
+      "name": "人民公园",
+      "type": "spot",
+      "lat": 30.662,
+      "lng": 104.057,
+      "color": "#22c55e",
+      "description": "鹤鸣茶社喝茶 · 体验成都慢生活",
+      "address": "成都市青羊区小南街",
+      "parentId": "tianfu_hotel"
+    },
+    "jinli": {
+      "id": "jinli",
+      "name": "锦里古街",
+      "type": "spot",
+      "lat": 30.645,
+      "lng": 104.049,
+      "color": "#f97316",
+      "description": "西蜀第一街 · 夜景与小吃",
+      "address": "成都市武侯区武侯祠大街",
+      "parentId": "tianfu_hotel"
+    },
+    "wuhouci": {
+      "id": "wuhouci",
+      "name": "武侯祠",
+      "type": "spot",
+      "lat": 30.642,
+      "lng": 104.048,
+      "color": "#8b5cf6",
+      "description": "三国圣地 · 红墙竹影",
+      "address": "成都市武侯区武侯祠大街231号",
+      "parentId": "tianfu_hotel"
+    },
+    "panda_base": {
+      "id": "panda_base",
+      "name": "大熊猫繁育研究基地",
+      "type": "spot",
+      "lat": 30.734,
+      "lng": 104.147,
+      "color": "#10b981",
+      "description": "看花花和熊猫宝宝 · 建议上午早到",
+      "address": "成都市成华区熊猫大道1375号",
+      "parentId": "tianfu_hotel"
+    },
+    "taikoo_ifs": {
+      "id": "taikoo_ifs",
+      "name": "IFS/太古里",
+      "type": "spot",
+      "lat": 30.657,
+      "lng": 104.082,
+      "color": "#ec4899",
+      "description": "爬墙熊猫打卡 · 潮流购物商圈",
+      "address": "成都市锦江区春熙路",
+      "parentId": "tianfu_hotel"
+    },
+    "jiuyanqiao": {
+      "id": "jiuyanqiao",
+      "name": "九眼桥酒吧街",
+      "type": "spot",
+      "lat": 30.640,
+      "lng": 104.090,
+      "color": "#6366f1",
+      "description": "安顺廊桥夜景 · 成都夜生活",
+      "address": "成都市锦江区九眼桥",
+      "parentId": "tianfu_hotel"
+    },
+    "dujiangyan": {
+      "id": "dujiangyan",
+      "name": "都江堰景区",
+      "type": "spot",
+      "lat": 31.003,
+      "lng": 103.613,
+      "color": "#06b6d4",
+      "description": "两千年前水利工程 · 世界遗产",
+      "address": "成都市都江堰市公园路",
+      "parentId": "tianfu_hotel"
+    },
+    "guanxian": {
+      "id": "guanxian",
+      "name": "灌县古城",
+      "type": "spot",
+      "lat": 31.001,
+      "lng": 103.618,
+      "color": "#84cc16",
+      "description": "古城逛吃 · 特色小吃街",
+      "address": "成都市都江堰市灌县古城",
+      "parentId": "tianfu_hotel"
+    },
+    "nanqiao": {
+      "id": "nanqiao",
+      "name": "南桥",
+      "type": "spot",
+      "lat": 31.001,
+      "lng": 103.617,
+      "color": "#14b8a6",
+      "description": "蓝眼泪夜景 · 岷江之上",
+      "address": "成都市都江堰市南桥",
+      "parentId": "tianfu_hotel"
+    },
+    "jinsha": {
+      "id": "jinsha",
+      "name": "金沙遗址博物馆",
+      "type": "spot",
+      "lat": 30.683,
+      "lng": 104.012,
+      "color": "#f59e0b",
+      "description": "古蜀文明 · 太阳神鸟金饰",
+      "address": "成都市青羊区金沙遗址路2号",
+      "parentId": "tianfu_hotel"
+    },
+    "wenshu": {
+      "id": "wenshu",
+      "name": "文殊院",
+      "type": "spot",
+      "lat": 30.675,
+      "lng": 104.076,
+      "color": "#d946ef",
+      "description": "千年古刹 · 周边特色伴手礼",
+      "address": "成都市青羊区文殊院街66号",
+      "parentId": "tianfu_hotel"
+    }
+  },
+  "days": [
+    {
+      "day": 1,
+      "date": "2026-06-15",
+      "title": "初探老成都",
+      "note": "下午宽窄巷子漫步，人民公园鹤鸣茶社喝茶，晚上锦里与武侯祠夜景",
+      "baseHotelId": "tianfu_hotel",
+      "path": [
+        {
+          "locationId": "tianfu_hotel",
+          "label": "入住",
+          "isHotel": true
+        },
+        {
+          "locationId": "kuanzhai",
+          "label": "地铁4号线 · 约10分钟",
+          "transit": {
+            "distance": "约2公里",
+            "duration": "约10分钟",
+            "startName": "天府广场",
+            "endName": "宽窄巷子",
+            "steps": [
+              {
+                "mode": "subway",
+                "line": "地铁4号线",
+                "from": "天府广场站",
+                "to": "宽窄巷子站",
+                "duration": "约5分钟",
+                "distance": "约2公里",
+                "instruction": "乘坐地铁4号线至宽窄巷子站"
+              },
+              {
+                "mode": "walk",
+                "from": "宽窄巷子站",
+                "to": "宽窄巷子",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "步行至宽窄巷子入口"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "renmin_park",
+          "label": "步行 · 约10分钟",
+          "transit": {
+            "distance": "约600米",
+            "duration": "约10分钟",
+            "startName": "宽窄巷子",
+            "endName": "人民公园",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "宽窄巷子",
+                "to": "人民公园",
+                "duration": "约10分钟",
+                "distance": "约600米",
+                "instruction": "沿长顺上街步行至人民公园"
+              }
+            ]
+          },
+          "notes": [
+            { "category": "food", "content": "鹤鸣茶社喝盖碗茶，体验采耳" }
+          ]
+        },
+        {
+          "locationId": "wuhouci",
+          "label": "地铁+步行 · 约20分钟",
+          "transit": {
+            "distance": "约3公里",
+            "duration": "约20分钟",
+            "startName": "人民公园",
+            "endName": "武侯祠",
+            "steps": [
+              {
+                "mode": "subway",
+                "line": "地铁2号线转3号线",
+                "from": "人民公园站",
+                "to": "高升桥站",
+                "duration": "约10分钟",
+                "distance": "约3公里",
+                "instruction": "乘地铁2号线至春熙路转3号线到高升桥站"
+              },
+              {
+                "mode": "walk",
+                "from": "高升桥站",
+                "to": "武侯祠",
+                "duration": "约10分钟",
+                "distance": "约800米",
+                "instruction": "步行至武侯祠/锦里"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "jinli",
+          "label": "步行 · 约3分钟",
+          "transit": {
+            "distance": "约200米",
+            "duration": "约3分钟",
+            "startName": "武侯祠",
+            "endName": "锦里古街",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "武侯祠",
+                "to": "锦里古街",
+                "duration": "约3分钟",
+                "distance": "约200米",
+                "instruction": "武侯祠东侧即是锦里"
+              }
+            ]
+          },
+          "notes": [
+            { "category": "food", "content": "推荐三大炮、钵钵鸡、糖油果子" }
+          ]
+        },
+        {
+          "locationId": "tianfu_hotel",
+          "label": "地铁3号线 · 约20分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约4公里",
+            "duration": "约20分钟",
+            "startName": "锦里古街",
+            "endName": "天府广场",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "锦里古街",
+                "to": "高升桥站",
+                "duration": "约10分钟",
+                "distance": "约800米",
+                "instruction": "步行至高升桥地铁站"
+              },
+              {
+                "mode": "subway",
+                "line": "地铁3号线",
+                "from": "高升桥站",
+                "to": "天府广场站",
+                "duration": "约10分钟",
+                "distance": "约3公里",
+                "instruction": "乘坐地铁3号线返回天府广场"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "2026-06-16",
+      "title": "熊猫 + 潮流",
+      "note": "上午大熊猫基地，下午春熙路IFS太古里打卡，晚上九眼桥夜景",
+      "baseHotelId": "tianfu_hotel",
+      "path": [
+        {
+          "locationId": "tianfu_hotel",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "panda_base",
+          "label": "地铁3号线 · 约35分钟",
+          "transit": {
+            "distance": "约12公里",
+            "duration": "约35分钟",
+            "startName": "天府广场",
+            "endName": "大熊猫繁育研究基地",
+            "steps": [
+              {
+                "mode": "subway",
+                "line": "地铁3号线",
+                "from": "天府广场站",
+                "to": "熊猫大道站",
+                "duration": "约25分钟",
+                "distance": "约12公里",
+                "instruction": "乘坐地铁3号线至熊猫大道站"
+              },
+              {
+                "mode": "taxi",
+                "from": "熊猫大道站",
+                "to": "大熊猫繁育研究基地",
+                "duration": "约10分钟",
+                "distance": "约3公里",
+                "instruction": "打车或景区接驳车至基地南门"
+              }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "建议7:30开园前到达，先看花花" }
+          ]
+        },
+        {
+          "locationId": "taikoo_ifs",
+          "label": "地铁3号线 · 约40分钟",
+          "transit": {
+            "distance": "约12公里",
+            "duration": "约40分钟",
+            "startName": "熊猫基地",
+            "endName": "IFS/太古里",
+            "steps": [
+              {
+                "mode": "taxi",
+                "from": "大熊猫繁育研究基地",
+                "to": "熊猫大道站",
+                "duration": "约10分钟",
+                "distance": "约3公里",
+                "instruction": "打车返回熊猫大道地铁站"
+              },
+              {
+                "mode": "subway",
+                "line": "地铁3号线",
+                "from": "熊猫大道站",
+                "to": "春熙路站",
+                "duration": "约30分钟",
+                "distance": "约12公里",
+                "instruction": "乘坐地铁3号线至春熙路站"
+              }
+            ]
+          },
+          "notes": [
+            { "category": "food", "content": "午餐可在IFS或太古里解决" }
+          ]
+        },
+        {
+          "locationId": "jiuyanqiao",
+          "label": "地铁2号线 · 约15分钟",
+          "transit": {
+            "distance": "约2公里",
+            "duration": "约15分钟",
+            "startName": "春熙路",
+            "endName": "九眼桥",
+            "steps": [
+              {
+                "mode": "subway",
+                "line": "地铁2号线",
+                "from": "春熙路站",
+                "to": "牛王庙站",
+                "duration": "约5分钟",
+                "distance": "约2公里",
+                "instruction": "乘坐地铁2号线至牛王庙站"
+              },
+              {
+                "mode": "walk",
+                "from": "牛王庙站",
+                "to": "九眼桥",
+                "duration": "约10分钟",
+                "distance": "约700米",
+                "instruction": "步行至九眼桥酒吧街"
+              }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "夜景最佳拍摄点在安顺廊桥对岸" }
+          ]
+        },
+        {
+          "locationId": "tianfu_hotel",
+          "label": "地铁2号线 · 约15分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约2公里",
+            "duration": "约15分钟",
+            "startName": "九眼桥",
+            "endName": "天府广场",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "九眼桥",
+                "to": "牛王庙站",
+                "duration": "约10分钟",
+                "distance": "约700米",
+                "instruction": "步行返回牛王庙站"
+              },
+              {
+                "mode": "subway",
+                "line": "地铁2号线",
+                "from": "牛王庙站",
+                "to": "天府广场站",
+                "duration": "约5分钟",
+                "distance": "约2公里",
+                "instruction": "乘坐地铁2号线返回天府广场"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "date": "2026-06-17",
+      "title": "都江堰一日",
+      "note": "上午都江堰景区，下午灌县古城，晚上南桥蓝眼泪夜景",
+      "baseHotelId": "tianfu_hotel",
+      "path": [
+        {
+          "locationId": "tianfu_hotel",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "dujiangyan",
+          "label": "地铁+城际 · 约1小时",
+          "transit": {
+            "distance": "约60公里",
+            "duration": "约1小时",
+            "startName": "天府广场",
+            "endName": "都江堰景区",
+            "steps": [
+              {
+                "mode": "subway",
+                "line": "地铁2号线",
+                "from": "天府广场站",
+                "to": "犀浦站",
+                "duration": "约35分钟",
+                "distance": "约20公里",
+                "instruction": "乘坐地铁2号线至犀浦站"
+              },
+              {
+                "mode": "train",
+                "line": "城际列车",
+                "from": "犀浦站",
+                "to": "离堆公园站",
+                "duration": "约30分钟",
+                "distance": "约40公里",
+                "instruction": "乘坐城际列车至离堆公园站"
+              },
+              {
+                "mode": "walk",
+                "from": "离堆公园站",
+                "to": "都江堰景区",
+                "duration": "约10分钟",
+                "distance": "约1公里",
+                "instruction": "步行至都江堰景区离堆公园入口"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "guanxian",
+          "label": "步行 · 约10分钟",
+          "transit": {
+            "distance": "约500米",
+            "duration": "约10分钟",
+            "startName": "都江堰景区",
+            "endName": "灌县古城",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "都江堰景区",
+                "to": "灌县古城",
+                "duration": "约10分钟",
+                "distance": "约500米",
+                "instruction": "步行至灌县古城"
+              }
+            ]
+          },
+          "notes": [
+            { "category": "food", "content": "推荐老灌县葱葱卷、尤兔头、豆浆馍馍" }
+          ]
+        },
+        {
+          "locationId": "nanqiao",
+          "label": "步行 · 约5分钟",
+          "transit": {
+            "distance": "约300米",
+            "duration": "约5分钟",
+            "startName": "灌县古城",
+            "endName": "南桥",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "灌县古城",
+                "to": "南桥",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "步行至南桥看蓝眼泪夜景"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "tianfu_hotel",
+          "label": "城际+地铁 · 约1小时",
+          "isHotel": true,
+          "transit": {
+            "distance": "约60公里",
+            "duration": "约1小时",
+            "startName": "南桥",
+            "endName": "天府广场",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "南桥",
+                "to": "离堆公园站",
+                "duration": "约10分钟",
+                "distance": "约1公里",
+                "instruction": "步行至离堆公园站"
+              },
+              {
+                "mode": "train",
+                "line": "城际列车",
+                "from": "离堆公园站",
+                "to": "犀浦站",
+                "duration": "约30分钟",
+                "distance": "约40公里",
+                "instruction": "乘坐城际列车返回犀浦"
+              },
+              {
+                "mode": "subway",
+                "line": "地铁2号线",
+                "from": "犀浦站",
+                "to": "天府广场站",
+                "duration": "约35分钟",
+                "distance": "约20公里",
+                "instruction": "乘坐地铁2号线返回天府广场"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "date": "2026-06-18",
+      "title": "人文 + 返程",
+      "note": "上午金沙遗址博物馆，下午文殊院买伴手礼，随后返程",
+      "baseHotelId": "tianfu_hotel",
+      "path": [
+        {
+          "locationId": "tianfu_hotel",
+          "label": "起点",
+          "isHotel": true
+        },
+        {
+          "locationId": "jinsha",
+          "label": "地铁 · 约30分钟",
+          "transit": {
+            "distance": "约8公里",
+            "duration": "约30分钟",
+            "startName": "天府广场",
+            "endName": "金沙遗址博物馆",
+            "steps": [
+              {
+                "mode": "subway",
+                "line": "地铁1号线转7号线",
+                "from": "天府广场站",
+                "to": "一品天下站",
+                "duration": "约20分钟",
+                "distance": "约8公里",
+                "instruction": "乘地铁1号线至火车南站转7号线到一品天下站"
+              },
+              {
+                "mode": "walk",
+                "from": "一品天下站",
+                "to": "金沙遗址博物馆",
+                "duration": "约10分钟",
+                "distance": "约800米",
+                "instruction": "步行至金沙遗址博物馆"
+              }
+            ]
+          }
+        },
+        {
+          "locationId": "wenshu",
+          "label": "地铁 · 约35分钟",
+          "transit": {
+            "distance": "约9公里",
+            "duration": "约35分钟",
+            "startName": "金沙遗址博物馆",
+            "endName": "文殊院",
+            "steps": [
+              {
+                "mode": "walk",
+                "from": "金沙遗址博物馆",
+                "to": "一品天下站",
+                "duration": "约10分钟",
+                "distance": "约800米",
+                "instruction": "步行返回一品天下站"
+              },
+              {
+                "mode": "subway",
+                "line": "地铁7号线转1号线",
+                "from": "一品天下站",
+                "to": "文殊院站",
+                "duration": "约25分钟",
+                "distance": "约9公里",
+                "instruction": "乘7号线至火车南站转1号线到文殊院站"
+              }
+            ]
+          },
+          "notes": [
+            { "category": "shopping", "content": "推荐宫廷糕点铺、闻酥园、蜀绣" }
+          ]
+        },
+        {
+          "locationId": "tianfu_hotel",
+          "label": "地铁1号线 · 约10分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约2公里",
+            "duration": "约10分钟",
+            "startName": "文殊院",
+            "endName": "天府广场",
+            "steps": [
+              {
+                "mode": "subway",
+                "line": "地铁1号线",
+                "from": "文殊院站",
+                "to": "天府广场站",
+                "duration": "约5分钟",
+                "distance": "约2公里",
+                "instruction": "乘坐地铁1号线返回天府广场"
+              },
+              {
+                "mode": "walk",
+                "from": "天府广场站",
+                "to": "全季酒店",
+                "duration": "约5分钟",
+                "distance": "约300米",
+                "instruction": "步行回酒店取行李"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
