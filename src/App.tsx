@@ -128,18 +128,6 @@ function App() {
       })
     }
 
-    // Auto-trigger from URL query param
-    const params = new URLSearchParams(window.location.search)
-    const param = params.get('headless-export')
-    if (param) {
-      const modes = param.split(',').map((m) => m.trim()).filter(Boolean)
-      if (modes.length > 0 && window.__tripPackerHeadlessExport) {
-        window.__tripPackerHeadlessExport(modes).then((results) => {
-          window.__tripPackerExports = results
-        })
-      }
-    }
-
     return () => {
       delete window.__tripPackerHeadlessExport
     }

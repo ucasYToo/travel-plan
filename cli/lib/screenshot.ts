@@ -67,17 +67,17 @@ export async function captureImages(
   const page = await context.newPage()
 
   try {
-    const url = `http://127.0.0.1:${port}/?headless-export=${encodeURIComponent(modes.join(','))}`
+    const url = `http://127.0.0.1:${port}/`
     await page.goto(url, { waitUntil: 'networkidle' })
 
     // Wait for headless export API to be available
     await page.waitForFunction(
       () => typeof (globalThis as unknown as BrowserGlobal).__tripPackerHeadlessExport === 'function',
-      { timeout: 10000 },
+      { timeout: 15000 },
     )
 
-    // Wait a bit for map tiles to start loading
-    await page.waitForTimeout(2000)
+    // Increase default timeout for the potentially long-running export
+    page.setDefaultTimeout(120000)
 
     // Call headless export and wait for result
     const results = await page.evaluate(async (exportModes) => {
@@ -86,7 +86,7 @@ export async function captureImages(
         throw new Error('Headless export API not available')
       }
       return api(exportModes)
-    }, modes)
+    }, modes) as Record<string, string>
 
     return results
   } finally {
