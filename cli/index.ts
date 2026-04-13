@@ -33,6 +33,7 @@ program
   .option('--default-city <cityId>', 'Default active city ID')
   .option('--strict', 'Treat validation warnings as errors', false)
   .option('--no-validate', 'Skip data validation')
+  .option('--images', 'Also generate panorama and itinerary-vertical PNG images', false)
   .action(buildCommand)
 
 program

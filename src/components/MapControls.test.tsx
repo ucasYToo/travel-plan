@@ -13,7 +13,9 @@ describe('MapControls', () => {
     onSelectDay: vi.fn(),
     onSettingsChange: vi.fn(),
     viewMode: 'route' as const,
-    onRouteView: vi.fn()
+    onRouteView: vi.fn(),
+    onExportClick: vi.fn(),
+    isExporting: false,
   }
 
   it('renders desktop controls hidden on mobile', () => {
@@ -74,5 +76,38 @@ describe('MapControls', () => {
     expect(defaultProps.onSettingsChange).toHaveBeenCalledWith(
       expect.objectContaining({ showLocationNames: true, showTransit: true })
     )
+  })
+
+  it('renders export button and opens export panel', () => {
+    const { getByTestId, getByText } = render(<MapControls {...defaultProps} />)
+    const desktop = getByTestId('desktop-controls')
+    const exportBtn = within(desktop as HTMLElement).getByLabelText('导出')
+    expect(exportBtn).toBeTruthy()
+
+    fireEvent.click(exportBtn)
+    expect(getByText('导出图片')).toBeInTheDocument()
+  })
+
+  it('calls onExportClick when export panel option clicked', () => {
+    const { getByTestId, getByText } = render(<MapControls {...defaultProps} />)
+    const desktop = getByTestId('desktop-controls')
+    const exportBtn = within(desktop as HTMLElement).getByLabelText('导出')
+    fireEvent.click(exportBtn)
+
+    const panoramaBtn = getByText('全景横图 (2560×1440)')
+    fireEvent.click(panoramaBtn)
+    expect(defaultProps.onExportClick).toHaveBeenCalledWith('panorama', [])
+  })
+
+  it('disables day export options when no day is selected in panel', () => {
+    const { getByTestId, getByText } = render(<MapControls {...defaultProps} />)
+    const desktop = getByTestId('desktop-controls')
+    const exportBtn = within(desktop as HTMLElement).getByLabelText('导出')
+    fireEvent.click(exportBtn)
+
+    const dayHorizontal = getByText('当天横图 (2560×1440)').closest('button')
+    const dayVertical = getByText('当天竖图 (1080px 宽)').closest('button')
+    expect(dayHorizontal).toBeDisabled()
+    expect(dayVertical).toBeDisabled()
   })
 })

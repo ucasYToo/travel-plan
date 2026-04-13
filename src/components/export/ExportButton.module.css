@@ -1,0 +1,26 @@
+.exportButton {
+  flex-shrink: 0;
+  padding: 6px;
+  border-radius: 9999px;
+  background-color: #fff;
+  border: 1px solid var(--border-spring);
+  color: var(--stone);
+  transition: color 0.25s ease, background-color 0.25s ease, transform 0.3s var(--ease-spring), box-shadow 0.25s ease;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exportButton:hover {
+  color: var(--ink);
+  transform: scale(1.1) rotate(4deg);
+  box-shadow: var(--shadow-md);
+}
+
+@media (min-width: 640px) {
+  .exportButton {
+    padding: 8px;
+  }
+}

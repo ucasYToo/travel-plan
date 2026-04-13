@@ -1,0 +1,23 @@
+.container {
+  padding: 20px 24px 32px;
+  background: var(--bg-main);
+}
+
+.dateLabel {
+  margin-left: 8px;
+  font-size: 11px;
+  color: var(--stone);
+  flex-shrink: 0;
+}
+
+.dayTitleFix {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  flex: 1;
+}
+
+.dayRouteCompact {
+  padding: 10px 0;
+}

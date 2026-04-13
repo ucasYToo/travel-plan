@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
 import clsx from 'clsx'
 import { CITY_OPTIONS } from '../data'
+import { ExportButton } from './export/ExportButton'
+import { ExportPanel } from './export/ExportPanel'
+import type { ExportMode } from './export/utils'
 import styles from './MapControls.module.css'
 
 export interface MapControlsSettings {
@@ -20,6 +23,8 @@ export interface MapControlsProps {
   viewMode: 'route' | 'full'
   onRouteView: () => void
   zoom?: number
+  onExportClick: (mode: ExportMode, days: number[]) => void
+  isExporting: boolean
 }
 
 export function MapControls({
@@ -33,9 +38,12 @@ export function MapControls({
   onSettingsChange,
   viewMode,
   onRouteView,
-  zoom
+  zoom,
+  onExportClick,
+  isExporting,
 }: MapControlsProps): JSX.Element {
   const [daysExpanded, setDaysExpanded] = useState(true)
+  const [exportOpen, setExportOpen] = useState(false)
   const dayBtnRefs = useRef<(HTMLButtonElement | null)[]>([])
 
   useEffect(() => {
@@ -110,6 +118,7 @@ export function MapControls({
           />
           交通
         </label>
+        <ExportButton onClick={() => setExportOpen(true)} />
       </div>
     </div>
   )
@@ -194,6 +203,17 @@ export function MapControls({
         {firstRow}
         {secondRow}
       </div>
+
+      <ExportPanel
+        open={exportOpen}
+        onClose={() => setExportOpen(false)}
+        onExport={(mode, days) => {
+          setExportOpen(false)
+          onExportClick(mode, days)
+        }}
+        isExporting={isExporting}
+        dayCount={dayOpts.length}
+      />
     </>
   )
 }

@@ -1,12 +1,56 @@
-import { useMemo, Fragment } from 'react'
-import { MapContainer, Marker, Polyline } from 'react-leaflet'
-import { SmartTileLayer } from './SmartTileLayer'
-import styles from './MapView.module.css'
-import type { ItineraryData, TransitDetail, LocationOrGroup, LocationGroup, Location, NoteItem } from '../types'
-import { MapController } from './MapController'
-import { createCustomMarker, createRouteLabelIcon } from './mapMarkers'
+import { Fragment, useMemo } from 'react'
+import { Marker, Polyline } from 'react-leaflet'
+import { MapController } from '../MapController'
+import { createCustomMarker, createRouteLabelIcon } from '../mapMarkers'
+import { ExportSmartTileLayer } from './ExportSmartTileLayer'
+import { getDayColorMap, excludeOutlierLocations } from './exportMapUtils'
+import type { ItineraryData, LocationOrGroup, LocationGroup, Location } from '../../types'
 
-export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocationDetail, showLocationNames = false, showTransitLabels = false, onZoomChange }: MapViewProps): JSX.Element {
+interface ExportMapControllerProps {
+  activeDay: number | null
+  resetView: number
+  data: ItineraryData
+  defaultCenter: [number, number]
+  defaultZoom: number
+}
+
+function ExportMapController({ activeDay, resetView, data, defaultCenter, defaultZoom }: ExportMapControllerProps) {
+  return (
+    <MapController
+      activeDay={activeDay}
+      resetView={resetView}
+      data={data}
+      defaultCenter={defaultCenter}
+      defaultZoom={defaultZoom}
+    />
+  )
+}
+
+const DISTRICT_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+export interface ExportMapViewProps {
+  data: ItineraryData
+  activeDay: number | null
+  resetView: number
+  showLocationNames?: boolean
+  showTransitLabels?: boolean
+  trackTile?: (img: HTMLImageElement) => void
+  country?: string
+  colorizeByDay?: boolean
+  excludeOutliers?: boolean
+}
+
+export function ExportMapView({
+  data,
+  activeDay,
+  resetView,
+  showLocationNames = false,
+  showTransitLabels = false,
+  trackTile,
+  country,
+  colorizeByDay,
+  excludeOutliers,
+}: ExportMapViewProps): JSX.Element {
   const defaultCenter = useMemo<[number, number]>(() => {
     if (data.metadata.mapCenter) {
       return [data.metadata.mapCenter.lat, data.metadata.mapCenter.lng]
@@ -21,6 +65,16 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
   }, [data])
 
   const defaultZoom = data.metadata.mapZoom ?? 12
+
+  const dayColorMap = useMemo(() => {
+    if (!colorizeByDay) return null
+    return getDayColorMap(data)
+  }, [colorizeByDay, data])
+
+  const filteredLocations = useMemo(() => {
+    if (!excludeOutliers) return data.locations
+    return excludeOutlierLocations(data, activeDay)
+  }, [excludeOutliers, activeDay, data])
 
   const { districtOrder, spotOrder } = useMemo(() => {
     const districtMap: Record<string, string> = {}
@@ -66,42 +120,44 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
         const loc = data.locations[point.locationId]
         return loc ? { point, location: loc } : null
       })
-      .filter((item): item is { point: typeof activePath[0]; location: LocationOrGroup } => item !== null)
-  }, [activePath, data.locations])
+      .filter((item): item is { point: typeof activePath[0]; location: LocationOrGroup } => {
+        if (!item) return false
+        if (excludeOutliers && !filteredLocations[item.point.locationId]) return false
+        return true
+      })
+  }, [activePath, data.locations, excludeOutliers, filteredLocations])
 
   return (
-    <MapContainer
-      className={styles.mapContainer}
-      style={{ height: '100%', width: '100%' }}
-      center={defaultCenter}
-      zoom={defaultZoom}
-      zoomControl={false}
-    >
-      <SmartTileLayer country={data.metadata.country} />
-      <MapController activeDay={activeDay} resetView={resetView} data={data} defaultCenter={defaultCenter} defaultZoom={defaultZoom} onZoomChange={onZoomChange} />
+    <>
+      <ExportSmartTileLayer country={country} trackTile={trackTile} />
+      <ExportMapController
+        activeDay={activeDay}
+        resetView={resetView}
+        data={{ ...data, locations: filteredLocations }}
+        defaultCenter={defaultCenter}
+        defaultZoom={defaultZoom}
+      />
 
       {(() => {
         if (activeDay === null) {
-          return Object.values(data.locations)
+          return Object.values(filteredLocations)
             .filter((location) => {
               if (location.type !== 'spot' || !location.parentId) return true
-              const parent = data.locations[location.parentId]
+              const parent = filteredLocations[location.parentId]
               if (parent && parent.lat === location.lat && parent.lng === location.lng) return false
               return true
             })
-            .map((location) => (
-              <Marker
-                key={`${location.id}-all`}
-                position={[location.lat, location.lng]}
-                icon={createCustomMarker(location, '', showLocationNames)}
-                zIndexOffset={location.type === 'hotel_group' ? 500 : 0}
-                eventHandlers={
-                  onShowLocationDetail
-                    ? { click: () => onShowLocationDetail(location, undefined, activeDay ?? undefined) }
-                    : undefined
-                }
-              />
-            ))
+            .map((location) => {
+              const color = dayColorMap?.[location.id]
+              return (
+                <Marker
+                  key={`${location.id}-all`}
+                  position={[location.lat, location.lng]}
+                  icon={createCustomMarker(location, '', showLocationNames, color)}
+                  zIndexOffset={location.type === 'hotel_group' ? 500 : 0}
+                />
+              )
+            })
         }
 
         const day = data.days[activeDay]
@@ -114,12 +170,15 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
         for (const point of day.path) {
           const loc = data.locations[point.locationId]
           if (!loc) continue
+          if (excludeOutliers && !filteredLocations[point.locationId]) continue
           if (loc.type === 'spot') {
             spotsInPath.push({ point, location: loc })
             if (loc.parentId) {
               const parent = data.locations[loc.parentId]
               if (parent && parent.type === 'group') {
-                districtsInPath.set(parent.id, parent)
+                if (!excludeOutliers || filteredLocations[loc.parentId]) {
+                  districtsInPath.set(parent.id, parent)
+                }
               }
             }
           } else if (loc.type === 'hotel_group') {
@@ -137,27 +196,17 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
               position={[location.lat, location.lng]}
               icon={createCustomMarker(location, badge, showLocationNames)}
               zIndexOffset={-100}
-              eventHandlers={
-                onShowLocationDetail
-                  ? { click: () => onShowLocationDetail(location, undefined, activeDay ?? undefined) }
-                  : undefined
-              }
             />
           )
         }
 
-        for (const { point, location } of hotelsInPath) {
+        for (const { location } of hotelsInPath) {
           markers.push(
             <Marker
               key={`${location.id}-${activeDay}-hotel`}
               position={[location.lat, location.lng]}
               icon={createCustomMarker(location, '', showLocationNames)}
               zIndexOffset={500}
-              eventHandlers={
-                onShowLocationDetail
-                  ? { click: () => onShowLocationDetail(location, point.notes, activeDay ?? undefined) }
-                  : undefined
-              }
             />
           )
         }
@@ -171,18 +220,12 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
                 position={[baseHotel.lat, baseHotel.lng]}
                 icon={createCustomMarker(baseHotel, '', showLocationNames)}
                 zIndexOffset={500}
-                eventHandlers={
-                  onShowLocationDetail
-                    ? { click: () => onShowLocationDetail(baseHotel, undefined, activeDay ?? undefined) }
-                    : undefined
-                }
               />
             )
           }
         }
 
-        for (const { point, location } of spotsInPath) {
-          // Skip if the spot overlaps with its parent district
+        for (const { location } of spotsInPath) {
           if (location.parentId) {
             const parent = data.locations[location.parentId]
             if (parent && parent.lat === location.lat && parent.lng === location.lng) continue
@@ -193,11 +236,6 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
               key={`${location.id}-${activeDay}-${badge}`}
               position={[location.lat, location.lng]}
               icon={createCustomMarker(location, badge, showLocationNames)}
-              eventHandlers={
-                onShowLocationDetail
-                  ? { click: () => onShowLocationDetail(location, point.notes, activeDay ?? undefined) }
-                  : undefined
-              }
             />
           )
         }
@@ -216,7 +254,6 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
           ] as [number, number][]
           return (
             <Fragment key={`route-${activeDay ?? 'all'}-${i}`}>
-              {/* Glow halo */}
               <Polyline
                 positions={positions}
                 pathOptions={{
@@ -227,7 +264,6 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
                   lineJoin: 'round'
                 }}
               />
-              {/* Core line */}
               <Polyline
                 positions={positions}
                 pathOptions={{
@@ -251,34 +287,15 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
           if (!p2.point.label) return null
           const midLat = (p1.location.lat + p2.location.lat) / 2
           const midLng = (p1.location.lng + p2.location.lng) / 2
-          const transitData = p1.point.transit
           return (
             <Marker
               key={`label-${i}`}
               position={[midLat, midLng]}
               icon={createRouteLabelIcon(p2.point.label)}
               zIndexOffset={1000}
-              eventHandlers={
-                onShowTransit && transitData
-                  ? { click: () => onShowTransit(transitData) }
-                  : undefined
-              }
             />
           )
         })}
-    </MapContainer>
+    </>
   )
-}
-
-const DISTRICT_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
-export interface MapViewProps {
-  data: ItineraryData
-  activeDay: number | null
-  resetView: number
-  onShowTransit?: (detail: TransitDetail) => void
-  onShowLocationDetail?: (location: LocationOrGroup, notes?: NoteItem[], dayIndex?: number) => void
-  showLocationNames?: boolean
-  showTransitLabels?: boolean
-  onZoomChange?: (zoom: number) => void
 }

@@ -1,0 +1,165 @@
+.exportContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: #fff;
+}
+
+.map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.exportContainer :global(.leaflet-control-attribution) {
+  display: none !important;
+}
+
+.exportContainer :global(.leaflet-control-zoom) {
+  display: none !important;
+}
+
+.mapWrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* day-horizontal layout */
+.daySidebarWrap {
+  width: 320px;
+  flex-shrink: 0;
+  height: 100%;
+  overflow-y: auto;
+  background: var(--bg-main);
+}
+
+/* Compact font overrides for day-horizontal timeline */
+.daySidebarWrap :global(.tlName) {
+  font-size: 11px !important;
+}
+.daySidebarWrap :global(.tlDistrict .tlName) {
+  font-size: 12px !important;
+}
+.daySidebarWrap :global(.tlHotel .tlName) {
+  font-size: 11px !important;
+}
+.daySidebarWrap :global(.tlTransitLabel) {
+  font-size: 9px !important;
+}
+.daySidebarWrap :global(.tlTransitIcon) {
+  font-size: 9px !important;
+}
+.daySidebarWrap :global(.dayTitle) {
+  font-size: 14px !important;
+}
+.daySidebarWrap :global(.dayNote) {
+  font-size: 10px !important;
+}
+.daySidebarWrap :global(.timeline) {
+  padding-left: 16px !important;
+}
+.daySidebarWrap :global(.timeline::before) {
+  left: 7px !important;
+}
+.daySidebarWrap :global(.tlBadge::before) {
+  left: -11px !important;
+}
+.daySidebarWrap :global(.tlDot::before) {
+  left: -7px !important;
+}
+
+.dayMapWrap {
+  position: relative;
+  flex: 1;
+  height: 100%;
+}
+
+.daySidebarWrap :global(.tlNodeWrap),
+.daySidebarWrap :global(.tlTransitSeg) {
+  margin-bottom: 2px !important;
+}
+.daySidebarWrap :global(.tlNode) {
+  padding: 4px 4px 5px !important;
+}
+.daySidebarWrap :global(.tlDistrict) {
+  padding: 4px 4px 5px !important;
+}
+.daySidebarWrap :global(.tlSpot) {
+  padding: 3px 3px 4px !important;
+}
+.daySidebarWrap :global(.tlHotel) {
+  padding: 4px 4px 5px !important;
+}
+.daySidebarWrap :global(.tlTransit) {
+  padding: 3px 3px !important;
+  margin-left: 2px !important;
+  margin-right: -2px !important;
+}
+.daySidebarWrap :global(.routeBox) {
+  padding: 6px !important;
+}
+
+/* vertical layouts */
+.verticalLayout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  background: var(--bg-main);
+}
+
+.verticalMapWrap {
+  width: 100%;
+  height: 540px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.verticalContentWrap {
+  width: 100%;
+  flex: 1;
+}
+
+/* brand logo for vertical modes */
+.brandLogo {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 9999px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.06);
+  pointer-events: none;
+}
+
+.brandMark {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  background: #E07C96;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.02em;
+}
+
+.brandText {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.55);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}

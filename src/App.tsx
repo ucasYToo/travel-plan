@@ -1,12 +1,24 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
+import L from 'leaflet'
 import { MapView } from './components/MapView'
 import { MapControls } from './components/MapControls'
 import { BottomSheet } from './components/BottomSheet'
 import { SidebarContent } from './components/content/SidebarContent'
 import { DetailContent, type DetailViewMode } from './components/content/DetailContent'
+import { ExportContainer, type ExportContainerRef } from './components/export/ExportContainer'
+import { useMapExporter } from './components/export/useMapExporter'
+import type { ExportMode } from './components/export/utils'
+import { excludeOutlierLocations } from './components/export/exportMapUtils'
 import { getCityData, DEFAULT_CITY } from './data'
 import type { TransitDetail, NoteItem, LocationOrGroup } from './types'
 import styles from './App.module.css'
+
+declare global {
+  interface Window {
+    __tripPackerHeadlessExport?: (modes: string[]) => Promise<Record<string, string>>
+    __tripPackerExports?: Record<string, string>
+  }
+}
 
 const STORAGE_KEY = 'travel-map-settings'
 
@@ -17,7 +29,7 @@ function getInitialSettings() {
       const parsed = JSON.parse(raw)
       return {
         showLocationNames: !!parsed.showLocationNames,
-        showTransit: !!parsed.showTransit
+        showTransit: !!parsed.showTransit,
       }
     }
   } catch {
@@ -25,7 +37,7 @@ function getInitialSettings() {
   }
   return {
     showLocationNames: true,
-    showTransit: false
+    showTransit: false,
   }
 }
 
@@ -44,6 +56,22 @@ function App() {
   const [detailViewMode, setDetailViewMode] = useState<DetailViewMode>('none')
   const [settings, setSettings] = useState(getInitialSettings)
   const [zoom, setZoom] = useState(12)
+
+  // Export state
+  const [exportQueue, setExportQueue] = useState<{ mode: ExportMode; day: number | null }[]>([])
+  const [isExportingItem, setIsExportingItem] = useState(false)
+  const currentExport = exportQueue[0] ?? null
+  const exportContainerRef = useRef<ExportContainerRef>(null)
+  const { isExporting, exportImage, trackTile } = useMapExporter({
+    cityId: currentCity,
+  })
+
+  const isExportingOverall = isExporting || isExportingItem || exportQueue.length > 0
+
+  // Headless export refs
+  const headlessModesRef = useRef<Set<string>>(new Set())
+  const headlessResolveRef = useRef<((value: Record<string, string>) => void) | null>(null)
+  const headlessResultsRef = useRef<Record<string, string>>({})
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(settings))
@@ -83,6 +111,131 @@ function App() {
     }
   }, [activeDay, cityData])
 
+  // Expose headless export API
+  useEffect(() => {
+    window.__tripPackerHeadlessExport = (modes: string[]) => {
+      return new Promise((resolve) => {
+        headlessResolveRef.current = resolve
+        headlessResultsRef.current = {}
+        headlessModesRef.current = new Set(modes)
+        const queue: { mode: ExportMode; day: number | null }[] = []
+        for (const mode of modes) {
+          if (mode === 'panorama' || mode === 'itinerary-vertical') {
+            queue.push({ mode: mode as ExportMode, day: null })
+          }
+        }
+        setExportQueue(queue)
+      })
+    }
+
+    // Auto-trigger from URL query param
+    const params = new URLSearchParams(window.location.search)
+    const param = params.get('headless-export')
+    if (param) {
+      const modes = param.split(',').map((m) => m.trim()).filter(Boolean)
+      if (modes.length > 0 && window.__tripPackerHeadlessExport) {
+        window.__tripPackerHeadlessExport(modes).then((results) => {
+          window.__tripPackerExports = results
+        })
+      }
+    }
+
+    return () => {
+      delete window.__tripPackerHeadlessExport
+    }
+  }, [])
+
+  // Queue processing: kick off next export when idle and queue non-empty
+  useEffect(() => {
+    if (isExportingItem || exportQueue.length === 0) return
+    setIsExportingItem(true)
+  }, [isExportingItem, exportQueue])
+
+  // Resolve headless export when queue is done
+  useEffect(() => {
+    if (!isExportingItem && exportQueue.length === 0 && headlessResolveRef.current) {
+      const results = { ...headlessResultsRef.current }
+      headlessResolveRef.current(results)
+      headlessResolveRef.current = null
+      headlessModesRef.current = new Set()
+      headlessResultsRef.current = {}
+    }
+  }, [isExportingItem, exportQueue])
+
+  // Screenshot effect: wait for container mount -> fitBounds -> export -> cleanup
+  useEffect(() => {
+    if (!isExportingItem || exportQueue.length === 0) return
+
+    const { mode, day } = exportQueue[0]
+
+    // Delay to next tick so ExportContainer ref is available
+    const timer = setTimeout(() => {
+      const run = async () => {
+        if (!cityData) return
+        const map = exportContainerRef.current?.getMap()
+        const root = exportContainerRef.current?.getRoot()
+
+        if (!map || !root) {
+          console.warn('[Export] container not ready')
+          setIsExportingItem(false)
+          setExportQueue((prev) => prev.slice(1))
+          return
+        }
+
+        try {
+          const isDayMode = mode === 'day-horizontal' || mode === 'day-vertical'
+          const filtered = excludeOutlierLocations(cityData, isDayMode ? day : null)
+          const bounds = L.latLngBounds([])
+          let hasPoint = false
+          if (isDayMode && day !== null) {
+            const dayPlan = cityData.days[day]
+            if (dayPlan && dayPlan.path.length > 0) {
+              for (const p of dayPlan.path) {
+                const loc = filtered[p.locationId]
+                if (loc) {
+                  bounds.extend([loc.lat, loc.lng])
+                  hasPoint = true
+                }
+              }
+            }
+          } else {
+            for (const loc of Object.values(filtered)) {
+              bounds.extend([loc.lat, loc.lng])
+              hasPoint = true
+            }
+          }
+          if (hasPoint) {
+            map.fitBounds(bounds, {
+              padding: [40, 40],
+              maxZoom: isDayMode ? 16 : 14,
+              animate: false,
+            })
+          }
+
+          await new Promise((r) => setTimeout(r, 400))
+          const isHeadless = headlessModesRef.current.has(mode)
+          if (isHeadless) {
+            const dataUrl = await exportImage(mode, root, cityData, day, false)
+            if (dataUrl) {
+              headlessResultsRef.current[mode] = dataUrl
+            }
+          } else {
+            await exportImage(mode, root, cityData, day)
+          }
+        } catch (err) {
+          console.error('[Export] failed:', err)
+        } finally {
+          setIsExportingItem(false)
+          setExportQueue((prev) => prev.slice(1))
+        }
+      }
+
+      run()
+    }, 0)
+
+    return () => clearTimeout(timer)
+  }, [isExportingItem, exportQueue, cityData, exportImage])
+
   const showTransit = useCallback((detail: TransitDetail) => {
     setSelectedTransit(detail)
     setDetailViewMode('transit')
@@ -109,20 +262,28 @@ function App() {
   const handleCityChange = (cityId: string) => {
     setCurrentCity(cityId)
     setActiveDay(null)
-    setResetView(v => v + 1)
+    setResetView((v) => v + 1)
   }
 
   const handleResetView = () => {
     setActiveDay(null)
-    setResetView(v => v + 1)
+    setResetView((v) => v + 1)
   }
 
   const handleRouteView = () => {
     if (activeDay === null) {
       setActiveDay(0)
     }
-    setResetView(v => v + 1)
+    setResetView((v) => v + 1)
   }
+
+  const handleExportClick = useCallback((mode: ExportMode, days: number[]) => {
+    if (mode === 'panorama' || mode === 'itinerary-vertical') {
+      setExportQueue([{ mode, day: null }])
+    } else {
+      setExportQueue(days.map((d) => ({ mode, day: d })))
+    }
+  }, [])
 
   if (!cityData) {
     return (
@@ -152,7 +313,7 @@ function App() {
         <MapControls
           currentCity={currentCity}
           settings={settings}
-          dayOptions={cityData.days.map(d => `Day${d.day}`)}
+          dayOptions={cityData.days.map((d) => `Day${d.day}`)}
           activeDay={activeDay}
           onCityChange={handleCityChange}
           onResetView={handleResetView}
@@ -163,6 +324,8 @@ function App() {
           viewMode={activeDay === null ? 'full' : 'route'}
           onRouteView={handleRouteView}
           zoom={zoom}
+          onExportClick={handleExportClick}
+          isExporting={isExportingOverall}
         />
       </div>
 
@@ -291,6 +454,19 @@ function App() {
             onBack={detailViewMode === 'transit' ? handleBackFromTransit : undefined}
           />
         </BottomSheet>
+      )}
+
+      {/* Export hidden container */}
+      {currentExport && (
+        <ExportContainer
+          ref={exportContainerRef}
+          mode={currentExport.mode}
+          data={cityData}
+          selectedDay={currentExport.day}
+          showLocationNames={settings.showLocationNames}
+          showTransitLabels={settings.showTransit}
+          trackTile={trackTile}
+        />
       )}
     </div>
   )

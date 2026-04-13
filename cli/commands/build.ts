@@ -14,13 +14,22 @@ export interface BuildOptions {
   defaultCity?: string
   strict?: boolean
   validate?: boolean
+  images?: boolean
+}
+
+function resolveViteBin(): string {
+  try {
+    return path.resolve(
+      path.dirname(fileURLToPath(import.meta.resolve('vite/package.json'))),
+      'bin/vite.js'
+    )
+  } catch {
+    return path.resolve(process.cwd(), 'node_modules/vite/bin/vite.js')
+  }
 }
 
 function runViteBuild(projectDir: string): void {
-  const viteBin = path.resolve(
-    path.dirname(fileURLToPath(import.meta.resolve('vite/package.json'))),
-    'bin/vite.js'
-  )
+  const viteBin = resolveViteBin()
 
   const result = spawnSync(
     process.execPath,
@@ -38,6 +47,15 @@ function runViteBuild(projectDir: string): void {
     if (result.stdout) console.log(result.stdout.toString())
     process.exit(1)
   }
+}
+
+function writeImageFromDataUrl(dataUrl: string, filePath: string): void {
+  const prefix = 'data:image/png;base64,'
+  if (!dataUrl.startsWith(prefix)) {
+    throw new Error(`Unexpected data URL format: ${dataUrl.slice(0, 30)}...`)
+  }
+  const base64 = dataUrl.slice(prefix.length)
+  fs.writeFileSync(filePath, Buffer.from(base64, 'base64'))
 }
 
 export function buildCommand(options: BuildOptions): void {
@@ -84,6 +102,32 @@ export function buildCommand(options: BuildOptions): void {
 
     fs.copyFileSync(sourceHtml, destPath)
     logger.success(`Build complete: ${destPath}`)
+
+    if (options.images) {
+      logger.info('Generating images...')
+      const baseName = outFile.replace(/\.html$/i, '')
+      const modes = ['panorama', 'itinerary-vertical']
+
+      import('../lib/screenshot.js')
+        .then(({ captureImages }) => captureImages(destPath, modes))
+        .then((results) => {
+          for (const mode of modes) {
+            const dataUrl = results[mode]
+            if (!dataUrl) {
+              logger.error(`Failed to generate ${mode} image`)
+              continue
+            }
+            const imagePath = path.join(outDir, `${baseName}-${mode}.png`)
+            writeImageFromDataUrl(dataUrl, imagePath)
+            const size = fs.statSync(imagePath).size
+            logger.success(`Image saved: ${imagePath} (${(size / 1024).toFixed(1)} KB)`)
+          }
+        })
+        .catch((err) => {
+          logger.error(`Image generation failed: ${err instanceof Error ? err.message : String(err)}`)
+          process.exit(1)
+        })
+    }
   } finally {
     cleanup()
   }

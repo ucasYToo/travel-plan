@@ -1,0 +1,119 @@
+.overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px 16px 16px;
+  background: linear-gradient(to top, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 70%, rgba(255,255,255,0) 100%);
+  pointer-events: none;
+}
+
+.dayCard {
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #FCE7EF;
+  border-radius: 12px;
+  padding: 10px 12px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.dayCardHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.dayCardLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2A2A2A;
+}
+
+.dayCardTitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: #2A2A2A;
+}
+
+.dayCardDate {
+  font-size: 11px;
+  color: var(--stone);
+}
+
+.dayCardGroups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.groupChip {
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.panoDays {
+  display: flex;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.panoDayCard {
+  flex: 1;
+  min-width: 0;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #FCE7EF;
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+.panoDayHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.panoDayLabel {
+  font-size: 11px;
+  font-weight: 700;
+  color: #2A2A2A;
+  flex-shrink: 0;
+}
+
+.panoDayTitle {
+  font-size: 11px;
+  font-weight: 500;
+  color: #2A2A2A;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.panoGroups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+
+.panoGroupName {
+  font-size: 10px;
+  color: var(--stone);
+  white-space: nowrap;
+}
+
+.panoGroupName:not(:last-child)::after {
+  content: '·';
+  margin-left: 8px;
+  color: #ddd;
+}
+
+.panoMore {
+  font-size: 10px;
+  color: var(--stone);
+  font-weight: 500;
+}

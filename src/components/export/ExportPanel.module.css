@@ -1,0 +1,152 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+}
+
+.panel {
+  width: min(90vw, 380px);
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-spring);
+}
+
+.title {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: center;
+}
+
+.section {
+  margin-bottom: 16px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.sectionTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.textBtn {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--sakura-pink);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.textBtn:hover {
+  background-color: var(--sakura-pale);
+}
+
+.dayPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dayPill {
+  padding: 6px 12px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-spring);
+  background-color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.dayPill:hover {
+  background-color: var(--sakura-pale);
+}
+
+.dayPillActive {
+  background-color: var(--sakura-pink);
+  border-color: var(--sakura-pink);
+  color: #fff;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.optionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-spring);
+  background-color: #fff;
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s var(--ease-spring);
+}
+
+.optionBtn:hover:not(:disabled) {
+  background-color: var(--sakura-pale);
+  border-color: var(--sakura-pink);
+  transform: translateY(-1px);
+}
+
+.optionBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.optionDisabled {
+  color: var(--stone);
+  background-color: #fafafa;
+}
+
+.optionLabel {
+  font-weight: 500;
+}
+
+.optionHint {
+  font-size: 12px;
+  color: var(--stone);
+}
+
+.closeBtn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  border: none;
+  background-color: var(--bg-main);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--stone);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.closeBtn:hover {
+  background-color: #f3f4f6;
+  color: var(--ink);
+}
