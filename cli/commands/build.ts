@@ -83,8 +83,7 @@ export function buildCommand(options: BuildOptions): void {
   logger.info(`Cities: ${cityIds.join(', ')}`)
   logger.info(`Default city: ${defaultCity}`)
 
-  const originalRoot = process.cwd()
-  const { projectDir, cleanup } = createTempProject(cityRecord, defaultCity, originalRoot)
+  const { projectDir, cleanup } = createTempProject(cityRecord, defaultCity, process.cwd())
 
   try {
     logger.info('Building with Vite...')

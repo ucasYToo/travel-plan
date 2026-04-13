@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import os from 'node:os'
+import { fileURLToPath } from 'node:url'
 import type { ItineraryData } from '../../src/types/index.js'
 
 const IGNORED_DIRS = new Set([
@@ -64,20 +65,35 @@ export const DEFAULT_CITY = ${JSON.stringify(defaultCity)}
 `
 }
 
+function resolvePackageRoot(): string {
+  try {
+    return path.dirname(fileURLToPath(import.meta.resolve('trip-packer/package.json')))
+  } catch {
+    return process.cwd()
+  }
+}
+
 export function createTempProject(
   cities: Record<string, ItineraryData>,
   defaultCity: string,
-  originalRoot: string
+  userCwd: string
 ): { projectDir: string; cleanup: () => void } {
+  const packageRoot = resolvePackageRoot()
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'trip-packer-'))
   const projectDir = path.join(tmpDir, 'project')
 
-  copyDirSync(originalRoot, projectDir)
+  copyDirSync(packageRoot, projectDir)
 
   // Symlink node_modules to avoid massive copy
-  const origNodeModules = path.join(originalRoot, 'node_modules')
+  // In global installs node_modules is a sibling of the package dir;
+  // in local dev it's inside the package dir.
+  const possibleNodeModules = [
+    path.join(packageRoot, 'node_modules'),
+    path.join(packageRoot, '..', 'node_modules'),
+  ]
+  const origNodeModules = possibleNodeModules.find((p) => fs.existsSync(p))
   const destNodeModules = path.join(projectDir, 'node_modules')
-  if (fs.existsSync(origNodeModules) && !fs.existsSync(destNodeModules)) {
+  if (origNodeModules && !fs.existsSync(destNodeModules)) {
     fs.symlinkSync(origNodeModules, destNodeModules, 'dir')
   }
 
