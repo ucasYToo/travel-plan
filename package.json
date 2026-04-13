@@ -1,6 +1,6 @@
 {
   "name": "trip-packer",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Build standalone travel map HTML from JSON itinerary data",
   "type": "module",
   "bin": {
