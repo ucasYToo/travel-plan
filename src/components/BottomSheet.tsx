@@ -22,10 +22,17 @@ function snapToPixels(snap: string, viewportHeight: number): number {
   return unit === 'vh' ? viewportHeight * (num / 100) : num
 }
 
+function getViewportHeight(): number {
+  return window.visualViewport?.height || window.innerHeight || document.documentElement.clientHeight
+}
+
 export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, showBackdrop = true, onClose }: BottomSheetProps) {
   const [isDragging, setIsDragging] = useState(false)
   const [dragOffset, setDragOffset] = useState(0)
-  const [height, setHeight] = useState(0)
+  const [height, setHeight] = useState(() => {
+    const vh = getViewportHeight()
+    return snapToPixels(snapPoints[activeSnap] || snapPoints[0], vh)
+  })
 
   const dragStartRef = useRef(0)
   const dragStartHeightRef = useRef(0)
@@ -34,14 +41,10 @@ export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, sh
   const velocityRef = useRef(0)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const getViewportHeight = useCallback(() => {
-    return window.innerHeight || document.documentElement.clientHeight
-  }, [])
-
   useEffect(() => {
     const vh = getViewportHeight()
     setHeight(snapToPixels(snapPoints[activeSnap] || snapPoints[0], vh))
-  }, [activeSnap, snapPoints, getViewportHeight])
+  }, [activeSnap, snapPoints])
 
   useEffect(() => {
     const handleResize = () => {
@@ -49,8 +52,12 @@ export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, sh
       setHeight(snapToPixels(snapPoints[activeSnap], vh))
     }
     window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [activeSnap, snapPoints, getViewportHeight])
+    window.visualViewport?.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      window.visualViewport?.removeEventListener('resize', handleResize)
+    }
+  }, [activeSnap, snapPoints])
 
   const currentMaxHeight = snapToPixels(snapPoints[snapPoints.length - 1], getViewportHeight())
   const currentMinHeight = snapToPixels(snapPoints[0], getViewportHeight())
@@ -72,7 +79,7 @@ export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, sh
       }
     }
     return nearest
-  }, [snapPoints, getViewportHeight])
+  }, [snapPoints])
 
   const animateToSnap = useCallback((index: number) => {
     const vh = getViewportHeight()
@@ -83,7 +90,7 @@ export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, sh
     if (index === 0 && onClose) {
       onClose()
     }
-  }, [getViewportHeight, snapPoints, onSnapChange, onClose])
+  }, [snapPoints, onSnapChange, onClose])
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     setIsDragging(true)
@@ -136,7 +143,7 @@ export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, sh
 
     animateToSnap(targetSnap)
     ;(e.target as HTMLElement).releasePointerCapture(e.pointerId)
-  }, [isDragging, dragOffset, clampHeight, findNearestSnap, getViewportHeight, snapPoints, animateToSnap])
+  }, [isDragging, dragOffset, clampHeight, findNearestSnap, snapPoints, animateToSnap])
 
   const handlePointerCancel = useCallback((e: React.PointerEvent) => {
     if (!isDragging) return
@@ -147,10 +154,19 @@ export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, sh
 
   const isMinSnap = activeSnap === 0 && height <= currentMinHeight + 2
 
+  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      animateToSnap(Math.min(activeSnap + 1, snapPoints.length - 1))
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      animateToSnap(Math.max(activeSnap - 1, 0))
+    }
+  }, [activeSnap, snapPoints.length, animateToSnap])
+
   const containerStyle: CSSProperties = {
     height: `${height}px`,
     transition: isDragging ? 'none' : 'height 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
-    touchAction: 'none',
   }
 
   const backdropStyle: CSSProperties = {
@@ -181,6 +197,10 @@ export function BottomSheet({ snapPoints, activeSnap, onSnapChange, children, sh
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerCancel}
+          onKeyDown={handleKeyDown}
+          role="button"
+          tabIndex={0}
+          aria-label="拖动调整行程面板高度；使用上下方向键切换高度"
         >
           <div className={styles.handleBar} />
         </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import L from 'leaflet'
 import { MapView } from './components/MapView'
 import { MapControls } from './components/MapControls'
@@ -21,6 +21,15 @@ declare global {
 }
 
 const STORAGE_KEY = 'travel-map-settings'
+const DESKTOP_BREAKPOINT = 1024
+
+function getViewportSize() {
+  if (typeof window === 'undefined') return { width: 1440, height: 900 }
+  return {
+    width: window.innerWidth,
+    height: window.visualViewport?.height ?? window.innerHeight,
+  }
+}
 
 function getInitialSettings() {
   try {
@@ -56,6 +65,7 @@ function App() {
   const [detailViewMode, setDetailViewMode] = useState<DetailViewMode>('none')
   const [settings, setSettings] = useState(getInitialSettings)
   const [zoom, setZoom] = useState(12)
+  const [viewportSize, setViewportSize] = useState(getViewportSize)
 
   // Export state
   const [exportQueue, setExportQueue] = useState<{ mode: ExportMode; day: number | null }[]>([])
@@ -67,6 +77,43 @@ function App() {
   })
 
   const isExportingOverall = isExporting || isExportingItem || exportQueue.length > 0
+  const rightPanelOpen = !rightPanelCollapsed && detailViewMode !== 'none'
+
+  useEffect(() => {
+    const handleResize = () => setViewportSize(getViewportSize())
+    window.addEventListener('resize', handleResize)
+    window.visualViewport?.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      window.visualViewport?.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  const mapViewportPadding = useMemo(() => {
+    const { width, height } = viewportSize
+    if (width >= DESKTOP_BREAKPOINT) {
+      const panelWidth = Math.min(360, Math.max(320, width * 0.24))
+      return {
+        top: 132,
+        right: rightPanelOpen ? panelWidth + 24 : 32,
+        bottom: 32,
+        left: leftPanelCollapsed ? 32 : panelWidth + 24,
+      }
+    }
+
+    const top = 124
+    const desiredBottom = itinerarySnap === 0
+      ? 72
+      : itinerarySnap === 1
+        ? height * 0.45 + 20
+        : height - top - 80
+    return {
+      top,
+      right: 24,
+      bottom: Math.max(72, Math.min(desiredBottom, height - top - 80)),
+      left: 24,
+    }
+  }, [viewportSize, rightPanelOpen, leftPanelCollapsed, itinerarySnap])
 
   // Headless export refs
   const headlessModesRef = useRef<Set<string>>(new Set())
@@ -297,6 +344,8 @@ function App() {
           showLocationNames={settings.showLocationNames}
           showTransitLabels={settings.showTransit}
           onZoomChange={setZoom}
+          zoom={zoom}
+          viewportPadding={mapViewportPadding}
         />
         <MapControls
           currentCity={currentCity}
@@ -314,6 +363,7 @@ function App() {
           zoom={zoom}
           onExportClick={handleExportClick}
           isExporting={isExportingOverall}
+          rightPanelOpen={rightPanelOpen}
         />
       </div>
 

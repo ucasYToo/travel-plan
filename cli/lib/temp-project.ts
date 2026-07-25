@@ -9,7 +9,11 @@ const IGNORED_DIRS = new Set([
   'dist',
   '.git',
   '.claude',
+  '.agents',
+  '.codex',
   'coverage',
+  'screenshots',
+  'testData',
   'test-results',
 ])
 
@@ -65,12 +69,40 @@ export const DEFAULT_CITY = ${JSON.stringify(defaultCity)}
 `
 }
 
-function resolvePackageRoot(): string {
+function isPackageRoot(candidate: string): boolean {
+  const packageJson = path.join(candidate, 'package.json')
+  const entryHtml = path.join(candidate, 'index.html')
+  if (!fs.existsSync(packageJson) || !fs.existsSync(entryHtml)) return false
+
+  try {
+    const pkg = JSON.parse(fs.readFileSync(packageJson, 'utf-8')) as { name?: string }
+    return pkg.name === 'trip-packer'
+  } catch {
+    return false
+  }
+}
+
+function findPackageRoot(start: string): string | null {
+  let current = path.resolve(start)
+  while (true) {
+    if (isPackageRoot(current)) return current
+    const parent = path.dirname(current)
+    if (parent === current) return null
+    current = parent
+  }
+}
+
+function resolvePackageRoot(userCwd: string): string {
   try {
     return path.dirname(fileURLToPath(import.meta.resolve('trip-packer/package.json')))
   } catch {
-    // Fall back to repo root relative to this file (cli/lib/temp-project.ts -> ../..)
-    return path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..')
+    const moduleRoot = findPackageRoot(path.dirname(fileURLToPath(import.meta.url)))
+    if (moduleRoot) return moduleRoot
+
+    const cwdRoot = findPackageRoot(userCwd)
+    if (cwdRoot) return cwdRoot
+
+    throw new Error('Unable to locate the trip-packer package root')
   }
 }
 
@@ -79,7 +111,7 @@ export function createTempProject(
   defaultCity: string,
   userCwd: string
 ): { projectDir: string; cleanup: () => void } {
-  const packageRoot = resolvePackageRoot()
+  const packageRoot = resolvePackageRoot(userCwd)
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'trip-packer-'))
   const projectDir = path.join(tmpDir, 'project')
 

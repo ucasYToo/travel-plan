@@ -32,9 +32,15 @@
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-sine: cubic-bezier(0.37, 0, 0.63, 1);
+
+  /* Shared responsive layout values */
+  --desktop-breakpoint: 1024px;
+  --panel-width: clamp(320px, 24vw, 360px);
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -44,12 +50,45 @@ html, body, #root {
   color: var(--ink);
   height: 100%;
   width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+select {
+  color: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--sakura-deep);
+  outline-offset: 2px;
 }
 
 body {
   overflow: hidden;
   min-height: 100vh;
   min-height: 100dvh;
+  overscroll-behavior: none;
 }
 
 /* Soft ambient spring glow instead of grain */
@@ -328,4 +367,15 @@ body::before {
 ::selection {
   background-color: var(--sakura-pale);
   color: var(--sakura-deep);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

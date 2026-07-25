@@ -8,6 +8,7 @@ export default defineConfig({
     target: 'esnext',
     assetsInlineLimit: 100000000,
     cssCodeSplit: false,
+    emptyOutDir: false,
     minify: true
   },
   test: {

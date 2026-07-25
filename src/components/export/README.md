@@ -18,7 +18,6 @@
 ```
 ExportContainer
 ├── ExportMapView          # 地图渲染（所有模式共用）
-├── ExportMapOverlay       # 地图覆盖层（仅 panorama）
 ├── ExportSidebarContent   # 行程内容渲染（除 panorama 外均使用）
 │   └── DayRouteCard       # 单日行程卡片（横/竖当日截图复用）
 └── drawExportOverlay      # Canvas 叠加层绘制（panorama / day-horizontal）
@@ -71,8 +70,8 @@ variant='dayHorizontal'               →  day-horizontal
 1. 等待地图瓦片加载完成（`useWaitForTiles`）
 2. 短暂延时确保 CSS 动画结束
 3. 临时将导出容器设为可见（opacity: 1, zIndex: 1）
-4. `domToPng` 生成 base64 图片
-5. 对 `panorama` / `day-horizontal` 调用 `drawExportOverlay` 合成 Canvas 叠加层
+4. `domToPng` 生成 base64 图片（导出容器内会禁用入场动画，避免截到半透明状态）
+5. 对 `panorama` / `day-horizontal` 调用 `drawExportOverlay` 一次性合成 Canvas 叠加层
 6. 触发下载
 
 ### Playwright 自动化截图（`test-*.mjs`）

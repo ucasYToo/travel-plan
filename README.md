@@ -108,7 +108,13 @@ trip-packer build \
   -d osaka.json \
   --default-city osaka \
   -o japan-trip.html
+
+# 同时生成全景横图和完整行程竖图
+trip-packer build -d tokyo.json -o tokyo-map.html --images
 ```
+
+`--images` 会优先使用系统已安装的 Chrome、Chromium 或 Edge。也可通过
+`PLAYWRIGHT_EXECUTABLE_PATH=/path/to/browser` 显式指定浏览器可执行文件。
 
 ### 3. 验证数据（仅校验不构建）
 
@@ -129,6 +135,7 @@ trip-packer validate -d tokyo.json --strict
 | `--default-city <cityId>` | 否 | 默认激活的城市 ID（默认第一个传入的城市） |
 | `--strict` | 否 | 严格模式，任何警告也视为错误 |
 | `--no-validate` | 否 | 跳过数据验证（仅用于调试） |
+| `--images` | 否 | 同时生成全景横图和完整行程竖图 PNG |
 | `-v, --version` | 否 | 显示 CLI 版本 |
 | `-h, --help` | 否 | 显示帮助信息 |
 

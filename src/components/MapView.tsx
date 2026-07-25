@@ -4,9 +4,10 @@ import { SmartTileLayer } from './SmartTileLayer'
 import styles from './MapView.module.css'
 import type { ItineraryData, TransitDetail, LocationOrGroup, LocationGroup, Location, NoteItem } from '../types'
 import { MapController } from './MapController'
+import type { MapViewportPadding } from './MapController'
 import { createCustomMarker, createRouteLabelIcon } from './mapMarkers'
 
-export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocationDetail, showLocationNames = false, showTransitLabels = false, onZoomChange }: MapViewProps): JSX.Element {
+export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocationDetail, showLocationNames = false, showTransitLabels = false, onZoomChange, zoom = 12, viewportPadding }: MapViewProps): JSX.Element {
   const defaultCenter = useMemo<[number, number]>(() => {
     if (data.metadata.mapCenter) {
       return [data.metadata.mapCenter.lat, data.metadata.mapCenter.lng]
@@ -69,6 +70,13 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
       .filter((item): item is { point: typeof activePath[0]; location: LocationOrGroup } => item !== null)
   }, [activePath, data.locations])
 
+  const shouldShowMarkerName = (location: LocationOrGroup) => {
+    if (!showLocationNames) return false
+    if (location.type === 'spot') return activeDay !== null && zoom >= 14
+    if (location.type === 'hotel_group') return true
+    return activeDay !== null || zoom >= 12
+  }
+
   return (
     <MapContainer
       className={styles.mapContainer}
@@ -78,7 +86,7 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
       zoomControl={false}
     >
       <SmartTileLayer country={data.metadata.country} />
-      <MapController activeDay={activeDay} resetView={resetView} data={data} defaultCenter={defaultCenter} defaultZoom={defaultZoom} onZoomChange={onZoomChange} />
+      <MapController activeDay={activeDay} resetView={resetView} data={data} defaultCenter={defaultCenter} defaultZoom={defaultZoom} onZoomChange={onZoomChange} viewportPadding={viewportPadding} />
 
       {(() => {
         if (activeDay === null) {
@@ -93,7 +101,7 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
               <Marker
                 key={`${location.id}-all`}
                 position={[location.lat, location.lng]}
-                icon={createCustomMarker(location, '', showLocationNames)}
+                icon={createCustomMarker(location, '', shouldShowMarkerName(location))}
                 zIndexOffset={location.type === 'hotel_group' ? 500 : 0}
                 eventHandlers={
                   onShowLocationDetail
@@ -123,7 +131,9 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
               }
             }
           } else if (loc.type === 'hotel_group') {
-            hotelsInPath.push({ point, location: loc })
+            if (!hotelsInPath.some((hotel) => hotel.location.id === loc.id)) {
+              hotelsInPath.push({ point, location: loc })
+            }
           }
         }
 
@@ -135,7 +145,7 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
             <Marker
               key={`${location.id}-${activeDay}-${badge}`}
               position={[location.lat, location.lng]}
-              icon={createCustomMarker(location, badge, showLocationNames)}
+              icon={createCustomMarker(location, badge, shouldShowMarkerName(location))}
               zIndexOffset={-100}
               eventHandlers={
                 onShowLocationDetail
@@ -151,7 +161,7 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
             <Marker
               key={`${location.id}-${activeDay}-hotel`}
               position={[location.lat, location.lng]}
-              icon={createCustomMarker(location, '', showLocationNames)}
+              icon={createCustomMarker(location, '', shouldShowMarkerName(location))}
               zIndexOffset={500}
               eventHandlers={
                 onShowLocationDetail
@@ -169,7 +179,7 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
               <Marker
                 key={`${baseHotel.id}-${activeDay}-basehotel`}
                 position={[baseHotel.lat, baseHotel.lng]}
-                icon={createCustomMarker(baseHotel, '', showLocationNames)}
+                icon={createCustomMarker(baseHotel, '', shouldShowMarkerName(baseHotel))}
                 zIndexOffset={500}
                 eventHandlers={
                   onShowLocationDetail
@@ -192,7 +202,7 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
             <Marker
               key={`${location.id}-${activeDay}-${badge}`}
               position={[location.lat, location.lng]}
-              icon={createCustomMarker(location, badge, showLocationNames)}
+              icon={createCustomMarker(location, badge, shouldShowMarkerName(location))}
               eventHandlers={
                 onShowLocationDetail
                   ? { click: () => onShowLocationDetail(location, point.notes, activeDay ?? undefined) }
@@ -281,4 +291,6 @@ export interface MapViewProps {
   showLocationNames?: boolean
   showTransitLabels?: boolean
   onZoomChange?: (zoom: number) => void
+  zoom?: number
+  viewportPadding?: MapViewportPadding
 }

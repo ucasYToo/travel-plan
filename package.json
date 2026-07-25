@@ -24,6 +24,7 @@
     "build": "tsc && vite build",
     "build:cli": "tsc -p tsconfig.cli.json",
     "preview": "vite preview",
+    "screenshot": "node screenshots/capture.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "prepublishOnly": "rm -f dist/index.html && npm run build:cli"

@@ -10,10 +10,25 @@ interface MapControllerProps {
   defaultCenter: [number, number]
   defaultZoom: number
   onZoomChange?: (zoom: number) => void
+  viewportPadding?: MapViewportPadding
 }
 
-export function MapController({ activeDay, resetView, data, defaultCenter, defaultZoom, onZoomChange }: MapControllerProps) {
+export interface MapViewportPadding {
+  top: number
+  right: number
+  bottom: number
+  left: number
+}
+
+export function MapController({ activeDay, resetView, data, defaultCenter, defaultZoom, onZoomChange, viewportPadding }: MapControllerProps) {
   const map = useMap()
+
+  const fitPadding = viewportPadding
+    ? {
+        paddingTopLeft: [viewportPadding.left, viewportPadding.top] as [number, number],
+        paddingBottomRight: [viewportPadding.right, viewportPadding.bottom] as [number, number],
+      }
+    : { padding: [40, 40] as [number, number] }
 
   useEffect(() => {
     const zoomControl = L.control.zoom({ position: 'bottomright' })
@@ -48,7 +63,7 @@ export function MapController({ activeDay, resetView, data, defaultCenter, defau
           }
         }
         if (hasValidPoint) {
-          map.fitBounds(bounds, { padding: [40, 40], maxZoom: 16, duration: 1 })
+          map.fitBounds(bounds, { ...fitPadding, maxZoom: 16, duration: 1 })
         }
       }
     } else {
@@ -59,12 +74,12 @@ export function MapController({ activeDay, resetView, data, defaultCenter, defau
         hasValidPoint = true
       }
       if (hasValidPoint) {
-        map.fitBounds(bounds, { padding: [40, 40], maxZoom: 14, duration: 1 })
+        map.fitBounds(bounds, { ...fitPadding, maxZoom: 14, duration: 1 })
       } else {
         map.flyTo(defaultCenter, defaultZoom, { duration: 1 })
       }
     }
-  }, [map, activeDay, resetView, data, defaultCenter, defaultZoom])
+  }, [map, activeDay, resetView, data, defaultCenter, defaultZoom, viewportPadding?.top, viewportPadding?.right, viewportPadding?.bottom, viewportPadding?.left])
 
   return null
 }

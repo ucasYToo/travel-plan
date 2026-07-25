@@ -153,7 +153,12 @@ export function ExportMapView({
                 <Marker
                   key={`${location.id}-all`}
                   position={[location.lat, location.lng]}
-                  icon={createCustomMarker(location, '', showLocationNames, color)}
+                  icon={createCustomMarker(
+                    location,
+                    '',
+                    showLocationNames && location.type !== 'spot',
+                    color,
+                  )}
                   zIndexOffset={location.type === 'hotel_group' ? 500 : 0}
                 />
               )
@@ -182,7 +187,9 @@ export function ExportMapView({
               }
             }
           } else if (loc.type === 'hotel_group') {
-            hotelsInPath.push({ point, location: loc })
+            if (!hotelsInPath.some((hotel) => hotel.location.id === loc.id)) {
+              hotelsInPath.push({ point, location: loc })
+            }
           }
         }
 
@@ -235,7 +242,7 @@ export function ExportMapView({
             <Marker
               key={`${location.id}-${activeDay}-${badge}`}
               position={[location.lat, location.lng]}
-              icon={createCustomMarker(location, badge, showLocationNames)}
+              icon={createCustomMarker(location, badge, false)}
             />
           )
         }

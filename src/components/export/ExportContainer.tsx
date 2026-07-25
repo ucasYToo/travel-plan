@@ -4,7 +4,6 @@ import { MapContainer, useMap } from 'react-leaflet'
 import L from 'leaflet'
 import { ExportMapView } from './ExportMapView'
 import { ExportSidebarContent } from './ExportSidebarContent'
-import { ExportMapOverlay } from './ExportMapOverlay'
 import type { ExportMode } from './utils'
 import type { ItineraryData } from '../../types'
 import styles from './ExportContainer.module.css'
@@ -162,7 +161,6 @@ export const ExportContainer = forwardRef<ExportContainerRef, ExportContainerPro
                 excludeOutliers={excludeOutliers}
               />
             </MapContainer>
-            <ExportMapOverlay data={data} activeDay={mapActiveDay} />
           </div>
         </div>
       )

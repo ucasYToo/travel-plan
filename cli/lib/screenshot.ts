@@ -7,6 +7,29 @@ interface BrowserGlobal {
   __tripPackerHeadlessExport?: (modes: string[]) => Promise<Record<string, string>>
 }
 
+function resolveBrowserExecutable(): string | undefined {
+  const configured = process.env.PLAYWRIGHT_EXECUTABLE_PATH
+  if (configured && fs.existsSync(configured)) return configured
+
+  const candidates = [
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/Applications/Chromium.app/Contents/MacOS/Chromium',
+    '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',
+    '/usr/bin/google-chrome',
+    '/usr/bin/google-chrome-stable',
+    '/usr/bin/chromium',
+    '/usr/bin/chromium-browser',
+    process.env.PROGRAMFILES
+      ? path.join(process.env.PROGRAMFILES, 'Google', 'Chrome', 'Application', 'chrome.exe')
+      : '',
+    process.env['PROGRAMFILES(X86)']
+      ? path.join(process.env['PROGRAMFILES(X86)'], 'Microsoft', 'Edge', 'Application', 'msedge.exe')
+      : '',
+  ]
+
+  return candidates.find((candidate) => candidate && fs.existsSync(candidate))
+}
+
 function createServer(rootDir: string, indexFile: string): Promise<{ server: http.Server; port: number }> {
   return new Promise((resolve, reject) => {
     const server = http.createServer((req, res) => {
@@ -61,7 +84,11 @@ export async function captureImages(
   const indexFile = path.basename(htmlPath)
   const { server, port } = await createServer(rootDir, indexFile)
 
-  const browser = await chromium.launch({ headless: true })
+  const executablePath = resolveBrowserExecutable()
+  const browser = await chromium.launch({
+    headless: true,
+    ...(executablePath ? { executablePath } : {}),
+  })
   const context = await browser.newContext({
     viewport: { width: 1440, height: 900 },
   })

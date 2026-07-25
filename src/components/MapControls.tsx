@@ -25,6 +25,7 @@ export interface MapControlsProps {
   zoom?: number
   onExportClick: (mode: ExportMode, days: number[]) => void
   isExporting: boolean
+  rightPanelOpen?: boolean
 }
 
 export function MapControls({
@@ -41,6 +42,7 @@ export function MapControls({
   zoom,
   onExportClick,
   isExporting,
+  rightPanelOpen = false,
 }: MapControlsProps): JSX.Element {
   const [daysExpanded, setDaysExpanded] = useState(true)
   const [exportOpen, setExportOpen] = useState(false)
@@ -107,7 +109,7 @@ export function MapControls({
             onChange={(e) => onSettingsChange({ ...settings, showLocationNames: e.target.checked })}
             className={styles.checkbox}
           />
-          地点名
+          <span className={styles.checkboxText}>地点名</span>
         </label>
         <label className={styles.checkboxLabel}>
           <input
@@ -116,9 +118,9 @@ export function MapControls({
             onChange={(e) => onSettingsChange({ ...settings, showTransit: e.target.checked })}
             className={styles.checkbox}
           />
-          交通
+          <span className={styles.checkboxText}>交通</span>
         </label>
-        <ExportButton onClick={() => setExportOpen(true)} />
+        <ExportButton onClick={() => setExportOpen(true)} disabled={isExporting} />
       </div>
     </div>
   )
@@ -193,7 +195,10 @@ export function MapControls({
   return (
     <>
       {/* Desktop: Top Right Two Rows */}
-      <div className={styles.desktopControls} data-testid="desktop-controls">
+      <div
+        className={clsx(styles.desktopControls, rightPanelOpen && styles.desktopControlsWithDetail)}
+        data-testid="desktop-controls"
+      >
         {firstRow}
         {secondRow}
       </div>

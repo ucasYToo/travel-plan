@@ -9,16 +9,22 @@
   width: fit-content;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .desktopControls {
     display: flex;
     gap: 12px;
+    max-width: calc(100vw - var(--panel-width) - 48px);
   }
+}
+
+.desktopControlsWithDetail {
+  right: calc(var(--panel-width) + 16px);
+  max-width: calc(100vw - (var(--panel-width) * 2) - 48px);
 }
 
 .mobileTopControls {
   position: absolute;
-  top: 12px;
+  top: calc(12px + env(safe-area-inset-top, 0px));
   left: 12px;
   right: 12px;
   z-index: 30;
@@ -27,7 +33,7 @@
   gap: 8px;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .mobileTopControls {
     display: none;
   }
@@ -43,11 +49,12 @@
   box-shadow: var(--shadow-md);
   border: 1px solid var(--border-spring);
   padding: 8px 12px;
+  gap: 8px;
   opacity: 0;
   animation: fadeInUp 0.55s var(--ease-out-expo) both;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .firstRow {
     padding: 10px 16px;
   }
@@ -61,6 +68,7 @@
 }
 
 .zoomBadge {
+  display: none;
   padding: 2px 8px;
   border-radius: 9999px;
   background-color: var(--sakura-pale);
@@ -70,8 +78,9 @@
   flex-shrink: 0;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .zoomBadge {
+    display: inline-flex;
     font-size: 12px;
   }
 }
@@ -89,9 +98,10 @@
   white-space: nowrap;
   max-width: 90px;
   border: none;
+  flex-shrink: 0;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .citySelect {
     max-width: 140px;
     font-size: 14px;
@@ -105,6 +115,7 @@
   border-radius: 9999px;
   padding: 2px;
   border: 1px solid var(--border-spring);
+  flex-shrink: 0;
 }
 
 .viewButton {
@@ -116,13 +127,15 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .viewButton:hover {
   transform: scale(1.04);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .viewButton {
     padding: 6px 16px;
     font-size: 12px;
@@ -157,9 +170,11 @@
   color: var(--ink);
   cursor: pointer;
   user-select: none;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .checkboxLabel {
     font-size: 12px;
     gap: 8px;
@@ -175,7 +190,11 @@
   cursor: pointer;
 }
 
-@media (min-width: 640px) {
+.checkboxText {
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
   .checkbox {
     width: 16px;
     height: 16px;
@@ -191,7 +210,7 @@
 .daysList {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   overflow-x: auto;
   padding: 2px 4px;
   flex: 1;
@@ -206,16 +225,16 @@
   scrollbar-width: none;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .daysList {
-    overflow: visible;
+    overflow-x: auto;
     gap: 8px;
   }
 }
 
 .dayButton {
   flex-shrink: 0;
-  padding: 4px 12px;
+  padding: 4px 7px;
   border-radius: 9999px;
   font-size: 11px;
   font-weight: 500;
@@ -244,7 +263,7 @@
   box-shadow: 0 2px 6px rgba(244, 164, 184, 0.15);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .dayButton {
     padding: 6px 16px;
     font-size: 12px;
@@ -290,7 +309,7 @@
   box-shadow: var(--shadow-md);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .iconButton {
     padding: 8px;
   }
@@ -301,7 +320,7 @@
   height: 14px;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .iconSvg {
     width: 16px;
     height: 16px;
@@ -310,6 +329,51 @@
 
 .mlAuto {
   margin-left: auto;
+}
+
+@media (max-width: 374px) {
+  .mobileTopControls {
+    left: 8px;
+    right: 8px;
+  }
+
+  .firstRow {
+    padding-inline: 8px;
+    gap: 5px;
+  }
+
+  .settingsGroup {
+    gap: 5px;
+  }
+
+  .checkboxLabel {
+    gap: 3px;
+    font-size: 10px;
+  }
+
+  .viewButton {
+    padding-inline: 7px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .desktopControlsWithDetail .firstRow {
+    gap: 5px;
+    padding: 8px 10px;
+  }
+
+  .desktopControlsWithDetail .zoomBadge {
+    display: none;
+  }
+
+  .desktopControlsWithDetail .viewButton {
+    padding: 5px 9px;
+  }
+
+  .desktopControlsWithDetail .settingsGroup,
+  .desktopControlsWithDetail .checkboxLabel {
+    gap: 4px;
+  }
 }
 
 /* Local keyframes for CSS Module scoped animation references */

@@ -47,18 +47,21 @@ export function useMapExporter(options: UseMapExporterOptions): UseMapExporterRe
         // Temporarily make container visible for modern-screenshot
         const originalOpacity = containerEl.style.opacity
         const originalZIndex = containerEl.style.zIndex
-        containerEl.style.opacity = '1'
-        containerEl.style.zIndex = '1'
+        let mapDataUrl: string
+        try {
+          containerEl.style.opacity = '1'
+          containerEl.style.zIndex = '1'
 
-        const mapDataUrl = await domToPng(containerEl, {
-          scale: config.pixelRatio,
-          width: config.cssWidth,
-          height: config.cssHeight > 0 ? config.cssHeight : undefined,
-          backgroundColor: '#ffffff',
-        })
-
-        containerEl.style.opacity = originalOpacity
-        containerEl.style.zIndex = originalZIndex
+          mapDataUrl = await domToPng(containerEl, {
+            scale: config.pixelRatio,
+            width: config.cssWidth,
+            height: config.cssHeight > 0 ? config.cssHeight : undefined,
+            backgroundColor: '#ffffff',
+          })
+        } finally {
+          containerEl.style.opacity = originalOpacity
+          containerEl.style.zIndex = originalZIndex
+        }
 
         let finalDataUrl = mapDataUrl
 

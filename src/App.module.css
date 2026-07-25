@@ -1,7 +1,9 @@
 .page {
   position: relative;
-  height: 100%;
+  height: 100vh;
+  height: 100dvh;
   width: 100%;
+  overflow: hidden;
 }
 
 .mapContainer {
@@ -17,17 +19,19 @@
   left: 0;
   top: 0;
   bottom: 0;
-  width: 320px;
+  width: var(--panel-width);
   z-index: 20;
   flex-direction: column;
   animation: slideInLeft 0.55s var(--ease-out-expo) both;
   border-right: 1px solid var(--border-spring);
   background-color: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: var(--shadow-lg);
+  overflow: hidden;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .leftPanel {
     display: flex;
   }
@@ -58,6 +62,7 @@
 }
 
 .collapsedButton {
+  display: none;
   position: fixed;
   left: 16px;
   top: 16px;
@@ -67,7 +72,6 @@
   background-color: #fff;
   border: 1px solid var(--border-spring);
   border-radius: 9999px;
-  display: flex;
   align-items: center;
   justify-content: center;
   color: var(--ink);
@@ -75,6 +79,12 @@
   box-shadow: var(--shadow-md);
   cursor: pointer;
   animation: popIn 0.4s var(--ease-spring) both;
+}
+
+@media (min-width: 1024px) {
+  .collapsedButton {
+    display: flex;
+  }
 }
 
 .collapsedButton:hover {
@@ -89,16 +99,17 @@
   right: 0;
   top: 0;
   bottom: 0;
-  width: 320px;
+  width: var(--panel-width);
   z-index: 20;
   flex-direction: column;
   animation: slideInRight 0.55s var(--ease-out-expo) both;
   border-left: 1px solid var(--border-spring);
   background-color: var(--bg-main);
   box-shadow: var(--shadow-lg);
+  overflow: hidden;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .rightPanel {
     display: flex;
   }

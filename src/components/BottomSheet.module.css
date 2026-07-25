@@ -2,7 +2,7 @@
   display: block;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .wrapperDesktopHide {
     display: none;
   }
@@ -31,6 +31,7 @@
   overflow: hidden;
   will-change: transform;
   transition: border-radius 0.35s var(--ease-out-expo);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .handle {
@@ -66,4 +67,6 @@
 
 .content {
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
