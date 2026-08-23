@@ -360,6 +360,10 @@ body::before {
 .route-label {
   background: transparent !important;
   border: none !important;
+}
+
+/* Keep transforms off Leaflet's positioned marker element. */
+.route-label-content {
   animation: fadeInUp 0.4s var(--ease-out-expo) both;
 }
 

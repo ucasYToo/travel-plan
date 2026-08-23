@@ -1,0 +1,1263 @@
+{
+  "metadata": {
+    "title": "伦敦·白崖·剑桥旅行地图",
+    "subtitle": "皇家国家酒店7晚 · 希斯罗往返 · 伦敦市区 + 剑桥 + 七姐妹白崖",
+    "startDate": "2026-10-03",
+    "endDate": "2026-10-10",
+    "mapCenter": { "lat": 51.5145, "lng": -0.1240 },
+    "mapZoom": 12,
+    "cityLabel": "London",
+    "seasonLabel": "AUTUMN",
+    "flag": "🇬🇧",
+    "country": "GB"
+  },
+  "locations": {
+    "royal_national_hotel": {
+      "id": "royal_national_hotel",
+      "name": "皇家国家酒店",
+      "lat": 51.523473,
+      "lng": -0.127234,
+      "color": "#2563eb",
+      "type": "hotel_group",
+      "description": "The Royal National Hotel · 近 Russell Square 地铁站与大英博物馆",
+      "address": "38-51 Bedford Way, London WC1H 0DG, United Kingdom",
+      "children": []
+    },
+    "heathrow_group": {
+      "id": "heathrow_group",
+      "name": "希斯罗机场与往返交通",
+      "lat": 51.470020,
+      "lng": -0.454295,
+      "color": "#64748b",
+      "type": "group",
+      "description": "希斯罗机场抵达、离境与伦敦市中心交通",
+      "children": ["heathrow_airport"]
+    },
+    "heathrow_airport": {
+      "id": "heathrow_airport",
+      "name": "伦敦希斯罗机场",
+      "lat": 51.470020,
+      "lng": -0.454295,
+      "color": "#64748b",
+      "type": "spot",
+      "description": "London Heathrow Airport（LHR）· Piccadilly线与Elizabeth line连接伦敦市中心",
+      "address": "Heathrow Airport, Hounslow TW6, United Kingdom",
+      "parentId": "heathrow_group"
+    },
+    "tower_bankside_group": {
+      "id": "tower_bankside_group",
+      "name": "伦敦塔与泰晤士南岸",
+      "lat": 51.5065,
+      "lng": -0.0910,
+      "color": "#ef476f",
+      "type": "group",
+      "description": "从伦敦塔跨过塔桥，沿河步行至 Borough Market、Tate Modern 与 South Bank",
+      "children": ["tower_of_london", "tower_bridge", "borough_market", "tate_modern", "southbank_centre"]
+    },
+    "tower_of_london": {
+      "id": "tower_of_london",
+      "name": "伦敦塔",
+      "lat": 51.508217,
+      "lng": -0.076188,
+      "color": "#ef476f",
+      "type": "spot",
+      "description": "世界文化遗产 · 皇冠珠宝与中世纪城堡",
+      "address": "Tower Hill, London EC3N 4AB, United Kingdom",
+      "parentId": "tower_bankside_group"
+    },
+    "tower_bridge": {
+      "id": "tower_bridge",
+      "name": "塔桥",
+      "lat": 51.505516,
+      "lng": -0.075367,
+      "color": "#ef476f",
+      "type": "spot",
+      "description": "伦敦地标桥梁 · 可选登上高空步道与玻璃地板",
+      "address": "Tower Bridge Road, London SE1 2UP, United Kingdom",
+      "parentId": "tower_bankside_group"
+    },
+    "borough_market": {
+      "id": "borough_market",
+      "name": "Borough Market",
+      "lat": 51.505582,
+      "lng": -0.090198,
+      "color": "#ef476f",
+      "type": "spot",
+      "description": "伦敦老牌食品市场 · 周日适合安排午餐",
+      "address": "8 Southwark Street, London SE1 1TL, United Kingdom",
+      "parentId": "tower_bankside_group"
+    },
+    "tate_modern": {
+      "id": "tate_modern",
+      "name": "Tate Modern",
+      "lat": 51.507429,
+      "lng": -0.099342,
+      "color": "#ef476f",
+      "type": "spot",
+      "description": "泰特现代美术馆 · 常设展免费",
+      "address": "Bankside, London SE1 9TG, United Kingdom",
+      "parentId": "tower_bankside_group"
+    },
+    "southbank_centre": {
+      "id": "southbank_centre",
+      "name": "South Bank 夜景",
+      "lat": 51.505779,
+      "lng": -0.116787,
+      "color": "#ef476f",
+      "type": "spot",
+      "description": "沿 Queen's Walk 看泰晤士河、伦敦眼与对岸夜景",
+      "address": "Belvedere Road, London SE1 8XX, United Kingdom",
+      "parentId": "tower_bankside_group"
+    },
+    "west_end_group": {
+      "id": "west_end_group",
+      "name": "Bloomsbury 与 West End",
+      "lat": 51.5145,
+      "lng": -0.1285,
+      "color": "#7c3aed",
+      "type": "group",
+      "description": "大英博物馆、Covent Garden、Soho 与唐人街步行串联",
+      "children": ["british_museum", "covent_garden", "soho_square", "chinatown_gate"]
+    },
+    "british_museum": {
+      "id": "british_museum",
+      "name": "大英博物馆",
+      "lat": 51.519312,
+      "lng": -0.126705,
+      "color": "#7c3aed",
+      "type": "spot",
+      "description": "世界历史与文化收藏 · 常设展免费",
+      "address": "Great Russell Street, London WC1B 3DG, United Kingdom",
+      "parentId": "west_end_group"
+    },
+    "covent_garden": {
+      "id": "covent_garden",
+      "name": "Covent Garden",
+      "lat": 51.512008,
+      "lng": -0.121807,
+      "color": "#7c3aed",
+      "type": "spot",
+      "description": "市集大厅、街头表演与周边小店",
+      "address": "Covent Garden Piazza, London WC2E 8RF, United Kingdom",
+      "parentId": "west_end_group"
+    },
+    "soho_square": {
+      "id": "soho_square",
+      "name": "Soho",
+      "lat": 51.514971,
+      "lng": -0.132603,
+      "color": "#7c3aed",
+      "type": "spot",
+      "description": "以 Soho Square 为中心漫步咖啡馆、唱片店与街巷",
+      "address": "Soho Square, London W1D 3QX, United Kingdom",
+      "parentId": "west_end_group"
+    },
+    "chinatown_gate": {
+      "id": "chinatown_gate",
+      "name": "伦敦唐人街",
+      "lat": 51.510993,
+      "lng": -0.131818,
+      "color": "#7c3aed",
+      "type": "spot",
+      "description": "Gerrard Street 与 Wardour Street 一带 · 适合晚餐",
+      "address": "Wardour Street, London W1D 6PH, United Kingdom",
+      "parentId": "west_end_group"
+    },
+    "cambridge_group": {
+      "id": "cambridge_group",
+      "name": "剑桥一日游",
+      "lat": 52.2040,
+      "lng": 0.1190,
+      "color": "#0ea5e9",
+      "type": "group",
+      "description": "从 London King's Cross 乘直达火车，步行游览学院区与康河",
+      "children": ["kings_cross_station", "cambridge_station", "fitzwilliam_museum", "kings_college", "cambridge_quayside"]
+    },
+    "kings_cross_station": {
+      "id": "kings_cross_station",
+      "name": "London King's Cross",
+      "lat": 51.532395,
+      "lng": -0.123022,
+      "color": "#0ea5e9",
+      "type": "spot",
+      "description": "前往剑桥的直达列车起点",
+      "address": "Euston Road, London N1 9AL, United Kingdom",
+      "parentId": "cambridge_group"
+    },
+    "cambridge_station": {
+      "id": "cambridge_station",
+      "name": "Cambridge Station",
+      "lat": 52.193687,
+      "lng": 0.136912,
+      "color": "#0ea5e9",
+      "type": "spot",
+      "description": "剑桥火车站 · 至老城核心步行约20至25分钟",
+      "address": "Station Road, Cambridge CB1 2JW, United Kingdom",
+      "parentId": "cambridge_group"
+    },
+    "fitzwilliam_museum": {
+      "id": "fitzwilliam_museum",
+      "name": "Fitzwilliam Museum",
+      "lat": 52.199930,
+      "lng": 0.119897,
+      "color": "#0ea5e9",
+      "type": "spot",
+      "description": "剑桥大学艺术与古典文物博物馆 · 免费入场",
+      "address": "Trumpington Street, Cambridge CB2 1RB, United Kingdom",
+      "parentId": "cambridge_group"
+    },
+    "kings_college": {
+      "id": "kings_college",
+      "name": "King's College",
+      "lat": 52.204083,
+      "lng": 0.114839,
+      "color": "#0ea5e9",
+      "type": "spot",
+      "description": "国王学院与礼拜堂 · 剑桥经典天际线",
+      "address": "King's Parade, Cambridge CB2 1ST, United Kingdom",
+      "parentId": "cambridge_group"
+    },
+    "cambridge_quayside": {
+      "id": "cambridge_quayside",
+      "name": "Quayside 康河游船",
+      "lat": 52.209904,
+      "lng": 0.116879,
+      "color": "#0ea5e9",
+      "type": "spot",
+      "description": "康河撑篙船常用出发点 · 可视天气现场决定",
+      "address": "Quayside, Cambridge CB5 8AB, United Kingdom",
+      "parentId": "cambridge_group"
+    },
+    "westminster_group": {
+      "id": "westminster_group",
+      "name": "Westminster 与王室地标",
+      "lat": 51.5035,
+      "lng": -0.1330,
+      "color": "#f59e0b",
+      "type": "group",
+      "description": "教堂、国会大厦、公园、白金汉宫与西区剧院连续步行",
+      "children": ["westminster_abbey", "big_ben", "st_jamess_park", "buckingham_palace", "trafalgar_square", "leicester_square"]
+    },
+    "westminster_abbey": {
+      "id": "westminster_abbey",
+      "name": "威斯敏斯特教堂",
+      "lat": 51.499399,
+      "lng": -0.127391,
+      "color": "#f59e0b",
+      "type": "spot",
+      "description": "英国王室加冕教堂 · 建议提前预约参观时段",
+      "address": "20 Dean's Yard, London SW1P 3PA, United Kingdom",
+      "parentId": "westminster_group"
+    },
+    "big_ben": {
+      "id": "big_ben",
+      "name": "大本钟与国会大厦",
+      "lat": 51.500704,
+      "lng": -0.124572,
+      "color": "#f59e0b",
+      "type": "spot",
+      "description": "从 Parliament Square 与 Westminster Bridge 取景",
+      "address": "Westminster, London SW1A 0AA, United Kingdom",
+      "parentId": "westminster_group"
+    },
+    "st_jamess_park": {
+      "id": "st_jamess_park",
+      "name": "圣詹姆斯公园",
+      "lat": 51.503130,
+      "lng": -0.133165,
+      "color": "#f59e0b",
+      "type": "spot",
+      "description": "从蓝桥可眺望白金汉宫与伦敦眼方向",
+      "address": "London SW1A 2BJ, United Kingdom",
+      "parentId": "westminster_group"
+    },
+    "buckingham_palace": {
+      "id": "buckingham_palace",
+      "name": "白金汉宫",
+      "lat": 51.501364,
+      "lng": -0.141890,
+      "color": "#f59e0b",
+      "type": "spot",
+      "description": "王室官邸外观 · 是否换岗以官网当天安排为准",
+      "address": "London SW1A 1AA, United Kingdom",
+      "parentId": "westminster_group"
+    },
+    "trafalgar_square": {
+      "id": "trafalgar_square",
+      "name": "特拉法加广场",
+      "lat": 51.508450,
+      "lng": -0.128450,
+      "color": "#f59e0b",
+      "type": "spot",
+      "description": "纳尔逊纪念柱与国家美术馆前广场",
+      "address": "Trafalgar Square, London WC2N 5DN, United Kingdom",
+      "parentId": "westminster_group"
+    },
+    "leicester_square": {
+      "id": "leicester_square",
+      "name": "Leicester Square 西区剧院区",
+      "lat": 51.510595,
+      "lng": -0.130767,
+      "color": "#f59e0b",
+      "type": "spot",
+      "description": "作为西区音乐剧的集合点；最终请按已购票剧场导航",
+      "address": "Leicester Square, London WC2H 7LE, United Kingdom",
+      "parentId": "westminster_group"
+    },
+    "seven_sisters_group": {
+      "id": "seven_sisters_group",
+      "name": "七姐妹白崖",
+      "lat": 50.7680,
+      "lng": 0.1510,
+      "color": "#10b981",
+      "type": "group",
+      "description": "经 Seaford 与 Seven Sisters Country Park 游客中心前往 Cuckmere Haven",
+      "children": ["victoria_station", "seaford_station", "seven_sisters_visitor_centre", "cuckmere_haven"]
+    },
+    "victoria_station": {
+      "id": "victoria_station",
+      "name": "London Victoria",
+      "lat": 51.493784,
+      "lng": -0.146182,
+      "color": "#10b981",
+      "type": "spot",
+      "description": "前往 Sussex 海岸的铁路门户",
+      "address": "Victoria Street, London SW1V 1JT, United Kingdom",
+      "parentId": "seven_sisters_group"
+    },
+    "seaford_station": {
+      "id": "seaford_station",
+      "name": "Seaford Station",
+      "lat": 50.772851,
+      "lng": 0.100148,
+      "color": "#10b981",
+      "type": "spot",
+      "description": "换乘 Coaster 12、12A 或 12X 公交前往游客中心",
+      "address": "Station Approach, Seaford BN25 2AR, United Kingdom",
+      "parentId": "seven_sisters_group"
+    },
+    "seven_sisters_visitor_centre": {
+      "id": "seven_sisters_visitor_centre",
+      "name": "Seven Sisters Visitor Centre",
+      "lat": 50.775220,
+      "lng": 0.153334,
+      "color": "#10b981",
+      "type": "spot",
+      "description": "七姐妹国家公园游客中心 · 洗手间与步道信息起点",
+      "address": "Exceat, Seaford BN25 4AD, United Kingdom",
+      "parentId": "seven_sisters_group"
+    },
+    "cuckmere_haven": {
+      "id": "cuckmere_haven",
+      "name": "Cuckmere Haven 白崖",
+      "lat": 50.759424,
+      "lng": 0.148532,
+      "color": "#10b981",
+      "type": "spot",
+      "description": "沿 Cuckmere 河谷走向海岸，近距离看七姐妹白崖",
+      "address": "Cuckmere Haven, Seaford BN25 4AR, United Kingdom",
+      "parentId": "seven_sisters_group"
+    },
+    "kensington_group": {
+      "id": "kensington_group",
+      "name": "South Kensington 与 Hyde Park",
+      "lat": 51.5015,
+      "lng": -0.1725,
+      "color": "#ec4899",
+      "type": "group",
+      "description": "博物馆区与海德公园组合，作为原计划第七天的主方案",
+      "children": ["va_museum", "albert_memorial", "kensington_gardens", "hyde_park"]
+    },
+    "va_museum": {
+      "id": "va_museum",
+      "name": "V&A Museum",
+      "lat": 51.496884,
+      "lng": -0.171637,
+      "color": "#ec4899",
+      "type": "spot",
+      "description": "维多利亚与阿尔伯特博物馆 · 艺术、设计与装饰艺术",
+      "address": "Cromwell Road, London SW7 2RL, United Kingdom",
+      "parentId": "kensington_group"
+    },
+    "albert_memorial": {
+      "id": "albert_memorial",
+      "name": "Albert Memorial",
+      "lat": 51.502398,
+      "lng": -0.177684,
+      "color": "#ec4899",
+      "type": "spot",
+      "description": "肯辛顿花园南侧的维多利亚时代纪念碑，与Royal Albert Hall隔街相望",
+      "address": "Kensington Gardens, London W2 2UH, United Kingdom",
+      "parentId": "kensington_group"
+    },
+    "kensington_gardens": {
+      "id": "kensington_gardens",
+      "name": "Kensington Gardens",
+      "lat": 51.506646,
+      "lng": -0.180389,
+      "color": "#ec4899",
+      "type": "spot",
+      "description": "肯辛顿宫外花园、Albert Memorial 与林荫步道",
+      "address": "London W2 2UH, United Kingdom",
+      "parentId": "kensington_group"
+    },
+    "hyde_park": {
+      "id": "hyde_park",
+      "name": "Hyde Park",
+      "lat": 51.507489,
+      "lng": -0.162207,
+      "color": "#ec4899",
+      "type": "spot",
+      "description": "沿 Serpentine 湖散步，按体力决定步行长度",
+      "address": "London W2 2UH, United Kingdom",
+      "parentId": "kensington_group"
+    },
+    "notting_hill_group": {
+      "id": "notting_hill_group",
+      "name": "Notting Hill 与 Portobello",
+      "lat": 51.5170,
+      "lng": -0.2040,
+      "color": "#f97316",
+      "type": "group",
+      "description": "周六上午逛 Portobello Road 主市集，沿路走至 Golborne Road 午餐",
+      "children": ["notting_hill_gate", "portobello_market", "golborne_road"]
+    },
+    "notting_hill_gate": {
+      "id": "notting_hill_gate",
+      "name": "Notting Hill Gate",
+      "lat": 51.508925,
+      "lng": -0.196198,
+      "color": "#f97316",
+      "type": "spot",
+      "description": "从地铁站进入 Notting Hill 彩色街区",
+      "address": "Notting Hill Gate, London W11 3HT, United Kingdom",
+      "parentId": "notting_hill_group"
+    },
+    "portobello_market": {
+      "id": "portobello_market",
+      "name": "Portobello Road Market",
+      "lat": 51.516086,
+      "lng": -0.205117,
+      "color": "#f97316",
+      "type": "spot",
+      "description": "古董、旧货与街头食品市集 · 周六摊位最完整",
+      "address": "Portobello Road, London W11 1LU, United Kingdom",
+      "parentId": "notting_hill_group"
+    },
+    "golborne_road": {
+      "id": "golborne_road",
+      "name": "Golborne Road",
+      "lat": 51.521834,
+      "lng": -0.208517,
+      "color": "#f97316",
+      "type": "spot",
+      "description": "Portobello 北端的多元餐饮街区 · 午餐后返酒店取行李",
+      "address": "Golborne Road, London W10 5PR, United Kingdom",
+      "parentId": "notting_hill_group"
+    }
+  },
+  "days": [
+    {
+      "day": 1,
+      "date": "2026-10-03",
+      "title": "抵达伦敦",
+      "note": "20:00抵达希斯罗机场，预留入境、取行李与进城时间；预计22:15至23:15抵达酒店，当晚不安排景点",
+      "baseHotelId": "royal_national_hotel",
+      "path": [
+        {
+          "locationId": "heathrow_airport",
+          "label": "20:00 抵达 · 入境取行李",
+          "notes": [
+            { "category": "tips", "content": "航站楼尚未指定；落地后通常需预留60至120分钟下机、入境与提取行李，具体取决于航班与边检客流" },
+            { "category": "tips", "content": "确认到达航站楼后，按London Underground / Piccadilly line标识前往对应地铁站；T2与T3共用一站，T4、T5各有车站" }
+          ]
+        },
+        {
+          "locationId": "royal_national_hotel",
+          "label": "Piccadilly线直达 · 约65至80分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约28公里",
+            "duration": "约65至80分钟",
+            "startName": "伦敦希斯罗机场",
+            "endName": "皇家国家酒店",
+            "steps": [
+              { "mode": "walk", "from": "到达大厅", "to": "Heathrow地铁站", "duration": "约10至20分钟", "instruction": "按London Underground标识步行至所属航站楼的Piccadilly线车站" },
+              { "mode": "subway", "line": "Piccadilly", "from": "Heathrow所属航站楼", "to": "Russell Square", "duration": "约50至60分钟", "distance": "约27公里", "instruction": "乘Cockfosters方向列车直达Russell Square，无需换乘；留意列车终点与临时工程信息" },
+              { "mode": "walk", "from": "Russell Square站", "to": "皇家国家酒店", "duration": "约5至7分钟", "distance": "约400米", "instruction": "出站后经Bernard Street与Russell Square步行至酒店" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "首选Piccadilly线直达Russell Square：搬行李最省事。Elizabeth line到Tottenham Court Road更快，但仍需步行约20分钟或再叫车，可作为线路故障时的备选" },
+            { "category": "tips", "content": "10月3日为周六，Piccadilly Night Tube通常通宵运行但不服务Terminal 4；2026年具体工程、末班与航站楼服务须在出发前用TfL复核" },
+            { "category": "other", "content": "酒店地址：38-51 Bedford Way, London WC1H 0DG" },
+            { "category": "food", "content": "晚到用餐：最稳妥是在机场先吃或买简餐；到酒店后可询问London Pub / Blooms Pizza厨房是否仍接单，不要把正常晚餐压在22:30以后" },
+            { "category": "food", "content": "深夜备选：VQ Bloomsbury提供全天早餐与英式简餐，约£18–30/人；步行约12至15分钟，出发前仍需确认2026年当晚营业" }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "2026-10-04",
+      "title": "古堡、塔桥与泰晤士南岸",
+      "note": "上午伦敦塔，随后跨塔桥；Borough Market午餐后逛Tate Modern，傍晚沿South Bank看夜景",
+      "baseHotelId": "royal_national_hotel",
+      "path": [
+        { "locationId": "royal_national_hotel", "label": "酒店出发", "isHotel": true },
+        {
+          "locationId": "tower_of_london",
+          "label": "地铁 · 约30分钟",
+          "transit": {
+            "distance": "约5公里",
+            "duration": "约30分钟",
+            "startName": "皇家国家酒店",
+            "endName": "伦敦塔",
+            "steps": [
+              { "mode": "walk", "from": "酒店", "to": "Russell Square站", "duration": "约5分钟", "distance": "约400米", "instruction": "步行至Russell Square地铁站" },
+              { "mode": "subway", "line": "Piccadilly + Circle", "from": "Russell Square", "to": "Tower Hill", "duration": "约20分钟", "instruction": "在King's Cross St Pancras换乘Circle线至Tower Hill" },
+              { "mode": "walk", "from": "Tower Hill站", "to": "伦敦塔", "duration": "约5分钟", "distance": "约300米", "instruction": "按Tower of London指示步行至入口" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "建议预约上午首批入场，并至少预留2.5至3小时" },
+            { "category": "other", "content": "推荐顺序：开门先看皇冠珠宝 → White Tower军械展 → 中世纪宫殿与城墙步道 → 渡鸦；遇到Yeoman Warder免费导览可跟一段" },
+            { "category": "tips", "content": "时间不够时保留皇冠珠宝、White Tower和河景城墙，Tower Green周边小展馆可取舍" }
+          ]
+        },
+        {
+          "locationId": "tower_bridge",
+          "label": "步行 · 约10分钟",
+          "transit": {
+            "distance": "约700米",
+            "duration": "约10分钟",
+            "startName": "伦敦塔",
+            "endName": "塔桥",
+            "steps": [
+              { "mode": "walk", "from": "伦敦塔", "to": "塔桥北塔", "duration": "约10分钟", "distance": "约700米", "instruction": "沿泰晤士河向东步行至塔桥，从北向南过桥" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "先从北向南免费步行过桥；若喜欢机械史或玻璃地板，再买Tower Bridge Exhibition，额外预留60至75分钟" },
+            { "category": "other", "content": "经典机位在南岸Potters Fields Park：能把塔桥双塔与北岸天际线一起收入画面" }
+          ]
+        },
+        {
+          "locationId": "borough_market",
+          "label": "沿河步行 · 约18分钟",
+          "transit": {
+            "distance": "约1.2公里",
+            "duration": "约18分钟",
+            "startName": "塔桥",
+            "endName": "Borough Market",
+            "steps": [
+              { "mode": "walk", "from": "塔桥南侧", "to": "Borough Market", "duration": "约18分钟", "distance": "约1.2公里", "instruction": "沿Queen's Walk向西，经过Hay's Galleria前往市场" }
+            ]
+          },
+          "notes": [
+            { "category": "food", "content": "周日常规营业10:00–16:00，建议14:00前抵达并在此午餐" },
+            { "category": "food", "content": "午餐A｜The Black Pig（本地市集招牌）：慢烤猪肉、蜂蜜松露与帕玛森ciabatta，约£12–16；适合快吃" },
+            { "category": "food", "content": "午餐B｜Padella Borough（中英游客高频）：手工意面，首选beef shin ragù或pici cacio e pepe，约£20–30/人；11:00起扫码排虚拟队，不接受普通预约" },
+            { "category": "food", "content": "午餐C｜Camille（伦敦本地榜单）：市场边法式小馆，约£45–70/人；想坐下慢吃才选并提前预约，会压缩Tate时间" },
+            { "category": "tips", "content": "玩法：先逛熟食区选主食，再补Bread Ahead甜甜圈或咖啡；热门摊位排队较长，可分头取餐" }
+          ]
+        },
+        {
+          "locationId": "tate_modern",
+          "label": "步行 · 约12分钟",
+          "transit": {
+            "distance": "约850米",
+            "duration": "约12分钟",
+            "startName": "Borough Market",
+            "endName": "Tate Modern",
+            "steps": [
+              { "mode": "walk", "from": "Borough Market", "to": "Tate Modern", "duration": "约12分钟", "distance": "约850米", "instruction": "沿Bankside向西，经过莎士比亚环球剧场" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "常设展免费；建议1.5小时精华走法：Turbine Hall → 只选一条常设展主题线 → 顶层或河景窗，不要试图一次看完" }
+          ]
+        },
+        {
+          "locationId": "southbank_centre",
+          "label": "河畔步行 · 约20分钟",
+          "transit": {
+            "distance": "约1.4公里",
+            "duration": "约20分钟",
+            "startName": "Tate Modern",
+            "endName": "South Bank Centre",
+            "steps": [
+              { "mode": "walk", "from": "Tate Modern", "to": "South Bank Centre", "duration": "约20分钟", "distance": "约1.4公里", "instruction": "继续沿Queen's Walk向西，经过Blackfriars与Waterloo Bridge" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "十月初日落较早，沿Queen's Walk慢走至Waterloo一带，蓝调时刻可拍伦敦眼与国会大厦灯光；不登眼则留45至60分钟即可" },
+            { "category": "food", "content": "晚餐A｜Masters Superfish（本地老牌）：炸鱼薯条，约£18–28/人；从Waterloo步行可达，适合想吃经典英式" },
+            { "category": "food", "content": "晚餐B｜Roti King Euston（本地高频）：回酒店前吃roti canai与咖喱，约£15–25/人；店小且常排队" },
+            { "category": "food", "content": "晚餐C｜Dishoom King's Cross（伦敦本地推荐）：black dal、chicken ruby与gunpowder potatoes，约£30–45/人；建议预约或避开19:00高峰" }
+          ]
+        },
+        {
+          "locationId": "royal_national_hotel",
+          "label": "公交/地铁 · 约25分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约2.5公里",
+            "duration": "约25分钟",
+            "startName": "South Bank Centre",
+            "endName": "皇家国家酒店",
+            "steps": [
+              { "mode": "walk", "from": "South Bank Centre", "to": "Waterloo一带车站", "duration": "约8分钟", "distance": "约600米", "instruction": "步行至Waterloo站或就近公交站" },
+              { "mode": "bus", "line": "68等北向公交", "from": "Waterloo", "to": "Russell Square", "duration": "约17分钟", "instruction": "按实时导航乘北向公交至Russell Square附近" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "date": "2026-10-05",
+      "title": "大英博物馆与West End漫步",
+      "note": "上午大英博物馆，下午从Covent Garden步行串联Soho与唐人街；当天不塞入白崖行程",
+      "baseHotelId": "royal_national_hotel",
+      "path": [
+        { "locationId": "royal_national_hotel", "label": "酒店出发", "isHotel": true },
+        {
+          "locationId": "british_museum",
+          "label": "步行 · 约9分钟",
+          "transit": {
+            "distance": "约650米",
+            "duration": "约9分钟",
+            "startName": "皇家国家酒店",
+            "endName": "大英博物馆",
+            "steps": [
+              { "mode": "walk", "from": "酒店", "to": "大英博物馆Montague Place入口", "duration": "约9分钟", "distance": "约650米", "instruction": "沿Russell Square向南步行至博物馆" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "常设展免费但建议预约10:00时段；入馆需安检且不接受大件行李" },
+            { "category": "other", "content": "3小时经典线：Great Court → Room 4罗塞塔石碑 → 埃及木乃伊 → 帕特农雕塑 → 亚述浮雕或Sutton Hoo；进门先看当日关闭展厅" },
+            { "category": "tips", "content": "如果只留2小时，保留罗塞塔石碑、木乃伊和帕特农三组，避免跨楼反复折返" }
+          ]
+        },
+        {
+          "locationId": "covent_garden",
+          "label": "步行 · 约15分钟",
+          "transit": {
+            "distance": "约1.1公里",
+            "duration": "约15分钟",
+            "startName": "大英博物馆",
+            "endName": "Covent Garden",
+            "steps": [
+              { "mode": "walk", "from": "大英博物馆", "to": "Covent Garden Piazza", "duration": "约15分钟", "distance": "约1.1公里", "instruction": "经Drury Lane步行至Covent Garden市场大厅" }
+            ]
+          },
+          "notes": [
+            { "category": "other", "content": "玩法：Piazza与市场大厅看街头表演 → Apple Market → Neal's Yard彩色小院 → Seven Dials，约1.5至2小时" },
+            { "category": "food", "content": "午餐A｜Flat Iron Covent Garden（小红书高频+本地推荐）：招牌flat iron steak、薯条，约£20–30/人；高峰可能等位" },
+            { "category": "food", "content": "午餐B｜Dishoom Covent Garden（伦敦本地推荐）：chicken ruby、black dal、gunpowder potatoes，约£30–45/人；午餐比晚餐更易入座" },
+            { "category": "food", "content": "午餐C｜Bancone Covent Garden（小红书出现+本地4星推荐）：silk handkerchiefs或时令手工意面，约£25–40/人；建议订位" }
+          ]
+        },
+        {
+          "locationId": "soho_square",
+          "label": "步行 · 约15分钟",
+          "transit": {
+            "distance": "约1.1公里",
+            "duration": "约15分钟",
+            "startName": "Covent Garden",
+            "endName": "Soho Square",
+            "steps": [
+              { "mode": "walk", "from": "Covent Garden", "to": "Soho Square", "duration": "约15分钟", "distance": "约1.1公里", "instruction": "经Seven Dials向西步行进入Soho" }
+            ]
+          },
+          "notes": [
+            { "category": "shopping", "content": "建议走Carnaby Street → Berwick Street → Old Compton Street，按兴趣插入唱片店或咖啡馆；控制1至1.5小时，避免来回绕街" }
+          ]
+        },
+        {
+          "locationId": "chinatown_gate",
+          "label": "步行 · 约8分钟",
+          "transit": {
+            "distance": "约600米",
+            "duration": "约8分钟",
+            "startName": "Soho Square",
+            "endName": "伦敦唐人街",
+            "steps": [
+              { "mode": "walk", "from": "Soho Square", "to": "Chinatown Gate", "duration": "约8分钟", "distance": "约600米", "instruction": "沿Dean Street向南步行至Gerrard Street" }
+            ]
+          },
+          "notes": [
+            { "category": "other", "content": "先看Gerrard Street牌楼与华人超市，再在Rupert Street / Wardour Street周边吃饭，约1至1.5小时" },
+            { "category": "food", "content": "晚餐A｜Speedboat Bar Soho（小红书实测+Time Out 5星）：泰式pad kra pao、beef curry、tom yum mama，约£30–45/人；务必预约，纯walk-in可能久等" },
+            { "category": "food", "content": "晚餐B｜Blacklock Soho（小红书高频+本地推荐）：炭烤chops、牛骨髓与beef-dripping chips，约£35–55/人；适合肉食，提前订位" },
+            { "category": "food", "content": "晚餐C｜YORI Piccadilly（小红书平价推荐）：韩式烤肉/部队锅，约£20–35/人；想吃中餐也可改选四季文兴酒家烧鸭，排队与品控以当天为准" }
+          ]
+        },
+        {
+          "locationId": "royal_national_hotel",
+          "label": "步行/公交 · 约20分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约1.6公里",
+            "duration": "约20分钟",
+            "startName": "伦敦唐人街",
+            "endName": "皇家国家酒店",
+            "steps": [
+              { "mode": "walk", "from": "唐人街", "to": "皇家国家酒店", "duration": "约20分钟", "distance": "约1.6公里", "instruction": "可经Soho Square与Bloomsbury步行回酒店，疲劳时按实时导航乘公交" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "date": "2026-10-06",
+      "title": "剑桥学院与康河",
+      "note": "King's Cross早班火车往返；先参观Fitzwilliam Museum，再走学院区，天气合适时体验康河撑篙船",
+      "baseHotelId": "royal_national_hotel",
+      "path": [
+        { "locationId": "royal_national_hotel", "label": "酒店出发", "isHotel": true },
+        {
+          "locationId": "kings_cross_station",
+          "label": "步行 · 约15分钟",
+          "transit": {
+            "distance": "约1公里",
+            "duration": "约15分钟",
+            "startName": "皇家国家酒店",
+            "endName": "London King's Cross",
+            "steps": [
+              { "mode": "walk", "from": "酒店", "to": "King's Cross车站", "duration": "约15分钟", "distance": "约1公里", "instruction": "沿Woburn Place与Euston Road步行至车站，预留进站时间" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "提前查看当天站台与工程安排；建议购买可乘目标班次的往返票" }
+          ]
+        },
+        {
+          "locationId": "cambridge_station",
+          "label": "直达火车 · 约55分钟",
+          "transit": {
+            "distance": "约92公里",
+            "duration": "约55分钟",
+            "startName": "London King's Cross",
+            "endName": "Cambridge Station",
+            "steps": [
+              { "mode": "train", "line": "Great Northern直达列车", "from": "London King's Cross", "to": "Cambridge", "duration": "约50至60分钟", "distance": "约92公里", "instruction": "优先选择少停站的直达班次，具体时刻以National Rail当天信息为准" }
+            ]
+          }
+        },
+        {
+          "locationId": "fitzwilliam_museum",
+          "label": "步行 · 约20分钟",
+          "transit": {
+            "distance": "约1.5公里",
+            "duration": "约20分钟",
+            "startName": "Cambridge Station",
+            "endName": "Fitzwilliam Museum",
+            "steps": [
+              { "mode": "walk", "from": "Cambridge Station", "to": "Fitzwilliam Museum", "duration": "约20分钟", "distance": "约1.5公里", "instruction": "经Station Road与Trumpington Street步行至博物馆" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "免费入场；建议60至90分钟精华走法：入口大厅 → 古埃及/古典馆 → 一间绘画主厅；想留时间给学院和游船就不要逐室看完" }
+          ]
+        },
+        {
+          "locationId": "kings_college",
+          "label": "步行 · 约8分钟",
+          "transit": {
+            "distance": "约600米",
+            "duration": "约8分钟",
+            "startName": "Fitzwilliam Museum",
+            "endName": "King's College",
+            "steps": [
+              { "mode": "walk", "from": "Fitzwilliam Museum", "to": "King's Parade", "duration": "约8分钟", "distance": "约600米", "instruction": "沿Trumpington Street向北步行至King's Parade" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "学院开放会受学期、礼拜与活动影响，出发前查看官方访客时段；礼拜堂与Backs草坪是核心，留45至60分钟" },
+            { "category": "other", "content": "学院参观后沿King's Parade到Market Square吃午饭，再经Trinity Street向Quayside走，动线不回头" },
+            { "category": "food", "content": "午餐A｜Bread & Meat（小红书本地学生私藏+当地口碑）：Soy Chicken Bowl或Philly Cheesesteak，约£12–18/人；不预约，饭点排队" },
+            { "category": "food", "content": "午餐B｜Aromi（小红书学生推荐）：西西里pizza、focaccia与cannoli，约£10–18/人；适合快吃" },
+            { "category": "food", "content": "午餐C｜The Eagle（剑桥经典酒馆）：传统pub菜，约£20–35/人；重点是历史氛围，热门时段可能等位" }
+          ]
+        },
+        {
+          "locationId": "cambridge_quayside",
+          "label": "老城步行 · 约15分钟",
+          "transit": {
+            "distance": "约1公里",
+            "duration": "约15分钟",
+            "startName": "King's College",
+            "endName": "Quayside",
+            "steps": [
+              { "mode": "walk", "from": "King's Parade", "to": "Quayside", "duration": "约15分钟", "distance": "约1公里", "instruction": "经Market Square、Trinity Street与Bridge Street步行至康河" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "撑篙船通常45至50分钟；第一次建议选带讲解的共享船，能从河上看叹息桥与学院后院；十月注意防风保暖" },
+            { "category": "tips", "content": "大风或持续降雨时取消游船，改走The Backs与数学桥周边；不要为追低价接受街头拉客的模糊套餐" }
+          ]
+        },
+        {
+          "locationId": "royal_national_hotel",
+          "label": "步行+火车 · 约1小时35分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约95公里",
+            "duration": "约1小时35分钟",
+            "startName": "Quayside",
+            "endName": "皇家国家酒店",
+            "steps": [
+              { "mode": "walk", "from": "Quayside", "to": "Cambridge Station", "duration": "约25分钟", "distance": "约2公里", "instruction": "穿过老城步行回Cambridge Station，也可按实时导航乘公交" },
+              { "mode": "train", "line": "Great Northern直达列车", "from": "Cambridge", "to": "London King's Cross", "duration": "约55分钟", "instruction": "乘直达列车返回London King's Cross" },
+              { "mode": "walk", "from": "King's Cross", "to": "皇家国家酒店", "duration": "约15分钟", "distance": "约1公里", "instruction": "从车站步行回酒店" }
+            ]
+          },
+          "notes": [
+            { "category": "food", "content": "返伦敦晚餐A｜Dishoom King's Cross（本地推荐，约£30–45/人，建议订位）；B｜Roti King Euston（roti canai，约£15–25/人，可能排队）；C｜Paolina Thai（本地榜单平价泰餐，约£15–25/人）" }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "date": "2026-10-07",
+      "title": "Westminster王室轴线与西区音乐剧",
+      "note": "上午参观威斯敏斯特教堂，步行串联大本钟、圣詹姆斯公园、白金汉宫与特拉法加广场，晚上看西区音乐剧",
+      "baseHotelId": "royal_national_hotel",
+      "path": [
+        { "locationId": "royal_national_hotel", "label": "酒店出发", "isHotel": true },
+        {
+          "locationId": "westminster_abbey",
+          "label": "地铁 · 约25分钟",
+          "transit": {
+            "distance": "约4公里",
+            "duration": "约25分钟",
+            "startName": "皇家国家酒店",
+            "endName": "威斯敏斯特教堂",
+            "steps": [
+              { "mode": "walk", "from": "酒店", "to": "Russell Square站", "duration": "约5分钟", "distance": "约400米", "instruction": "步行至Russell Square地铁站" },
+              { "mode": "subway", "line": "Piccadilly + Jubilee", "from": "Russell Square", "to": "Westminster", "duration": "约15分钟", "instruction": "Green Park换乘Jubilee线至Westminster" },
+              { "mode": "walk", "from": "Westminster站", "to": "威斯敏斯特教堂", "duration": "约5分钟", "distance": "约350米", "instruction": "沿Parliament Square步行至游客入口" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "开放时间会受礼拜与国事活动影响，建议预约上午时段并临行复核；完整参观约1.5至2小时" },
+            { "category": "other", "content": "推荐顺序：中殿 → Coronation Chair → Poets' Corner → Lady Chapel → cloister；时间紧时保留前四项" }
+          ]
+        },
+        {
+          "locationId": "big_ben",
+          "label": "步行 · 约6分钟",
+          "transit": {
+            "distance": "约450米",
+            "duration": "约6分钟",
+            "startName": "威斯敏斯特教堂",
+            "endName": "大本钟",
+            "steps": [
+              { "mode": "walk", "from": "威斯敏斯特教堂", "to": "Parliament Square", "duration": "约6分钟", "distance": "约450米", "instruction": "步行至国会大厦与大本钟外观拍摄点" }
+            ]
+          },
+          "notes": [
+            { "category": "other", "content": "外观与拍照留20至30分钟；经典正面机位在Westminster Bridge南侧或过桥后的河岸，早上相对顺光" }
+          ]
+        },
+        {
+          "locationId": "st_jamess_park",
+          "label": "步行 · 约12分钟",
+          "transit": {
+            "distance": "约900米",
+            "duration": "约12分钟",
+            "startName": "大本钟",
+            "endName": "圣詹姆斯公园",
+            "steps": [
+              { "mode": "walk", "from": "Parliament Square", "to": "St James's Park Blue Bridge", "duration": "约12分钟", "distance": "约900米", "instruction": "经Birdcage Walk进入公园并走向蓝桥" }
+            ]
+          },
+          "notes": [
+            { "category": "other", "content": "沿湖走至Blue Bridge，停留30至45分钟；桥上可同时取景白金汉宫方向、喷泉与远处伦敦眼" }
+          ]
+        },
+        {
+          "locationId": "buckingham_palace",
+          "label": "公园步行 · 约10分钟",
+          "transit": {
+            "distance": "约750米",
+            "duration": "约10分钟",
+            "startName": "圣詹姆斯公园",
+            "endName": "白金汉宫",
+            "steps": [
+              { "mode": "walk", "from": "St James's Park", "to": "白金汉宫前广场", "duration": "约10分钟", "distance": "约750米", "instruction": "沿湖西行，从Canada Gate到达宫前广场" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "本行程按外观安排，留30分钟看宫门、Victoria Memorial与The Mall；十月State Rooms通常不开放" },
+            { "category": "tips", "content": "换岗不是每日固定举行，临近出发查王室官网；若确定有换岗，至少提前45至60分钟到且会明显压缩上午行程" }
+          ]
+        },
+        {
+          "locationId": "trafalgar_square",
+          "label": "The Mall步行 · 约18分钟",
+          "transit": {
+            "distance": "约1.3公里",
+            "duration": "约18分钟",
+            "startName": "白金汉宫",
+            "endName": "特拉法加广场",
+            "steps": [
+              { "mode": "walk", "from": "白金汉宫", "to": "特拉法加广场", "duration": "约18分钟", "distance": "约1.3公里", "instruction": "沿The Mall经Admiralty Arch步行至广场" }
+            ]
+          },
+          "notes": [
+            { "category": "other", "content": "广场本身留20至30分钟；若喜欢绘画，可进National Gallery只看梵高、莫奈、透纳等重点45至60分钟" },
+            { "category": "food", "content": "午餐A｜Fallow（小红书实测+本地/米其林认可）：corn ribs、mushroom parfait、鳕鱼头等，约£45–70/人；在Haymarket，建议预约" },
+            { "category": "food", "content": "午餐B｜Cafe in the Crypt（本地实用推荐）：St Martin-in-the-Fields地窖自助/英式简餐，约£12–22/人；离广场最近" },
+            { "category": "food", "content": "午餐C｜Regency Cafe（本地经典）：英式早餐与家常热食，约£10–18/人；更便宜但需从Westminster稍绕行" }
+          ]
+        },
+        {
+          "locationId": "leicester_square",
+          "label": "步行 · 约7分钟",
+          "transit": {
+            "distance": "约550米",
+            "duration": "约7分钟",
+            "startName": "特拉法加广场",
+            "endName": "Leicester Square",
+            "steps": [
+              { "mode": "walk", "from": "Trafalgar Square", "to": "Leicester Square", "duration": "约7分钟", "distance": "约550米", "instruction": "经Charing Cross Road步行进入西区剧院区" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "地图以Leicester Square作集合点；购票后按票面剧院地址调整最终路线" },
+            { "category": "tips", "content": "演出前30至45分钟到剧院；正餐最好在开演前90分钟结束，取票、安检与找座位会比想象中耗时" },
+            { "category": "food", "content": "剧前晚餐A｜Blacklock Covent Garden / Soho（小红书高频+本地推荐）：炭烤chops，约£35–55/人；订位时按实际剧院选分店" },
+            { "category": "food", "content": "剧前晚餐B｜Bancone Covent Garden（小红书出现+Time Out 4星）：手工意面，约£25–40/人；可订位，适合控制用餐时长" },
+            { "category": "food", "content": "剧前晚餐C｜Brasserie Zédel（伦敦本地经典）：法式套餐，约£25–40/人；地下空间大但仍建议预约" }
+          ]
+        },
+        {
+          "locationId": "royal_national_hotel",
+          "label": "步行/地铁 · 约20分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约1.5公里",
+            "duration": "约20分钟",
+            "startName": "West End剧院区",
+            "endName": "皇家国家酒店",
+            "steps": [
+              { "mode": "walk", "from": "剧院", "to": "最近的Piccadilly线车站", "duration": "约5分钟", "instruction": "根据实际剧院步行至Leicester Square或Covent Garden站" },
+              { "mode": "subway", "line": "Piccadilly", "from": "Leicester Square/Covent Garden", "to": "Russell Square", "duration": "约5分钟", "instruction": "乘Piccadilly线返回Russell Square" },
+              { "mode": "walk", "from": "Russell Square站", "to": "酒店", "duration": "约5分钟", "distance": "约400米", "instruction": "步行回酒店" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "date": "2026-10-08",
+      "title": "七姐妹白崖与Cuckmere Haven",
+      "note": "早出晚归的海岸日：Victoria乘火车至Seaford，换Coaster公交到游客中心，再沿河谷步行至Cuckmere Haven",
+      "baseHotelId": "royal_national_hotel",
+      "path": [
+        { "locationId": "royal_national_hotel", "label": "酒店出发", "isHotel": true },
+        {
+          "locationId": "victoria_station",
+          "label": "地铁 · 约25分钟",
+          "transit": {
+            "distance": "约4公里",
+            "duration": "约25分钟",
+            "startName": "皇家国家酒店",
+            "endName": "London Victoria",
+            "steps": [
+              { "mode": "walk", "from": "酒店", "to": "Russell Square站", "duration": "约5分钟", "distance": "约400米", "instruction": "步行至Russell Square地铁站" },
+              { "mode": "subway", "line": "Piccadilly + Victoria", "from": "Russell Square", "to": "Victoria", "duration": "约15分钟", "instruction": "Green Park换乘Victoria线至Victoria站" },
+              { "mode": "walk", "from": "Victoria地铁站", "to": "National Rail站台", "duration": "约5分钟", "instruction": "按National Rail标识进入火车站" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "建议预留至少20分钟换乘并确认当天是否需要在Lewes换车" }
+          ]
+        },
+        {
+          "locationId": "seaford_station",
+          "label": "火车 · 约1小时40分钟",
+          "transit": {
+            "distance": "约110公里",
+            "duration": "约1小时40分钟",
+            "startName": "London Victoria",
+            "endName": "Seaford Station",
+            "steps": [
+              { "mode": "train", "line": "Southern，经Lewes换乘", "from": "London Victoria", "to": "Seaford", "duration": "约1小时40分钟", "distance": "约110公里", "instruction": "通常在Lewes换乘Seaford方向列车；以当天National Rail行程为准" }
+            ]
+          }
+        },
+        {
+          "locationId": "seven_sisters_visitor_centre",
+          "label": "Coaster公交 · 约20分钟",
+          "transit": {
+            "distance": "约7公里",
+            "duration": "约20分钟",
+            "startName": "Seaford Station",
+            "endName": "Seven Sisters Visitor Centre",
+            "steps": [
+              { "mode": "walk", "from": "Seaford Station", "to": "Seaford Library公交站一带", "duration": "约5分钟", "distance": "约350米", "instruction": "按实时导航前往最近的Coaster公交站" },
+              { "mode": "bus", "line": "12 / 12A / 12X Coaster", "from": "Seaford", "to": "Seven Sisters Park Centre", "duration": "约15分钟", "instruction": "乘Brighton & Hove Coaster公交，在Seven Sisters Park Centre下车" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "先在游客中心确认步道、风力、潮汐与返程公交，再开始徒步；洗手间与补水尽量在这里解决" },
+            { "category": "food", "content": "午餐建议：伦敦出发前买三明治和水最稳妥；游客中心Grab & Go或Saltmarsh Farmhouse可作备选，营业以当天为准；想坐下吃可去约0.5公里外Cuckmere Inn，但会占用徒步时间" }
+          ]
+        },
+        {
+          "locationId": "cuckmere_haven",
+          "label": "河谷徒步 · 单程约35分钟",
+          "transit": {
+            "distance": "单程约2公里",
+            "duration": "约35分钟",
+            "startName": "Seven Sisters Visitor Centre",
+            "endName": "Cuckmere Haven",
+            "steps": [
+              { "mode": "walk", "from": "游客中心", "to": "Cuckmere Haven海岸", "duration": "约35分钟", "distance": "约2公里", "instruction": "沿Cuckmere河谷官方步道走向海岸，不靠近崖缘；官方路线往返约4公里" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "白垩崖边缘可能松动且无护栏，务必远离崖边与崖底落石区" },
+            { "category": "tips", "content": "穿防滑防水鞋并带防风外层；大风、暴雨或能见度差时在游客中心折返" },
+            { "category": "other", "content": "经典低难度玩法是游客中心 → Cuckmere河谷 → 海滩白崖机位 → 原路返回，官方往返约4公里，纯步行约1.5至2小时，另加拍照时间" },
+            { "category": "tips", "content": "不要走到崖缘探头，也不要在崖脚停留；涨潮、泥泞或风力过大时，以河谷和远景为主及时折返" },
+            { "category": "food", "content": "全程携带水与耐放简餐，不依赖海岸步道补给" }
+          ]
+        },
+        {
+          "locationId": "royal_national_hotel",
+          "label": "步行+公交+火车 · 约2小时45分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约120公里",
+            "duration": "约2小时45分钟",
+            "startName": "Cuckmere Haven",
+            "endName": "皇家国家酒店",
+            "steps": [
+              { "mode": "walk", "from": "Cuckmere Haven", "to": "Seven Sisters Visitor Centre", "duration": "约35分钟", "distance": "约2公里", "instruction": "沿原河谷步道返回游客中心" },
+              { "mode": "bus", "line": "12 / 12A / 12X Coaster", "from": "Seven Sisters Park Centre", "to": "Seaford", "duration": "约20分钟", "instruction": "搭乘Coaster公交返回Seaford，并为火车换乘留出余量" },
+              { "mode": "train", "line": "Southern，经Lewes换乘", "from": "Seaford", "to": "London Victoria", "duration": "约1小时40分钟", "instruction": "按当天班次经Lewes返回London Victoria" },
+              { "mode": "subway", "line": "Victoria + Piccadilly", "from": "Victoria", "to": "Russell Square", "duration": "约25分钟", "instruction": "Green Park换乘Piccadilly线，出站后步行回酒店" }
+            ]
+          },
+          "notes": [
+            { "category": "food", "content": "返伦敦晚餐：体力足选Dishoom King's Cross（约£30–45/人）或Roti King Euston（约£15–25/人）；太晚则直接用酒店London Pub / Blooms Pizza，先电话确认厨房收单时间" }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 7,
+      "date": "2026-10-09",
+      "title": "South Kensington博物馆区与Hyde Park",
+      "note": "采用原计划中的肯辛顿主方案：V&A深度参观后，经Albert Memorial与Kensington Gardens散步至Hyde Park；自然历史博物馆当天闭馆",
+      "baseHotelId": "royal_national_hotel",
+      "path": [
+        { "locationId": "royal_national_hotel", "label": "酒店出发", "isHotel": true },
+        {
+          "locationId": "va_museum",
+          "label": "地铁 · 约30分钟",
+          "transit": {
+            "distance": "约5.5公里",
+            "duration": "约30分钟",
+            "startName": "皇家国家酒店",
+            "endName": "V&A Museum",
+            "steps": [
+              { "mode": "walk", "from": "酒店", "to": "Russell Square站", "duration": "约5分钟", "distance": "约400米", "instruction": "步行至Russell Square地铁站" },
+              { "mode": "subway", "line": "Piccadilly", "from": "Russell Square", "to": "South Kensington", "duration": "约20分钟", "instruction": "乘Piccadilly线直达South Kensington" },
+              { "mode": "walk", "from": "South Kensington站", "to": "V&A Museum", "duration": "约5分钟", "distance": "约350米", "instruction": "按博物馆地下通道或地面标识前往V&A" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "博物馆体量很大，建议2.5至3小时只选2至3区：Cast Courts → British Galleries → Jewellery或Fashion；先看当日楼层开放信息" },
+            { "category": "other", "content": "中途可进V&A Café看Morris、Gamble、Poynter三间历史餐厅；即使不正餐，也值得留15分钟看室内" },
+            { "category": "food", "content": "午餐A｜V&A Café（景点内最省时）：汤、沙拉与热食，约£15–25/人；环境胜于性价比，高峰先找座" },
+            { "category": "food", "content": "午餐B｜Ognisko（伦敦本地推荐）：传统波兰菜、饺子与炖菜，约£35–55/人；在Exhibition Road，建议预约" },
+            { "category": "food", "content": "午餐C｜CERU（Time Out本地推荐）：黎凡特mezze与烤肉，约£25–40/人；口味清爽、多人分享方便" }
+          ]
+        },
+        {
+          "locationId": "albert_memorial",
+          "label": "步行 · 约15分钟",
+          "transit": {
+            "distance": "约1.1公里",
+            "duration": "约15分钟",
+            "startName": "V&A Museum",
+            "endName": "Albert Memorial",
+            "steps": [
+              { "mode": "walk", "from": "V&A Museum", "to": "Albert Memorial", "duration": "约15分钟", "distance": "约1.1公里", "instruction": "沿Exhibition Road向北，经过Royal Albert Hall到达纪念碑" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "自然历史博物馆官网已注明2026年10月9日因慈善晚宴闭馆，因此不列入当天路线" },
+            { "category": "other", "content": "从Exhibition Road北行时顺看Royal Albert Hall外观，再到纪念碑正面；两处合计30至40分钟即可" }
+          ]
+        },
+        {
+          "locationId": "kensington_gardens",
+          "label": "步行 · 约15分钟",
+          "transit": {
+            "distance": "约1.1公里",
+            "duration": "约15分钟",
+            "startName": "Albert Memorial",
+            "endName": "Kensington Gardens",
+            "steps": [
+              { "mode": "walk", "from": "Albert Memorial", "to": "Kensington Gardens", "duration": "约15分钟", "distance": "约1.1公里", "instruction": "从纪念碑进入Kensington Gardens，向Serpentine方向散步" }
+            ]
+          },
+          "notes": [
+            { "category": "other", "content": "从Albert Memorial入园后，以Italian Gardens或Kensington Palace外观二选一，不建议两边都绕；公园段总计留1至1.5小时" },
+            { "category": "food", "content": "先在South Kensington吃午餐再进公园；若已在V&A吃过，只在湖边补咖啡，不为餐厅额外绕路" }
+          ]
+        },
+        {
+          "locationId": "hyde_park",
+          "label": "湖畔步行 · 约18分钟",
+          "transit": {
+            "distance": "约1.3公里",
+            "duration": "约18分钟",
+            "startName": "Kensington Gardens",
+            "endName": "Hyde Park",
+            "steps": [
+              { "mode": "walk", "from": "Kensington Gardens", "to": "Hyde Park Serpentine", "duration": "约18分钟", "distance": "约1.3公里", "instruction": "沿Serpentine湖北岸向东散步，按体力决定终点" }
+            ]
+          },
+          "notes": [
+            { "category": "other", "content": "沿Serpentine湖走到桥或Marble Arch方向即可；当天已有博物馆长时间站立，公园不要追求横穿全境" }
+          ]
+        },
+        {
+          "locationId": "royal_national_hotel",
+          "label": "地铁 · 约25分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约4公里",
+            "duration": "约25分钟",
+            "startName": "Hyde Park",
+            "endName": "皇家国家酒店",
+            "steps": [
+              { "mode": "walk", "from": "Hyde Park", "to": "Marble Arch站", "duration": "约10分钟", "distance": "约750米", "instruction": "从公园东北角步行至Marble Arch地铁站" },
+              { "mode": "subway", "line": "Central", "from": "Marble Arch", "to": "Tottenham Court Road", "duration": "约8分钟", "instruction": "乘Central线至Tottenham Court Road" },
+              { "mode": "walk", "from": "Tottenham Court Road", "to": "酒店", "duration": "约12分钟", "distance": "约900米", "instruction": "经Bloomsbury步行回酒店；也可按实时导航换乘公交" }
+            ]
+          },
+          "notes": [
+            { "category": "food", "content": "晚餐A｜Daquise（本地老牌波兰菜，约£30–50/人）或Ognisko（环境更正式，约£35–55/人），可在South Kensington吃完再回酒店" },
+            { "category": "food", "content": "晚餐B｜Roti King Euston（本地高频，约£15–25/人）或Ciao Bella Bloomsbury（老派意餐，约£25–40/人），均靠近酒店" },
+            { "category": "other", "content": "若临时更想去Greenwich，可整日替换本日行程，不建议与博物馆区同日硬拼" }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 8,
+      "date": "2026-10-10",
+      "title": "Portobello周六市集与返程",
+      "note": "周六上午逛Portobello Road主市集，Golborne Road午餐后回酒店取行李，约17:00按航班机场出发",
+      "baseHotelId": "royal_national_hotel",
+      "path": [
+        { "locationId": "royal_national_hotel", "label": "退房并寄存行李", "isHotel": true },
+        {
+          "locationId": "notting_hill_gate",
+          "label": "地铁 · 约30分钟",
+          "transit": {
+            "distance": "约6公里",
+            "duration": "约30分钟",
+            "startName": "皇家国家酒店",
+            "endName": "Notting Hill Gate",
+            "steps": [
+              { "mode": "walk", "from": "酒店", "to": "Russell Square站", "duration": "约5分钟", "distance": "约400米", "instruction": "退房并寄存行李后步行至Russell Square站" },
+              { "mode": "subway", "line": "Piccadilly + Central", "from": "Russell Square", "to": "Notting Hill Gate", "duration": "约20分钟", "instruction": "Holborn换乘Central线至Notting Hill Gate" },
+              { "mode": "walk", "from": "Notting Hill Gate站", "to": "Pembridge Road", "duration": "约5分钟", "distance": "约350米", "instruction": "出站后沿Pembridge Road进入街区" }
+            ]
+          }
+        },
+        {
+          "locationId": "portobello_market",
+          "label": "街区步行 · 约12分钟",
+          "transit": {
+            "distance": "约800米",
+            "duration": "约12分钟",
+            "startName": "Notting Hill Gate",
+            "endName": "Portobello Road Market",
+            "steps": [
+              { "mode": "walk", "from": "Notting Hill Gate", "to": "Portobello Road Market", "duration": "约12分钟", "distance": "约800米", "instruction": "经Pembridge Road与彩色住宅街步行至市集南段" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "周六是主市集日，建议9:00至9:30抵达，午后更拥挤" },
+            { "category": "shopping", "content": "经典走法：南段古董与银器 → Westway下旧货/服饰 → 北段食品 → Golborne Road；全程2至3小时，看到喜欢的古董先记摊位号再比较" },
+            { "category": "tips", "content": "主街最拥挤时不要在狭窄店门口停留拍照；彩色住宅以街景为主，尊重住户与私人门廊" }
+          ]
+        },
+        {
+          "locationId": "golborne_road",
+          "label": "边逛边走 · 约18分钟",
+          "transit": {
+            "distance": "约1.3公里",
+            "duration": "约18分钟",
+            "startName": "Portobello Road Market",
+            "endName": "Golborne Road",
+            "steps": [
+              { "mode": "walk", "from": "Portobello Road Market", "to": "Golborne Road", "duration": "约18分钟", "distance": "约1.3公里", "instruction": "沿Portobello Road市集一路向北步行" }
+            ]
+          },
+          "notes": [
+            { "category": "food", "content": "午餐A｜Portobello周六热食摊（市场官方推荐的机动方案）：现场选paella、curry、churros等，约£10–18；摊位会变化，不为单个摊位久等" },
+            { "category": "food", "content": "午餐B｜Permit Room Portobello（Time Out 4星）：Dishoom团队的Bombay风全天餐厅，约£25–40/人；想坐下稳妥吃选它，建议预约" },
+            { "category": "food", "content": "午餐C｜Golborne Road葡萄牙/北非小吃：Lisboa Patisserie吃蛋挞咖啡，或沿街选摩洛哥简餐，约£8–20/人；适合时间紧" },
+            { "category": "tips", "content": "建议最晚13:30至14:00开始返程；离境日宁可少排一家，也不要压缩回酒店取行李与机场缓冲" }
+          ]
+        },
+        {
+          "locationId": "royal_national_hotel",
+          "label": "地铁 · 约35分钟",
+          "isHotel": true,
+          "transit": {
+            "distance": "约7公里",
+            "duration": "约35分钟",
+            "startName": "Golborne Road",
+            "endName": "皇家国家酒店",
+            "steps": [
+              { "mode": "walk", "from": "Golborne Road", "to": "Ladbroke Grove站", "duration": "约8分钟", "distance": "约600米", "instruction": "步行至Ladbroke Grove地铁站" },
+              { "mode": "subway", "line": "Hammersmith & City", "from": "Ladbroke Grove", "to": "King's Cross St Pancras", "duration": "约18分钟", "instruction": "乘Hammersmith & City线至King's Cross St Pancras" },
+              { "mode": "walk", "from": "King's Cross St Pancras", "to": "皇家国家酒店", "duration": "约15分钟", "distance": "约1公里", "instruction": "步行回酒店取行李" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "约17:00从酒店出发去希斯罗；取行李后不要再安排正式晚餐或购物，先按航司订单确认出发航站楼" },
+            { "category": "other", "content": "为安检和周六交通波动预留充足缓冲，不在离境日追加远距离景点" }
+          ]
+        },
+        {
+          "locationId": "heathrow_airport",
+          "label": "约17:00出发 · 22:00航班",
+          "transit": {
+            "distance": "约28公里",
+            "duration": "约70至85分钟",
+            "startName": "皇家国家酒店",
+            "endName": "伦敦希斯罗机场",
+            "steps": [
+              { "mode": "walk", "from": "皇家国家酒店", "to": "Russell Square站", "duration": "约5至7分钟", "distance": "约400米", "instruction": "取行李后步行至Russell Square地铁站" },
+              { "mode": "subway", "line": "Piccadilly", "from": "Russell Square", "to": "Heathrow所属航站楼", "duration": "约55至65分钟", "distance": "约27公里", "instruction": "乘Heathrow方向列车；务必核对车头终点与航站楼，避免误乘Uxbridge支线" },
+              { "mode": "walk", "from": "Heathrow地铁站", "to": "出发大厅", "duration": "约5至15分钟", "instruction": "按Departures与航司柜台标识前往正确航站楼和楼层" }
+            ]
+          },
+          "notes": [
+            { "category": "tips", "content": "计划18:15至18:30抵达希斯罗，距离22:00起飞约3.5小时；满足希斯罗对长途航班至少提前3小时到机场的建议，并留出周六线路波动缓冲" },
+            { "category": "tips", "content": "若Piccadilly线有工程或严重延误，可从酒店叫车至Tottenham Court Road后改乘Elizabeth line；不要临时把Heathrow Express当唯一方案，以免多次搬行李" },
+            { "category": "tips", "content": "出发前24至48小时完成在线值机，确认航站楼、托运行李截止时间与登机口；2026年当天路线以TfL、Heathrow和航司通知为准" },
+            { "category": "food", "content": "晚餐建议在通过安检后按实际航站楼解决；市区不安排正式晚餐，避免影响值机与安检" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -66,6 +66,16 @@ export function MapController({ activeDay, resetView, data, defaultCenter, defau
           map.fitBounds(bounds, { ...fitPadding, maxZoom: 16, duration: 1 })
         }
       }
+    } else if (data.metadata.mapCenter) {
+      // Respect an explicitly configured overview. This keeps remote day trips
+      // and airports from shrinking the main city into an unreadable cluster.
+      // A single-point bounds also applies the panel/bottom-sheet padding.
+      const overviewBounds = L.latLngBounds([defaultCenter])
+      map.fitBounds(overviewBounds, {
+        ...fitPadding,
+        maxZoom: defaultZoom,
+        duration: 1,
+      })
     } else {
       const bounds = L.latLngBounds([])
       let hasValidPoint = false

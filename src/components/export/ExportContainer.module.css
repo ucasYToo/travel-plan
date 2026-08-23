@@ -38,7 +38,7 @@
 }
 
 .exportContainer :global(.headerPetal),
-.exportContainer :global(.route-label),
+.exportContainer :global(.route-label-content),
 .exportContainer :global(.route-draw) {
   animation: none !important;
 }

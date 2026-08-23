@@ -6,6 +6,7 @@ import type { ItineraryData, TransitDetail, LocationOrGroup, LocationGroup, Loca
 import { MapController } from './MapController'
 import type { MapViewportPadding } from './MapController'
 import { createCustomMarker, createRouteLabelIcon } from './mapMarkers'
+import { getTransitForSegment } from './routeUtils'
 
 export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocationDetail, showLocationNames = false, showTransitLabels = false, onZoomChange, zoom = 12, viewportPadding }: MapViewProps): JSX.Element {
   const defaultCenter = useMemo<[number, number]>(() => {
@@ -261,7 +262,7 @@ export function MapView({ data, activeDay, resetView, onShowTransit, onShowLocat
           if (!p2.point.label) return null
           const midLat = (p1.location.lat + p2.location.lat) / 2
           const midLng = (p1.location.lng + p2.location.lng) / 2
-          const transitData = p1.point.transit
+          const transitData = getTransitForSegment(routePoints, i)
           return (
             <Marker
               key={`label-${i}`}

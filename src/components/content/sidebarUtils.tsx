@@ -1,9 +1,16 @@
 import type { ItineraryData, TransitDetail, DayPlan, LocationOrGroup, NoteItem } from '../../types'
 import clsx from 'clsx'
 import styles from './SidebarContent.module.css'
+import { getTransitForSegment } from '../routeUtils'
 
 export function formatDate(dateStr: string): string {
+  const isoDate = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateStr)
+  if (isoDate) {
+    return `${Number(isoDate[2])}/${Number(isoDate[3])}`
+  }
+
   const date = new Date(dateStr)
+  if (Number.isNaN(date.getTime())) return dateStr
   return `${date.getMonth() + 1}/${date.getDate()}`
 }
 
@@ -116,7 +123,7 @@ export function buildRouteItems(
 
     if (idx < pathSlice.length - 1) {
       const nextPoint = pathSlice[idx + 1]?.point
-      const transitData = nextPoint?.transit || point.transit
+      const transitData = getTransitForSegment(pathSlice, idx)
       if (transitData && nextPoint?.label) {
         const isSubway = transitData.steps.some(s => s.mode === 'subway')
         const isTrain = transitData.steps.some(s => s.mode === 'train')

@@ -28,5 +28,6 @@ describe('map marker rendering', () => {
     expect(marker.options.html).toContain('&lt;b&gt;1&lt;/b&gt;')
     expect(route.options.html).toContain('&lt;script&gt;')
     expect(route.options.html).not.toContain('<script>')
+    expect(route.options.html).toContain('class="route-label-content"')
   })
 })

@@ -1,9 +1,13 @@
 import { describe, it, expect } from 'vitest'
 import { itinerarySchema } from './schema'
 import seoulJson from './cities/seoul.json'
+import chengduJson from './cities/chengdu.json'
+import londonJson from './cities/london.json'
 
 const CITY_CASES = [
   { id: 'seoul', data: seoulJson },
+  { id: 'chengdu', data: chengduJson },
+  { id: 'london', data: londonJson },
 ]
 
 for (const city of CITY_CASES) {

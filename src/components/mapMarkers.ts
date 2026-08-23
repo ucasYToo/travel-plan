@@ -57,7 +57,7 @@ export function createCustomMarker(location: LocationOrGroup, badge?: string, sh
 export function createRouteLabelIcon(text: string): L.DivIcon {
   const safeText = escapeHtml(text)
   return L.divIcon({
-    html: `<div style="max-width:180px;padding:4px 10px;background:rgba(255,248,250,0.95);border:1px solid #FCE7EF;border-radius:9999px;font-size:11px;font-weight:600;color:#2A2A2A;box-shadow:0 1px 4px rgba(244,164,184,0.10);white-space:normal;word-break:break-word;text-align:center;line-height:1.3">${safeText}</div>`,
+    html: `<div class="route-label-content" style="max-width:180px;padding:4px 10px;background:rgba(255,248,250,0.95);border:1px solid #FCE7EF;border-radius:9999px;font-size:11px;font-weight:600;color:#2A2A2A;box-shadow:0 1px 4px rgba(244,164,184,0.10);white-space:normal;word-break:break-word;text-align:center;line-height:1.3">${safeText}</div>`,
     className: 'route-label',
     iconSize: [180, 40],
     iconAnchor: [90, 20]

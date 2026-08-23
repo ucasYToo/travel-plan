@@ -22,6 +22,8 @@ declare global {
 
 const STORAGE_KEY = 'travel-map-settings'
 const DESKTOP_BREAKPOINT = 1024
+const ITINERARY_SNAP_POINTS = ['48px', '45vh', 'calc(100vh - 72px)']
+const DETAIL_SNAP_POINTS = ['48px', '75vh']
 
 function getViewportSize() {
   if (typeof window === 'undefined') return { width: 1440, height: 900 }
@@ -121,7 +123,11 @@ function App() {
   const headlessResultsRef = useRef<Record<string, string>>({})
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(settings))
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(settings))
+    } catch {
+      // Standalone file:// builds and privacy-restricted browsers may deny storage.
+    }
   }, [settings])
 
   const cityData = getCityData(currentCity)
@@ -443,7 +449,7 @@ function App() {
 
       {/* Mobile: Itinerary Bottom Sheet */}
       <BottomSheet
-        snapPoints={['48px', '45vh', 'calc(100vh - 72px)']}
+        snapPoints={ITINERARY_SNAP_POINTS}
         activeSnap={itinerarySnap}
         onSnapChange={(idx) => {
           setItinerarySnap(idx)
@@ -466,7 +472,7 @@ function App() {
       {/* Mobile: Detail Bottom Sheet */}
       {detailViewMode !== 'none' && (
         <BottomSheet
-          snapPoints={['48px', '75vh']}
+          snapPoints={DETAIL_SNAP_POINTS}
           activeSnap={1}
           onSnapChange={(idx) => {
             if (idx === 0) {

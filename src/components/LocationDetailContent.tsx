@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import type { ItineraryData, Location, LocationOrGroup, NoteItem, NoteCategory } from '../types'
+import { copyText } from '../utils/clipboard'
 import styles from './LocationDetailContent.module.css'
 
 const CATEGORY_ICON: Record<NoteCategory, string> = {
@@ -66,6 +68,12 @@ function renderNotesSection(notes: NoteItem[]) {
 }
 
 export function LocationDetailContent({ location, notes, data, dayIndex }: LocationDetailContentProps): JSX.Element {
+  const [copyStatus, setCopyStatus] = useState<'idle' | 'success' | 'error'>('idle')
+
+  useEffect(() => {
+    setCopyStatus('idle')
+  }, [location.id])
+
   const hasAddress = 'address' in location && location.address
   const hasDescription = location.description && location.description.trim().length > 0
   const hasNotes = notes && notes.length > 0
@@ -109,14 +117,18 @@ export function LocationDetailContent({ location, notes, data, dayIndex }: Locat
             <p className={styles.addressText}>{location.address}</p>
             <button
               type="button"
-              onClick={() => {
-                navigator.clipboard.writeText(location.address!)
-                  .then(() => alert('地址已复制'))
-                  .catch(() => alert('复制失败，请手动复制'))
+              onClick={async () => {
+                try {
+                  await copyText(location.address!)
+                  setCopyStatus('success')
+                } catch {
+                  setCopyStatus('error')
+                }
               }}
               className={styles.copyButton}
+              aria-live="polite"
             >
-              复制
+              {copyStatus === 'success' ? '已复制' : copyStatus === 'error' ? '复制失败' : '复制'}
             </button>
           </div>
         </div>
